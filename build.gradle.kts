@@ -5,3 +5,8 @@ plugins {
     alias(libs.plugins.pluginSerialization)
 
 }
+buildscript {
+    dependencies {
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+    }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/divivisions">
+
+    <fragment
+        android:id="@+id/divivisions"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.DivisionsFragment"
+        tools:layout="@layout/divisions_fragment"
+        >
+        <action android:id="@+id/actionDivisionsToLevels"
+            app:destination="@id/levels"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/levels"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.LevelsFragment"
+        tools:layout="@layout/levels_fragment">
+        <argument android:name="alias"
+            app:argType="string"
+            app:nullable="false"/>
+        <action android:id="@+id/actionLevelsToProgramCombinations"
+            app:destination="@+id/programCombinations"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/programCombinations"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.ProgramCombinationsFragment"
+        tools:layout="@layout/program_combinations_fragment"
+        >
+
+        <argument android:name="program_combinations"
+            app:argType="string"
+            app:nullable="false"/>
+        <action android:id="@+id/actionProgramCombinationsToPrograms"
+            app:destination="@id/programs"/>
+    </fragment>
+
+    <fragment android:id="@+id/programs"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.ProgramsFragment"
+        tools:layout="@layout/programs_fragment">
+        <argument android:name="programs"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+
+</navigation>
