@@ -1,19 +1,8 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionService
-import org.alexgoesfishinn.timetablespbu.domain.entities.Division
-import org.alexgoesfishinn.timetablespbu.domain.entities.Divisions
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionAdapter
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * @author a.bylev

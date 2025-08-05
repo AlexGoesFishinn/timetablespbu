@@ -11,7 +11,8 @@
         tools:layout="@layout/divisions_fragment"
         >
         <action android:id="@+id/actionDivisionsToLevels"
-            app:destination="@id/levels"/>
+            app:destination="@id/levels"
+            />
     </fragment>
 
     <fragment
@@ -42,6 +43,16 @@
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.ProgramsFragment"
         tools:layout="@layout/programs_fragment">
         <argument android:name="programs"
+            app:argType="string"
+            app:nullable="false"/>
+        <action android:id="@+id/actionProgramsToGroups"
+            app:destination="@id/groups"/>
+    </fragment>
+
+    <fragment android:id="@+id/groups"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.GroupsFragment"
+        tools:layout="@layout/groups_fragment">
+        <argument android:name="programId"
             app:argType="string"
             app:nullable="false"/>
     </fragment>

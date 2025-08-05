@@ -17,7 +17,7 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombin
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsClickListener
 
 
-class ProgramCombinationsFragment: Fragment(R.layout.program_combinations_fragment) {
+class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragment) {
     private var binding: ProgramCombinationsFragmentBinding? = null
     private val args: ProgramCombinationsFragmentArgs by navArgs()
     private lateinit var programCombinations: List<ProgramCombination>
@@ -29,22 +29,19 @@ class ProgramCombinationsFragment: Fragment(R.layout.program_combinations_fragme
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramCombinationsFragmentBinding.bind(view)
         val programCombinationsJson = args.programCombinations
-        programCombinations = Json.decodeFromString<List<ProgramCombination>>(programCombinationsJson)
+        programCombinations =
+            Json.decodeFromString<List<ProgramCombination>>(programCombinationsJson)
         manager = LinearLayoutManager(requireContext())
 
         programCombinationsRecycler = view.findViewById(R.id.programCombinationsRecycler)
-        programCombinationsAdapter = ProgramCombinationsAdapter(programCombinations,
+        programCombinationsAdapter = ProgramCombinationsAdapter(
+            programCombinations,
             object : ProgramCombinationsClickListener {
                 override fun onClick(programs: List<Program>) {
                     navigateToPrograms(programs)
                 }
             }
         )
-
-
-
-
-
         programCombinationsRecycler.apply {
             layoutManager = manager
             adapter = programCombinationsAdapter
@@ -52,11 +49,15 @@ class ProgramCombinationsFragment: Fragment(R.layout.program_combinations_fragme
         Log.i("P", programCombinations.toString())
 
 
-
     }
 
-    private fun navigateToPrograms(programs: List<Program>){
-        findNavController().navigate(R.id.actionProgramCombinationsToPrograms)
+    private fun navigateToPrograms(programs: List<Program>) {
+        val programsJson: String = Json.encodeToString(programs)
+        findNavController().navigate(
+            ProgramCombinationsFragmentDirections.actionProgramCombinationsToPrograms(
+                programsJson
+            )
+        )
     }
 
     override fun onDestroyView() {

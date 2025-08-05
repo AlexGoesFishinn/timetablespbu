@@ -1,11 +1,12 @@
 package org.alexgoesfishinn.timetablespbu.data.network.services
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
+import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramGroups
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface LevelsService {
-    @GET("study/divisions/{alias}/programs/levels")
-    fun getLevels(@Path("alias") alias: String): Call<List<Level>>
+interface GroupsService {
+    @GET("programs/{id}/groups")
+    fun getGroups(@Path("id") id: String): Call<ProgramGroups>
 }

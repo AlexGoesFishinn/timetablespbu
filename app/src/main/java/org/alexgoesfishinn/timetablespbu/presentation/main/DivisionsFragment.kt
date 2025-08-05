@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionService
+import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionAdapter
@@ -50,7 +50,7 @@ class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val service = retrofit.create(DivisionService::class.java)
+        val service = retrofit.create(DivisionsService::class.java)
         service.getDivisions().enqueue(object : Callback<List<Division>> {
             override fun onResponse(call: Call<List<Division>>, response: Response<List<Division>>) {
                 if(response.isSuccessful){
@@ -79,7 +79,7 @@ class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
 
     }
     private companion object{
-        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/study/"
+        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
         private const val TAG = "DivisionsFragment"
     }
 }

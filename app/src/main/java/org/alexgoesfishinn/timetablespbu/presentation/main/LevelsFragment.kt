@@ -16,7 +16,7 @@ import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombinations
+
 
 
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsAdapter
@@ -88,7 +88,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         })
     }
     private companion object{
-        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/study/"
+        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
         private const val TAG = "LevelsFragment"
     }
 
