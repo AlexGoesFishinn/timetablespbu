@@ -55,6 +55,16 @@
         <argument android:name="programId"
             app:argType="string"
             app:nullable="false"/>
+        <action android:id="@+id/actionGroupToEvents"
+            app:destination="@id/currentWeekEvents"/>
+    </fragment>
+
+    <fragment android:id="@+id/currentWeekEvents"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.EventsFragment"
+        tools:layout="@layout/events_fragment">
+        <argument android:name="groupdId"
+            app:argType="string"
+            app:nullable="false"/>
     </fragment>
 
 </navigation>

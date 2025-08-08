@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     }
 
     private fun navigateToEvents(groupId: Long){
-
+        val groupIdString = groupId.toString()
+        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupIdString))
     }
 
     private fun getGroups(programId: String){
