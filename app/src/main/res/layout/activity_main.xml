@@ -6,10 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.main.MainActivity">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/divisionRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>-->
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

@@ -7,5 +7,13 @@ import retrofit2.http.Path
 
 interface EventsService {
     @GET("groups/{id}/events")
-    fun getEventsForCurrentWeek(@Path("id") id: String): Call<GroupEvents>
+    fun getEventsForCurrentWeek(
+        @Path("id") id: String
+    ): Call<GroupEvents>
+
+    @GET("groups/{id}/events/{from}")
+    fun getEventsForNotCurrentWeek(
+        @Path("id") id: String,
+        @Path("from") from: String
+    ): Call<GroupEvents>
 }

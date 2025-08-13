@@ -5,11 +5,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+   <androidx.constraintlayout.widget.ConstraintLayout
+
+       android:id="@+id/weekEventsNavPanel"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/noEvents">
+
+       <Button
+           android:id="@+id/previousWeekButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="предыдущая неделя"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/nextWeekButton"
+
+           />
+       <TextView
+           android:id="@+id/currentWeekText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Текущая неделя"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/previousWeekButton"
+           app:layout_constraintEnd_toEndOf="parent"
+           />
+       <Button
+           android:id="@+id/nextWeekButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="следующая неделя"
+           app:layout_constraintStart_toEndOf="@id/previousWeekButton"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"/>
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/noEvents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weekEventsNavPanel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
@@ -25,7 +64,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weekEventsNavPanel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

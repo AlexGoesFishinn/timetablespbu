@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 
-class DivisionAdapter(
+class DivisionsAdapter(
     private val data: List<Division>,
-    private val listener: DivisionClickListener): RecyclerView.Adapter<DivisionAdapter.DivisionViewHolder>() {
+    private val listener: DivisionsClickListener): RecyclerView.Adapter<DivisionsAdapter.DivisionsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DivisionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DivisionsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.division_recycler_item, parent, false)
-        return DivisionViewHolder(itemView)
+        return DivisionsViewHolder(itemView)
     }
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: DivisionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DivisionsViewHolder, position: Int) {
         data[position].let {
             holder.divisionName.text = it.name
             val alias: String = it.alias
@@ -34,13 +34,13 @@ class DivisionAdapter(
 
     }
 
-    class DivisionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class DivisionsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val divisionName: TextView = itemView.findViewById(R.id.divisionName)
     }
 
 
 }
 
-interface DivisionClickListener{
+interface DivisionsClickListener{
     fun onItemClick(alias: String)
 }

@@ -8,16 +8,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
+import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
     private var binding: DivisionsFragmentBinding? = null
@@ -46,18 +44,14 @@ class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
 
     private fun getDivisions(){
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(DivisionsService::class.java)
+        val service = RetrofitService.divisionsService
         service.getDivisions().enqueue(object : Callback<List<Division>> {
             override fun onResponse(call: Call<List<Division>>, response: Response<List<Division>>) {
                 if(response.isSuccessful){
                     val data = response.body()
                     Log.i(TAG, data.toString())
                     divisionRecycler.apply {
-                        divisionAdapter = DivisionAdapter(data!!, object: DivisionClickListener{
+                        divisionAdapter = DivisionsAdapter(data!!, object: DivisionsClickListener{
                             override fun onItemClick(alias: String) {
                                 navigateToLevelsFragment(alias)
                             }
@@ -79,7 +73,6 @@ class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
 
     }
     private companion object{
-        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
         private const val TAG = "DivisionsFragment"
     }
 }

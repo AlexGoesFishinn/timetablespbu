@@ -13,6 +13,7 @@ import kotlinx.serialization.json.Json
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
+import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
@@ -41,7 +42,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         manager = LinearLayoutManager(requireContext())
 
         getLevels(args.alias)
-//        binding?.levels!!.text = args.alias
+
 
     }
 
@@ -57,11 +58,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
 
     }
     private fun getLevels(alias: String){
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(LevelsService::class.java)
+        val service = RetrofitService.levelsService
         service.getLevels(alias).enqueue(object : Callback<List<Level>> {
             override fun onResponse(call: Call<List<Level>>, response: Response<List<Level>>) {
                 if(response.isSuccessful){
@@ -88,7 +85,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         })
     }
     private companion object{
-        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
+
         private const val TAG = "LevelsFragment"
     }
 

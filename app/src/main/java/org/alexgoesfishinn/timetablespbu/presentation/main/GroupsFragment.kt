@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
+import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramGroups
 
@@ -45,12 +46,7 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     }
 
     private fun getGroups(programId: String){
-        val retrofit = Retrofit
-            .Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(GroupsService::class.java)
+        val service = RetrofitService.groupsService
         service.getGroups(programId).enqueue(object: Callback<ProgramGroups> {
             override fun onResponse(call: Call<ProgramGroups>, response: Response<ProgramGroups>) {
                 if(response.isSuccessful){
@@ -81,7 +77,6 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     }
 
     private companion object{
-        private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
         private const val TAG = "GroupsFragment"
     }
 }
