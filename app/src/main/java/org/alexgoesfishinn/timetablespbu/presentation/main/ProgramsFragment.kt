@@ -30,7 +30,6 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         binding = ProgramsFragmentBinding.bind(view)
         val programsJson = args.programs
         programs = Json.decodeFromString<List<Program>>(programsJson)
-        Log.i("Programs", programs.toString())
         manager = LinearLayoutManager(requireContext())
         programsAdapter = ProgramsAdapter(data = programs, object: ProgramsClickListener{
             override fun onClick(programId: Long) {
@@ -45,7 +44,6 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     }
 
     private fun navigateToGroups(programId: Long){
-        Log.i("ProgramNavigateId", programId.toString())
         findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programId.toString()))
     }
     override fun onDestroyView() {

@@ -57,4 +57,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui)
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation(libs.kotlinx.coroutines.core)
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
+    implementation(libs.kotlinx.coroutines.android)
 }

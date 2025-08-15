@@ -6,22 +6,22 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class EventsFragment: Fragment(R.layout.events_fragment) {
+
+class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
     private val args: EventsFragmentArgs by navArgs()
     private lateinit var groupId: String
@@ -35,24 +35,25 @@ class EventsFragment: Fragment(R.layout.events_fragment) {
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var manager: LayoutManager
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
         noEventsCardView = view.findViewById(R.id.noEvents)
-        weekEventsNavPanelView= view.findViewById(R.id.weekEventsNavPanel)
+        weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
         service = RetrofitService.eventsService
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
-
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
-
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
         daysRecycler = view.findViewById(R.id.eventsRecycler)
         manager = LinearLayoutManager(requireContext())
+        daysRecycler.layoutManager = manager
+        daysRecycler.adapter = DaysAdapter(emptyList())
         getCurrentWeekEvents()
     }
 
-    private fun enableRecycler(groupEvents: GroupEvents){
+    private fun enableRecycler(groupEvents: GroupEvents) {
         daysRecycler.visibility = View.VISIBLE
         val days = groupEvents.days
         daysAdapter = DaysAdapter(days)
@@ -62,78 +63,60 @@ class EventsFragment: Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun disableRecycler(){
+    private fun disableRecycler() {
         daysRecycler.visibility = View.GONE
     }
 
-    private fun onSuccessResponce(groupEvents: GroupEvents){
+    private fun onSuccessResponse(groupEvents: GroupEvents) {
         weekDisplayTextView.text = groupEvents.weekDisplayText
-
-
-        if(!groupEvents.isPreviousWeekReferenceAvailable){
+        if (!groupEvents.isPreviousWeekReferenceAvailable) {
             previousWeekButton.visibility = View.GONE
         } else previousWeekButton.visibility = View.VISIBLE
-        if(!groupEvents.isNextWeekReferenceAvailable){
+        if (!groupEvents.isNextWeekReferenceAvailable) {
             nextWeekButton.visibility = View.GONE
         } else nextWeekButton.visibility = View.VISIBLE
-        if(groupEvents.days.isEmpty()){
+        if (groupEvents.days.isEmpty()) {
             noEventsCardView.visibility = View.VISIBLE
             disableRecycler()
         } else {
             noEventsCardView.visibility = View.GONE
             enableRecycler(groupEvents)
         }
-
-
         nextWeekButton.setOnClickListener {
-            Log.i("NextWeekButton", groupEvents.weekMonday)
             getAnotherWeekEvents(groupEvents.nextWeekMonday)
         }
         previousWeekButton.setOnClickListener {
-
-            Log.i("PreviuosWeekButton", groupEvents.previousWeekMonday)
             getAnotherWeekEvents(groupEvents.previousWeekMonday)
         }
 
     }
 
-    private fun getCurrentWeekEvents(){
+    private fun getCurrentWeekEvents() {
+        lifecycleScope.launch {
+            val response = service.getEventsForCurrentWeek(groupId)
+            if (response.isSuccessful) {
+                val data = response.body()
+                if (data != null) {
+                    val groupEvents = data
+                    onSuccessResponse(groupEvents)
+                } else Log.i(TAG, "CurrentWeekResponse data is null")
+            } else Log.e(TAG, "CurrentWeekResponse is not successful")
+        }
 
-        service.getEventsForCurrentWeek(groupId).enqueue(object : Callback<GroupEvents> {
-            override fun onResponse(call: Call<GroupEvents>, response: Response<GroupEvents>) {
-                if (response.isSuccessful){
-
-                    val groupEvents = response.body()
-                    if(groupEvents != null){
-                        onSuccessResponce(groupEvents)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<GroupEvents>, t: Throwable) {
-                Log.e(TAG, "сетевая ошибка ${t.message}")
-            }
-
-        })
     }
 
-    private fun getAnotherWeekEvents(from: String){
-        service.getEventsForNotCurrentWeek(groupId, from).enqueue(object: Callback<GroupEvents>{
-            override fun onResponse(call: Call<GroupEvents>, response: Response<GroupEvents>) {
-                if(response.isSuccessful){
-                    val groupEvents = response.body()
-                    if(groupEvents != null){
-                        onSuccessResponce(groupEvents)
-                    }
+    private fun getAnotherWeekEvents(from: String) {
+        lifecycleScope.launch {
+            val response = service.getEventsForNotCurrentWeek(groupId, from)
+            if (response.isSuccessful) {
+                val data = response.body()
+                if (data != null) {
+                    val groupEvents = data
+                    onSuccessResponse(groupEvents)
+                } else Log.i(TAG, "NotCurrentWeekResponse data is null")
+            } else Log.e(TAG, "NotCurrentWeekResponse is not successful")
+        }
 
-                }
-            }
-
-            override fun onFailure(call: Call<GroupEvents>, t: Throwable) {
-//                TODO("Not yet implemented")
-            }
-
-        })
     }
 
     override fun onDestroyView() {
@@ -142,7 +125,7 @@ class EventsFragment: Fragment(R.layout.events_fragment) {
     }
 
 
-    private companion object{
+    private companion object {
         private const val TAG = "EventsFragment"
     }
 }

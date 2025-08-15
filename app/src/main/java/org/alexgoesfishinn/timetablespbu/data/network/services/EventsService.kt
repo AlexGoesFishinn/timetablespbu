@@ -2,18 +2,30 @@ package org.alexgoesfishinn.timetablespbu.data.network.services
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface EventsService {
+//    @GET("groups/{id}/events")
+//    fun getEventsForCurrentWeek(
+//        @Path("id") id: String
+//    ): Call<GroupEvents>
+//
+//    @GET("groups/{id}/events/{from}")
+//    fun getEventsForNotCurrentWeek(
+//        @Path("id") id: String,
+//        @Path("from") from: String
+//    ): Call<GroupEvents>
+
     @GET("groups/{id}/events")
-    fun getEventsForCurrentWeek(
+    suspend fun getEventsForCurrentWeek(
         @Path("id") id: String
-    ): Call<GroupEvents>
+    ): Response<GroupEvents>
 
     @GET("groups/{id}/events/{from}")
-    fun getEventsForNotCurrentWeek(
+    suspend fun getEventsForNotCurrentWeek(
         @Path("id") id: String,
         @Path("from") from: String
-    ): Call<GroupEvents>
+    ): Response<GroupEvents>
 }

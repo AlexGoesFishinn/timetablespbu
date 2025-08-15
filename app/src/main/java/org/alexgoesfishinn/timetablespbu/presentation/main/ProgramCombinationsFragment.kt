@@ -46,7 +46,6 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
             layoutManager = manager
             adapter = programCombinationsAdapter
         }
-        Log.i("P", programCombinations.toString())
 
 
     }

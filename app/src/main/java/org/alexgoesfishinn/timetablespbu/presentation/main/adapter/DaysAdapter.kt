@@ -24,7 +24,11 @@ class DaysAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.days_recycler_item, parent, false)
         eventRecycler = itemView.findViewById(R.id.event)
-        eventManager = LinearLayoutManager(parent.context)
+        eventRecycler.apply {
+            eventManager = LinearLayoutManager(parent.context)
+            layoutManager = eventManager
+            adapter = EventAdapter(emptyList())
+        }
         return DaysViewHolder(itemView)
     }
 
@@ -35,7 +39,6 @@ class DaysAdapter(
             holder.dayName.text = it.name
             val events = it.events
             holder.itemView.setOnClickListener {
-
                 enableEventRecycler(events)
             }
         }

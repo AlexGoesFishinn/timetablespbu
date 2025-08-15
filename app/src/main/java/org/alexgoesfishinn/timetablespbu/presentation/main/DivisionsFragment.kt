@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
@@ -17,20 +22,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
+class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private var binding: DivisionsFragmentBinding? = null
 
     private lateinit var divisionRecycler: RecyclerView
     private lateinit var divisionAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
+    private var divisions: List<Division> = emptyList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DivisionsFragmentBinding.bind(view)
-        manager = LinearLayoutManager(requireContext())
-        divisionRecycler = view.findViewById<RecyclerView>(R.id.divisionRecycler)
-        getDivisions()
 
+        manager = LinearLayoutManager(requireContext())
+
+        divisionRecycler = view.findViewById(R.id.divisionRecycler)
+        divisionRecycler.apply {
+            adapter = DivisionsAdapter(divisions, object : DivisionsClickListener {
+                override fun onItemClick(alias: String) {
+                    navigateToLevelsFragment(alias)
+                }
+            })
+            layoutManager = manager
+        }
+        if (divisions.isEmpty()) {
+            getDivisions()
+        }
     }
 
     override fun onDestroyView() {
@@ -38,41 +55,38 @@ class DivisionsFragment: Fragment(R.layout.divisions_fragment) {
         binding = null
     }
 
-    private fun navigateToLevelsFragment(alias: String){
+    private fun navigateToLevelsFragment(alias: String) {
         findNavController().navigate(DivisionsFragmentDirections.actionDivisionsToLevels(alias))
     }
 
-    private fun getDivisions(){
+    private fun getDivisions() {
 
         val service = RetrofitService.divisionsService
-        service.getDivisions().enqueue(object : Callback<List<Division>> {
-            override fun onResponse(call: Call<List<Division>>, response: Response<List<Division>>) {
-                if(response.isSuccessful){
-                    val data = response.body()
-                    Log.i(TAG, data.toString())
+        lifecycleScope.launch {
+            val response = service.getDivisions()
+            if (response.isSuccessful) {
+                val data = response.body()
+                if (data != null) {
+                    divisions = data
+                    divisionAdapter = DivisionsAdapter(divisions, object : DivisionsClickListener {
+                        override fun onItemClick(alias: String) {
+                            navigateToLevelsFragment(alias)
+                        }
+                    })
                     divisionRecycler.apply {
-                        divisionAdapter = DivisionsAdapter(data!!, object: DivisionsClickListener{
-                            override fun onItemClick(alias: String) {
-                                navigateToLevelsFragment(alias)
-                            }
-                        })
                         adapter = divisionAdapter
-                        layoutManager = manager
                     }
 
-
-
-                }
+                } else Log.i(TAG, "received data is null")
+            } else {
+                Log.e(TAG, "Division response is not successful")
             }
+        }
 
-            override fun onFailure(call: Call<List<Division>>, t: Throwable) {
-                Log.e(TAG, "Сетевая ошибка ${t.message}")
-            }
-
-        })
 
     }
-    private companion object{
+
+    private companion object {
         private const val TAG = "DivisionsFragment"
     }
 }

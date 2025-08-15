@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
@@ -30,6 +32,7 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private lateinit var groupsRecycler: RecyclerView
     private lateinit var groupsAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
+    private var groups: List<Group> = emptyList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +40,18 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
         val programId: String = args.programId
         manager = LinearLayoutManager(requireContext())
         groupsRecycler = view.findViewById(R.id.groupsRecycler)
-        getGroups(programId = programId)
+        groupsRecycler.apply {
+            layoutManager = manager
+            adapter = GroupsAdapter(groups,object : GroupsClickListener{
+                override fun onClick(groupId: Long) {
+                    navigateToEvents(groupId)
+                }
+            })
+        }
+        if(groups.isEmpty()){
+            getGroups(programId = programId)
+        }
+
     }
 
     private fun navigateToEvents(groupId: Long){
@@ -47,29 +61,24 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 
     private fun getGroups(programId: String){
         val service = RetrofitService.groupsService
-        service.getGroups(programId).enqueue(object: Callback<ProgramGroups> {
-            override fun onResponse(call: Call<ProgramGroups>, response: Response<ProgramGroups>) {
-                if(response.isSuccessful){
-                    val programGroups = response.body()
-                    val groups: List<Group> = programGroups!!.groups
-                    groupsAdapter = GroupsAdapter(groups, object : GroupsClickListener {
+        lifecycleScope.launch {
+            val response = service.getGroups(programId)
+            if(response.isSuccessful){
+                val data = response.body()
+                if(data != null){
+                    groups = data.groups
+                    groupsAdapter = GroupsAdapter(groups, object: GroupsClickListener {
                         override fun onClick(groupId: Long) {
                             navigateToEvents(groupId)
                         }
-
                     })
                     groupsRecycler.apply {
                         adapter = groupsAdapter
-                        layoutManager = manager
                     }
-                }
-            }
+                } else Log.e(TAG, "received data is null")
+            } else Log.e(TAG, "response if not successful")
+        }
 
-            override fun onFailure(call: Call<ProgramGroups>, t: Throwable) {
-                Log.e(TAG, "Сетевая ошибка ${t.message}")
-            }
-
-        })
     }
     override fun onDestroyView() {
         super.onDestroyView()
