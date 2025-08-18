@@ -3,6 +3,7 @@ package org.alexgoesfishinn.timetablespbu.presentation.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,16 +25,21 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     private lateinit var programsRecycler: RecyclerView
     private lateinit var programsAdapter: ProgramsAdapter
     private lateinit var manager: LayoutManager
+    private lateinit var programLabel: TextView
+    private lateinit var programName: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramsFragmentBinding.bind(view)
         val programsJson = args.programs
+        programName = args.programName
+        programLabel = view.findViewById(R.id.programLabel)
+        programLabel.text = programName
         programs = Json.decodeFromString<List<Program>>(programsJson)
         manager = LinearLayoutManager(requireContext())
         programsAdapter = ProgramsAdapter(data = programs, object: ProgramsClickListener{
-            override fun onClick(programId: Long) {
-                navigateToGroups(programId)
+            override fun onClick(programId: Long, programYear: String) {
+                navigateToGroups(programId, programYear)
             }
         })
         programsRecycler = view.findViewById(R.id.programsRecycler)
@@ -43,8 +49,9 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         }
     }
 
-    private fun navigateToGroups(programId: Long){
-        findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programId.toString()))
+    private fun navigateToGroups(programId: Long, programYear: String){
+        val programIdString = programId.toString()
+        findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programIdString, programName, programYear))
     }
     override fun onDestroyView() {
         super.onDestroyView()

@@ -3,6 +3,7 @@ package org.alexgoesfishinn.timetablespbu.presentation.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -33,18 +34,26 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private lateinit var groupsAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
     private var groups: List<Group> = emptyList()
+    private lateinit var programGroupLabel: TextView
+    private lateinit var yearGroupLabel: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = GroupsFragmentBinding.bind(view)
         val programId: String = args.programId
+        val programName: String = args.programName
+        val programYear: String = args.programYear
+        programGroupLabel = view.findViewById(R.id.programGroupLabel)
+        yearGroupLabel = view.findViewById(R.id.yearGroupLabel)
+        programGroupLabel.text = "Образовательная программа " + programName
+        yearGroupLabel.text = programYear + " года поступления"
         manager = LinearLayoutManager(requireContext())
         groupsRecycler = view.findViewById(R.id.groupsRecycler)
         groupsRecycler.apply {
             layoutManager = manager
             adapter = GroupsAdapter(groups,object : GroupsClickListener{
-                override fun onClick(groupId: Long) {
-                    navigateToEvents(groupId)
+                override fun onClick(groupId: Long, groupName: String) {
+                    navigateToEvents(groupId, groupName)
                 }
             })
         }
@@ -68,8 +77,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
                 if(data != null){
                     groups = data.groups
                     groupsAdapter = GroupsAdapter(groups, object: GroupsClickListener {
-                        override fun onClick(groupId: Long) {
-                            navigateToEvents(groupId)
+                        override fun onClick(groupId: Long, groupName: String) {
+                            navigateToEvents(groupId, groupName)
                         }
                     })
                     groupsRecycler.apply {

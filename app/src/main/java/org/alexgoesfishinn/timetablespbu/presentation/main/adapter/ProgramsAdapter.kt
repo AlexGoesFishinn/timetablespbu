@@ -26,10 +26,11 @@ class ProgramsAdapter(
 
     override fun onBindViewHolder(holder: ProgramsViewHolder, position: Int) {
         data[position].let {
-            holder.programYearName.text = it.yearName
+            val programYear = it.yearName
+            holder.programYearName.text = programYear
             val programId = it.programId
             holder.itemView.setOnClickListener {
-                programClickListener.onClick(programId)
+                programClickListener.onClick(programId, programYear)
             }
         }
     }
@@ -39,5 +40,5 @@ class ProgramsAdapter(
     }
 }
 interface ProgramsClickListener{
-    fun onClick(programId: Long)
+    fun onClick(programId: Long, programYear: String)
 }

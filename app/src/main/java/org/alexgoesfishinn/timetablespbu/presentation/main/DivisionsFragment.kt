@@ -39,8 +39,8 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         divisionRecycler = view.findViewById(R.id.divisionRecycler)
         divisionRecycler.apply {
             adapter = DivisionsAdapter(divisions, object : DivisionsClickListener {
-                override fun onItemClick(alias: String) {
-                    navigateToLevelsFragment(alias)
+                override fun onItemClick(alias: String, name: String) {
+                    navigateToLevelsFragment(alias, name)
                 }
             })
             layoutManager = manager
@@ -55,8 +55,11 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         binding = null
     }
 
-    private fun navigateToLevelsFragment(alias: String) {
-        findNavController().navigate(DivisionsFragmentDirections.actionDivisionsToLevels(alias))
+    private fun navigateToLevelsFragment(alias: String, name: String) {
+        findNavController().navigate(DivisionsFragmentDirections.actionDivisionsToLevels(
+            alias = alias,
+            name = name
+        ))
     }
 
     private fun getDivisions() {
@@ -69,8 +72,8 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
                 if (data != null) {
                     divisions = data
                     divisionAdapter = DivisionsAdapter(divisions, object : DivisionsClickListener {
-                        override fun onItemClick(alias: String) {
-                            navigateToLevelsFragment(alias)
+                        override fun onItemClick(alias: String, name: String) {
+                            navigateToLevelsFragment(alias, name)
                         }
                     })
                     divisionRecycler.apply {

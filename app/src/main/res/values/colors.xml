@@ -8,4 +8,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_background">#f5f5f5</color>
+    <color name="spbu_screen_red_color">#CA0610</color>
+    <color name="spbu_screen_green_color">#93CFBD</color>
+    <color name="spbu_primary_terracot_color">#9F2D20</color>
+    <color name="spbu_primary_grey_color">#A8ADB4</color>
+    <color name="spbu_additional_light_grey_color">#BDBDBD</color>
+
 </resources>

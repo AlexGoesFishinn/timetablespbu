@@ -22,6 +22,9 @@
         <argument android:name="alias"
             app:argType="string"
             app:nullable="false"/>
+        <argument android:name="name"
+            app:argType="string"
+            app:nullable="false"/>
         <action android:id="@+id/actionLevelsToProgramCombinations"
             app:destination="@+id/programCombinations"/>
 
@@ -29,10 +32,11 @@
 
     <fragment android:id="@+id/programCombinations"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.ProgramCombinationsFragment"
-        tools:layout="@layout/program_combinations_fragment"
-        >
-
+        tools:layout="@layout/program_combinations_fragment">
         <argument android:name="program_combinations"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument android:name="level_name"
             app:argType="string"
             app:nullable="false"/>
         <action android:id="@+id/actionProgramCombinationsToPrograms"
@@ -45,6 +49,9 @@
         <argument android:name="programs"
             app:argType="string"
             app:nullable="false"/>
+        <argument android:name="programName"
+            app:argType="string"
+            app:nullable="false"/>
         <action android:id="@+id/actionProgramsToGroups"
             app:destination="@id/groups"/>
     </fragment>
@@ -55,6 +62,12 @@
         <argument android:name="programId"
             app:argType="string"
             app:nullable="false"/>
+        <argument android:name="programName"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument android:name="programYear"
+            app:argType="string"
+            app:nullable="false"/>
         <action android:id="@+id/actionGroupToEvents"
             app:destination="@id/events"/>
     </fragment>
@@ -63,6 +76,9 @@
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.EventsFragment"
         tools:layout="@layout/events_fragment">
         <argument android:name="groupdId"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument android:name="groupName"
             app:argType="string"
             app:nullable="false"/>
 

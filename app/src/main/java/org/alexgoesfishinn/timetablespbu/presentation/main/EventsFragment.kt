@@ -36,6 +36,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var manager: LayoutManager
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = EventsFragmentBinding.bind(view)
@@ -50,6 +51,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         manager = LinearLayoutManager(requireContext())
         daysRecycler.layoutManager = manager
         daysRecycler.adapter = DaysAdapter(emptyList())
+        TODO("добавить отображение названия группы")
         getCurrentWeekEvents()
     }
 
@@ -97,8 +99,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {
-                    val groupEvents = data
-                    onSuccessResponse(groupEvents)
+                    onSuccessResponse(data)
                 } else Log.i(TAG, "CurrentWeekResponse data is null")
             } else Log.e(TAG, "CurrentWeekResponse is not successful")
         }
@@ -111,8 +112,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {
-                    val groupEvents = data
-                    onSuccessResponse(groupEvents)
+                    onSuccessResponse(data)
                 } else Log.i(TAG, "NotCurrentWeekResponse data is null")
             } else Log.e(TAG, "NotCurrentWeekResponse is not successful")
         }

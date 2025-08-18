@@ -3,6 +3,7 @@ package org.alexgoesfishinn.timetablespbu.presentation.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,6 +25,7 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
     private lateinit var programCombinationsRecycler: RecyclerView
     private lateinit var programCombinationsAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
+    private lateinit var programCombinationsLabel: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,13 +34,14 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
         programCombinations =
             Json.decodeFromString<List<ProgramCombination>>(programCombinationsJson)
         manager = LinearLayoutManager(requireContext())
-
+        programCombinationsLabel = view.findViewById(R.id.programCombinationsLabel)
+        programCombinationsLabel.text = args.levelName
         programCombinationsRecycler = view.findViewById(R.id.programCombinationsRecycler)
         programCombinationsAdapter = ProgramCombinationsAdapter(
             programCombinations,
             object : ProgramCombinationsClickListener {
-                override fun onClick(programs: List<Program>) {
-                    navigateToPrograms(programs)
+                override fun onClick(programs: List<Program>, programName: String) {
+                    navigateToPrograms(programs, programName)
                 }
             }
         )
@@ -50,11 +53,11 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
 
     }
 
-    private fun navigateToPrograms(programs: List<Program>) {
+    private fun navigateToPrograms(programs: List<Program>, programName: String) {
         val programsJson: String = Json.encodeToString(programs)
         findNavController().navigate(
             ProgramCombinationsFragmentDirections.actionProgramCombinationsToPrograms(
-                programsJson
+                programsJson, programName
             )
         )
     }

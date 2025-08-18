@@ -23,10 +23,11 @@ class DivisionsAdapter(
 
     override fun onBindViewHolder(holder: DivisionsViewHolder, position: Int) {
         data[position].let {
-            holder.divisionName.text = it.name
+            val name = it.name
+            holder.divisionName.text = name
             val alias: String = it.alias
             holder.itemView.setOnClickListener{
-                listener.onItemClick(alias)
+                listener.onItemClick(alias, name)
                 Log.e("ALIAS", alias)
 
             }
@@ -42,5 +43,5 @@ class DivisionsAdapter(
 }
 
 interface DivisionsClickListener{
-    fun onItemClick(alias: String)
+    fun onItemClick(alias: String, name: String)
 }

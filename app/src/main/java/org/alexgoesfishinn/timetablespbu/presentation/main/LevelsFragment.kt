@@ -42,11 +42,14 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = LevelsFragmentBinding.bind(view)
         levelsRecycler = view.findViewById(R.id.levelsRecycler)
+        val label:TextView = view.findViewById(R.id.levelsFragmentLabel)
+        label.text = "Направление " + args.name
         manager = LinearLayoutManager(requireContext())
         levelsRecycler.apply {
             layoutManager = manager
             adapter = LevelsAdapter(levels,object : LevelsClickListener{
-                override fun onClick(programCombinations: List<ProgramCombination>) {
+                override fun onClick(programCombinations: List<ProgramCombination>, levelName: String) {
+                    navigateToProgramCombinationsFragment(programCombinations, levelName)
                 }
             })
         }
@@ -60,9 +63,9 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         binding = null
     }
 
-    private fun navigateToProgramCombinationsFragment(programCombinations: List<ProgramCombination>){
+    private fun navigateToProgramCombinationsFragment(programCombinations: List<ProgramCombination>, levelName: String){
         val programCombinationsJson = Json.encodeToString(programCombinations)
-        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(programCombinationsJson))
+        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(programCombinationsJson, levelName))
    }
     private fun getLevels(alias: String){
         val service = RetrofitService.levelsService
@@ -74,8 +77,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
                 if(data != null){
                     levels = data
                     levelsAdapter = LevelsAdapter(levels,object : LevelsClickListener {
-                        override fun onClick(programCombinations: List<ProgramCombination>) {
-                            navigateToProgramCombinationsFragment(programCombinations)
+                        override fun onClick(programCombinations: List<ProgramCombination>, levelName: String) {
+                            navigateToProgramCombinationsFragment(programCombinations, levelName)
                         }
                     })
                     levelsRecycler.apply {

@@ -24,10 +24,11 @@ class ProgramCombinationsAdapter(
 
     override fun onBindViewHolder(holder: ProgramCombinationsViewHolder, position: Int) {
         data[position].let {
-            holder.programCombinationName.text = it.programName
+            val programName = it.programName
+            holder.programCombinationName.text = programName
             val programs = it.programs
             holder.itemView.setOnClickListener {
-                programCombinationsClickListener.onClick(programs)
+                programCombinationsClickListener.onClick(programs, programName)
             }
         }
     }
@@ -39,5 +40,5 @@ class ProgramCombinationsAdapter(
     }
 }
 interface ProgramCombinationsClickListener {
-    fun onClick(programs: List<Program>)
+    fun onClick(programs: List<Program>, programName: String)
 }

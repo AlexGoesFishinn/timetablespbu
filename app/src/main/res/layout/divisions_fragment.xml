@@ -4,11 +4,38 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/divisionsFragmentLabelCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="@color/spbu_additional_light_grey_color">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/divisionsFragmentLabel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Направления"
+            android:textSize="16sp"
+            android:gravity="start"
+            android:layout_marginStart="16dp"
+            />
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/divisionRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divisionsFragmentLabelCard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

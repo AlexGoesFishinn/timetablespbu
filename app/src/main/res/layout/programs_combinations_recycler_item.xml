@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
     <TextView
         android:id="@+id/programCombinationName"
         android:layout_width="match_parent"
@@ -12,6 +14,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Бакалавриат"
+        android:textSize="16sp"
+        android:gravity="start"
+        android:layout_marginStart="16dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

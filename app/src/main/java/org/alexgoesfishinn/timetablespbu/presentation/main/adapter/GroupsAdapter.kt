@@ -26,11 +26,12 @@ class GroupsAdapter(
 
     override fun onBindViewHolder(holder: GroupsViewHolder, position: Int) {
         data[position].let {
-            holder.groupName.text = it.groupName
+            val groupName = it.groupName
+            holder.groupName.text = groupName
             val groupId = it.groupId
             holder.itemView.setOnClickListener {
                 Log.i("GroupId", groupId.toString())
-                groupsClickListener.onClick(groupId)
+                groupsClickListener.onClick(groupId, groupName)
             }
 
         }
@@ -41,5 +42,5 @@ class GroupsAdapter(
     }
 }
 interface GroupsClickListener{
-    fun onClick(groupId: Long)
+    fun onClick(groupId: Long, groupName: String)
 }
