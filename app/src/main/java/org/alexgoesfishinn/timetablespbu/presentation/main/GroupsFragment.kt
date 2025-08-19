@@ -63,9 +63,9 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 
     }
 
-    private fun navigateToEvents(groupId: Long){
+    private fun navigateToEvents(groupId: Long, groupName: String){
         val groupIdString = groupId.toString()
-        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupIdString))
+        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupIdString, groupName))
     }
 
     private fun getGroups(programId: String){

@@ -14,21 +14,22 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Day
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 
 class DaysAdapter(
-    val data: List<Day>
+    private val data: List<Day>,
+    private val listener: DaysClickListener
 ): Adapter<DaysAdapter.DaysViewHolder>() {
 
-    private lateinit var eventRecycler: RecyclerView
-    private lateinit var eventAdapter: EventAdapter
-    private lateinit var eventManager: LayoutManager
+//    private lateinit var eventRecycler: RecyclerView
+//    private lateinit var eventAdapter: EventAdapter
+//    private lateinit var eventManager: LayoutManager
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.days_recycler_item, parent, false)
-        eventRecycler = itemView.findViewById(R.id.event)
-        eventRecycler.apply {
-            eventManager = LinearLayoutManager(parent.context)
-            layoutManager = eventManager
-            adapter = EventAdapter(emptyList())
-        }
+//        eventRecycler = itemView.findViewById(R.id.event)
+//        eventRecycler.apply {
+//            eventManager = LinearLayoutManager(parent.context)
+//            layoutManager = eventManager
+//            adapter = EventAdapter(emptyList())
+//        }
         return DaysViewHolder(itemView)
     }
 
@@ -39,48 +40,53 @@ class DaysAdapter(
             holder.dayName.text = it.name
             val events = it.events
             holder.itemView.setOnClickListener {
-                enableEventRecycler(events)
+                listener.onItemClick(events)
+//                enableEventRecycler(events)
             }
         }
     }
 
-    private fun enableEventRecycler(events: List<Event>){
-        eventRecycler.visibility = View.GONE
-        eventRecycler.visibility = View.VISIBLE
-        eventRecycler.apply {
-            eventAdapter = EventAdapter(events)
-            adapter = eventAdapter
-            layoutManager = eventManager
-        }
-    }
+//    private fun enableEventRecycler(events: List<Event>){
+//        eventRecycler.visibility = View.GONE
+//        eventRecycler.visibility = View.VISIBLE
+//        eventRecycler.apply {
+//            eventAdapter = EventAdapter(events)
+//            adapter = eventAdapter
+//            layoutManager = eventManager
+//        }
+//    }
 
     class DaysViewHolder(itemView: View): ViewHolder(itemView){
         val dayName: TextView = itemView.findViewById(R.id.dayName)
     }
 
-    class EventAdapter(
-        private val data: List<Event>
-    ): Adapter<EventAdapter.EventViewHolder>(){
+//    class EventAdapter(
+//        private val data: List<Event>
+//    ): Adapter<EventAdapter.EventViewHolder>(){
+//
+//        class EventViewHolder(itemView: View): ViewHolder(itemView){
+//            val eventTime: TextView = itemView.findViewById(R.id.eventTime)
+//            val eventName: TextView = itemView.findViewById(R.id.eventName)
+//            val eventPlace: TextView = itemView.findViewById(R.id.eventPlace)
+//        }
+//
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
+//            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.event_recycler_item, parent, false)
+//            return EventViewHolder(itemView)
+//        }
+//
+//        override fun getItemCount(): Int = data.size
+//
+//        override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
+//            data[position].let {
+//                holder.eventTime.text = it.start
+//                holder.eventName.text = it.subject
+//                holder.eventPlace.text = it.eventLocations[0].displayName
+//            }
+//        }
+//    }
+}
 
-        class EventViewHolder(itemView: View): ViewHolder(itemView){
-            val eventTime: TextView = itemView.findViewById(R.id.eventTime)
-            val eventName: TextView = itemView.findViewById(R.id.eventName)
-            val eventPlace: TextView = itemView.findViewById(R.id.eventPlace)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.event_recycler_item, parent, false)
-            return EventViewHolder(itemView)
-        }
-
-        override fun getItemCount(): Int = data.size
-
-        override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-            data[position].let {
-                holder.eventTime.text = it.start
-                holder.eventName.text = it.subject
-                holder.eventPlace.text = it.eventLocations[0].displayName
-            }
-        }
-    }
+interface DaysClickListener{
+    fun onItemClick(events: List<Event>)
 }

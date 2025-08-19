@@ -16,9 +16,11 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
+import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
-
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.EventsAdapter
 
 
 class EventsFragment : Fragment(R.layout.events_fragment) {
@@ -33,7 +35,10 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var nextWeekButton: Button
     private lateinit var daysRecycler: RecyclerView
     private lateinit var daysAdapter: DaysAdapter
-    private lateinit var manager: LayoutManager
+    private lateinit var daysManager: LayoutManager
+    private lateinit var eventsRecycler: RecyclerView
+    private lateinit var eventsAdapter: EventsAdapter
+    private lateinit var eventsManager: LinearLayoutManager
 
 
 
@@ -41,32 +46,76 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
+//        val groupName = args.groupName
         noEventsCardView = view.findViewById(R.id.noEvents)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
         service = RetrofitService.eventsService
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
-        daysRecycler = view.findViewById(R.id.eventsRecycler)
-        manager = LinearLayoutManager(requireContext())
-        daysRecycler.layoutManager = manager
-        daysRecycler.adapter = DaysAdapter(emptyList())
-        TODO("добавить отображение названия группы")
+        eventsRecycler = view.findViewById(R.id.eventsRecycler)
+        eventsRecycler.apply {
+            eventsManager = LinearLayoutManager(requireContext())
+            layoutManager = eventsManager
+            eventsAdapter = EventsAdapter(emptyList())
+            adapter = eventsAdapter
+        }
+
+        daysRecycler = view.findViewById(R.id.daysRecycler)
+        daysManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+//        manager = LinearLayoutManager(requireContext())
+        daysRecycler.layoutManager = daysManager
+        daysRecycler.adapter = DaysAdapter(emptyList(), object : DaysClickListener{
+            override fun onItemClick(events: List<Event>) {
+                enableEventsRecycler(events)
+            }
+
+        })
+
+
+
+//        TODO("добавить отображение названия группы")
         getCurrentWeekEvents()
     }
 
-    private fun enableRecycler(groupEvents: GroupEvents) {
+    private fun enableDaysRecycler(groupEvents: GroupEvents) {
         daysRecycler.visibility = View.VISIBLE
         val days = groupEvents.days
-        daysAdapter = DaysAdapter(days)
+        daysAdapter = DaysAdapter(days, object : DaysClickListener{
+            override fun onItemClick(events: List<Event>) {
+                enableEventsRecycler(events)
+            }
+
+        })
         daysRecycler.apply {
             adapter = daysAdapter
-            layoutManager = manager
+            layoutManager = daysManager
         }
     }
 
-    private fun disableRecycler() {
+    private fun enableEventsRecycler(events: List<Event>){
+        eventsRecycler.visibility = View.GONE
+        eventsRecycler.visibility = View.VISIBLE
+        eventsRecycler.apply {
+            eventsAdapter = EventsAdapter(events)
+            adapter = eventsAdapter
+        }
+
+        //        eventRecycler.visibility = View.GONE
+//        eventRecycler.visibility = View.VISIBLE
+//        eventRecycler.apply {
+//            eventAdapter = EventAdapter(events)
+//            adapter = eventAdapter
+//            layoutManager = eventManager
+//        }
+    }
+
+    private fun disableDaysRecycler() {
         daysRecycler.visibility = View.GONE
+    }
+
+    private fun disableEventsRecycler(){
+        eventsRecycler.visibility = View.GONE
     }
 
     private fun onSuccessResponse(groupEvents: GroupEvents) {
@@ -79,16 +128,18 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         } else nextWeekButton.visibility = View.VISIBLE
         if (groupEvents.days.isEmpty()) {
             noEventsCardView.visibility = View.VISIBLE
-            disableRecycler()
+            disableDaysRecycler()
         } else {
             noEventsCardView.visibility = View.GONE
-            enableRecycler(groupEvents)
+            enableDaysRecycler(groupEvents)
         }
         nextWeekButton.setOnClickListener {
             getAnotherWeekEvents(groupEvents.nextWeekMonday)
+            disableEventsRecycler()
         }
         previousWeekButton.setOnClickListener {
             getAnotherWeekEvents(groupEvents.previousWeekMonday)
+            disableEventsRecycler()
         }
 
     }
