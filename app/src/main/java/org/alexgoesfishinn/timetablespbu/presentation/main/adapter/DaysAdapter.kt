@@ -1,13 +1,12 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.adapter
 
+
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Day
@@ -42,8 +41,19 @@ class DaysAdapter(
             holder.dayDate.text = dayInfo[1]
 //            holder.dayName.text = it.name.replace(", ", "\n")
             val events = it.events
+//            var click: Boolean = true
             holder.itemView.setOnClickListener {
                 listener.onItemClick(events)
+//                if(click){
+//                    holder.dayName.setBackgroundColor(Color.CYAN)
+//                    holder.dayDate.setBackgroundColor(Color.CYAN)
+//                    click = false
+//                } else{
+//                    holder.dayName.setBackgroundColor(Color.WHITE)
+//                    holder.dayDate.setBackgroundColor(Color.WHITE)
+//                    click = true
+//                }
+//                    notifyDataSetChanged()
 //                enableEventRecycler(events)
             }
         }
