@@ -17,6 +17,8 @@
         android:textSize="16sp"
         android:gravity="start"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/spbu_primary_terracot_color"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

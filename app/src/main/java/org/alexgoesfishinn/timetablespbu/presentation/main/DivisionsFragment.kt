@@ -1,5 +1,7 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
@@ -46,13 +49,33 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
             layoutManager = manager
         }
         if (divisions.isEmpty()) {
-            getDivisions()
+            showContent()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    private fun showContent(){
+        val internetChecker = InternetChecker()
+        if(internetChecker.isInternetAvailable(requireContext())){
+            getDivisions()
+        } else {
+            Log.e(TAG, "no internet available")
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog(){
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle("Нет подключения к интернету")
+            .setMessage("Проверьте подключение к сети")
+            .setPositiveButton("ОК"
+            ) { dialog, which -> showContent() }
+        val noInternetDialog = builder.create()
+        noInternetDialog.show()
     }
 
     private fun navigateToLevelsFragment(alias: String, name: String) {

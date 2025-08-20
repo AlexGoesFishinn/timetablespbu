@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toTopOf="@+id/programsRecycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/grey_background">
+        android:background="@color/spbu_additional_light_grey_color">
         <!--app:cardBackgroundColor="@color/grey_background">-->
         <TextView
             android:id="@+id/programLabel"
@@ -26,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             />
         <TextView
             android:id="@+id/programLabelText"
@@ -38,6 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
@@ -45,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/programsFragmentLabelCard"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

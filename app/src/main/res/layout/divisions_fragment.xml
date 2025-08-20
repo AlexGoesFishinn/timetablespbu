@@ -11,7 +11,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardBackgroundColor="@color/spbu_additional_light_grey_color">
+        app:cardBackgroundColor="@color/spbu_additional_light_grey_color"
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divisionsFragmentLabelCard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="8dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

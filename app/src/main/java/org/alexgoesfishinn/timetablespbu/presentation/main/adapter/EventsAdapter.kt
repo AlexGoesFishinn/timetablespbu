@@ -28,7 +28,7 @@ class EventsAdapter(
 
     override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
         data[position].let {
-            holder.eventTime.text = it.start
+            holder.eventTime.text = it.timeIntervalString
             holder.eventName.text = it.subject
             holder.eventPlace.text = it.eventLocations[0].displayName
         }

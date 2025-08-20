@@ -37,7 +37,10 @@ class DaysAdapter(
 
     override fun onBindViewHolder(holder: DaysViewHolder, position: Int) {
         data[position].let {
-            holder.dayName.text = it.name
+            val dayInfo = it.name.split(", ")
+            holder.dayName.text = dayInfo[0]
+            holder.dayDate.text = dayInfo[1]
+//            holder.dayName.text = it.name.replace(", ", "\n")
             val events = it.events
             holder.itemView.setOnClickListener {
                 listener.onItemClick(events)
@@ -58,6 +61,8 @@ class DaysAdapter(
 
     class DaysViewHolder(itemView: View): ViewHolder(itemView){
         val dayName: TextView = itemView.findViewById(R.id.dayName)
+        val dayDate: TextView= itemView.findViewById(R.id.dayDate)
+
     }
 
 //    class EventAdapter(

@@ -3,37 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    >
 
     <TextView
         android:id="@+id/eventTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/eventName"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
         tools:text="12:00"
         />
+    <!--        app:layout_constraintEnd_toStartOf="@id/eventName"-->
 
     <TextView
         android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventTime"
-        app:layout_constraintEnd_toStartOf="@id/eventPlace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventTime"
+        android:gravity="center_horizontal"
         tools:text="лекция"
+        android:textSize="16sp"
         />
+<!--    app:layout_constraintStart_toEndOf="@id/eventTime"-->
+<!--    app:layout_constraintEnd_toStartOf="@id/eventPlace"-->
 
     <TextView
         android:id="@+id/eventPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/eventName"
+        app:layout_constraintTop_toBottomOf="@id/eventName"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Васька"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
         />
+<!--    app:layout_constraintTop_toTopOf="parent"-->
+<!--    app:layout_constraintStart_toEndOf="@id/eventName"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
