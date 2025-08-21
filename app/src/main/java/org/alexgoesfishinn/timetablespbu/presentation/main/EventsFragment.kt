@@ -27,12 +27,15 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
     private val args: EventsFragmentArgs by navArgs()
     private lateinit var groupId: String
-    private lateinit var noEventsCardView: View
+//    private lateinit var noEventsCardView: View
+    private lateinit var noEventsText: TextView
     private lateinit var weekEventsNavPanelView: View
     private lateinit var service: EventsService
     private lateinit var weekDisplayTextView: TextView
-    private lateinit var previousWeekButton: Button
-    private lateinit var nextWeekButton: Button
+    private lateinit var previousWeekButton: TextView
+    private lateinit var nextWeekButton: TextView
+//    private lateinit var previousWeekButton: Button
+//    private lateinit var nextWeekButton: Button
     private lateinit var daysRecycler: RecyclerView
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var daysManager: LayoutManager
@@ -47,7 +50,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
 //        val groupName = args.groupName
-        noEventsCardView = view.findViewById(R.id.noEvents)
+//        noEventsCardView = view.findViewById(R.id.noEvents)
+        noEventsText = view.findViewById(R.id.noEventsText)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
         service = RetrofitService.eventsService
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
@@ -127,10 +131,12 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             nextWeekButton.visibility = View.GONE
         } else nextWeekButton.visibility = View.VISIBLE
         if (groupEvents.days.isEmpty()) {
-            noEventsCardView.visibility = View.VISIBLE
+//            noEventsCardView.visibility = View.VISIBLE
+            noEventsText.visibility = View.VISIBLE
             disableDaysRecycler()
         } else {
-            noEventsCardView.visibility = View.GONE
+//            noEventsCardView.visibility = View.GONE
+            noEventsText.visibility = View.GONE
             enableDaysRecycler(groupEvents)
         }
         nextWeekButton.setOnClickListener {
