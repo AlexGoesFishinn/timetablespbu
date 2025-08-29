@@ -10,8 +10,6 @@ import javax.inject.Inject
 class InternetChecker @Inject constructor(
     @ApplicationContext private val context: Context
 )  {
-//@ApplicationContext private val context: Context
-//context: Context
     fun isInternetAvailable(): Boolean{
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
