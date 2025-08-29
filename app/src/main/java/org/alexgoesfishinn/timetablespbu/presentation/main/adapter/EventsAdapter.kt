@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -20,6 +21,9 @@ class EventsAdapter(
         val eventTime: TextView = itemView.findViewById(R.id.eventTime)
         val eventName: TextView = itemView.findViewById(R.id.eventName)
         val eventPlace: TextView = itemView.findViewById(R.id.eventPlace)
+        val eventLecturer: TextView = itemView.findViewById(R.id.eventLecturer)
+        val subgroup: TextView = itemView.findViewById(R.id.eventSubgroup)
+        val subgroupIcon: ImageView = itemView.findViewById(R.id.eventSubgroupIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
@@ -35,6 +39,9 @@ class EventsAdapter(
             val eventLocations = it.eventLocations
             holder.eventTime.text = it.timeIntervalString
             holder.eventName.text = it.subject
+            holder.eventLecturer.text = it.educatorDisplayText
+            holder.subgroup.visibility = View.GONE
+            holder.subgroupIcon.visibility = View.GONE
             if(eventLocations.size == 1){holder.eventPlace.text = eventLocations[0].displayName}
             else{
                 holder.eventPlace.text = eventLocations[0].displayName + " ..."

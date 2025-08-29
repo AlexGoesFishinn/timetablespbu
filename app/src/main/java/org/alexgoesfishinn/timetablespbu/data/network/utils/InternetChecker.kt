@@ -3,11 +3,16 @@ package org.alexgoesfishinn.timetablespbu.data.network.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-class InternetChecker {
-
-    fun isInternetAvailable(context: Context): Boolean{
+class InternetChecker @Inject constructor(
+    @ApplicationContext private val context: Context
+)  {
+//@ApplicationContext private val context: Context
+//context: Context
+    fun isInternetAvailable(): Boolean{
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val network = connectivityManager.activeNetwork ?: return false

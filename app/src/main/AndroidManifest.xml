@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_timetable_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Timetablespbu"
+        android:name=".TimetableSPBUApplication"
          >
         <activity android:name=".presentation.main.MainActivity"
             android:exported="true">

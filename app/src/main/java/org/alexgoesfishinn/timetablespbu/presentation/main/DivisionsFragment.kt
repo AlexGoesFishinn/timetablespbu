@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,7 +25,9 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsClic
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private var binding: DivisionsFragmentBinding? = null
 
@@ -32,6 +35,7 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private lateinit var divisionAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
     private var divisions: List<Division> = emptyList()
+    @Inject lateinit var internetChecker: InternetChecker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,8 +63,9 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     }
 
     private fun showContent(){
-        val internetChecker = InternetChecker()
-        if(internetChecker.isInternetAvailable(requireContext())){
+        //val internetChecker = InternetChecker()
+//        requireContext()
+        if(internetChecker.isInternetAvailable()){
             getDivisions()
         } else {
             Log.e(TAG, "no internet available")

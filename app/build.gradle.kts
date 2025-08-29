@@ -3,7 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.pluginSerialization)
     id("androidx.navigation.safeargs.kotlin")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+
 }
+
 
 android {
     namespace = "org.alexgoesfishinn.timetablespbu"
@@ -61,4 +65,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
     implementation(libs.kotlinx.coroutines.android)
+    // https://mvnrepository.com/artifact/com.google.dagger/hilt-android
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+
 }
