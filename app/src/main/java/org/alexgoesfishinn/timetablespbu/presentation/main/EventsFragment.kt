@@ -21,6 +21,7 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.EventsAdapter
 
+// TODO: сохранять состояние страницы при смене ориентации
 
 class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
@@ -40,7 +41,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsManager: LinearLayoutManager
 
 
-    // TODO: сохранять состояние страницы при смене ориентации, сохранять и проверять List<Day> и сохранять и проверять List<Event>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -138,11 +139,14 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             val response = service.getEventsForCurrentWeek(groupId)
             if (response.isSuccessful) {
                 val data = response.body()
+
                 if (data != null) {
                     onSuccessResponse(data)
                 } else Log.i(TAG, "CurrentWeekResponse data is null")
             } else Log.e(TAG, "CurrentWeekResponse is not successful")
         }
+
+
 
     }
 

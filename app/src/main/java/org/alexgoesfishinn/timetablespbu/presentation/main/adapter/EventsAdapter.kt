@@ -1,9 +1,12 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.adapter
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -35,19 +38,35 @@ class EventsAdapter(
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
+        val terraCotColor = holder.itemView.context.getColor(R.color.spbu_primary_terracot_color)
         data[position].let {
             val eventLocations = it.eventLocations
+            val educators = it.educatorIds
             holder.eventTime.text = it.timeIntervalString
             holder.eventName.text = it.subject
-            holder.eventLecturer.text = it.educatorDisplayText
+
             holder.subgroup.visibility = View.GONE
             holder.subgroupIcon.visibility = View.GONE
-            if(eventLocations.size == 1){holder.eventPlace.text = eventLocations[0].displayName}
+            if(eventLocations.size == 1 && educators.size == 1){
+                holder.eventPlace.text = eventLocations[0].displayName
+                holder.eventLecturer.text = it.educatorDisplayText
+                }
             else{
-                holder.eventPlace.text = eventLocations[0].displayName + " ..."
+                val spanLocationText = SpannableString(eventLocations[0].displayName)
+                val spanEducatorText = SpannableString(it.educatorDisplayText)
+                spanLocationText.setSpan(UnderlineSpan(), 0, spanLocationText.length, 0)
+                spanEducatorText.setSpan(UnderlineSpan(), 0 , spanEducatorText.length, 0)
+                holder.eventPlace.text = spanEducatorText
+                holder.eventLecturer.text = spanEducatorText
+                holder.eventPlace.setTextColor(terraCotColor)
+                holder.eventLecturer.setTextColor(terraCotColor)
                 holder.eventPlace.setOnClickListener {
                     showEventLocationsDialog(eventLocations)
                 }
+                holder.eventLecturer.setOnClickListener {
+                    showEventLocationsDialog(eventLocations)
+                }
+
                 //TODO("implement dialog with eventLocations recyclerview")
 
 

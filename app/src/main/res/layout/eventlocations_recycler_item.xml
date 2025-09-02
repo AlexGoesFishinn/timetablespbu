@@ -2,19 +2,102 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp">
-    <TextView
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp">
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/eventLocationName"
-        tools:text="Университетская наб. 7-9-11"
-        android:textSize="16sp"
-        android:gravity="center_horizontal"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@color/spbu_primary_terracot_color"
+        app:strokeWidth="1dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/eventLocationLocationLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/eventPlaceIcon"
+                    android:src="@drawable/ic_location"
+                    android:layout_width="16sp"
+                    android:layout_height="16sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:foregroundGravity="left"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/eventLocationLocationName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/eventPlaceIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Хогвартс"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/eventLocationEducatorLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/eventLocationLocationLine">
+                <ImageView
+                    android:id="@+id/eventEducatorIcon"
+                    android:src="@drawable/ic_educator"
+                    android:layout_width="16sp"
+                    android:layout_height="16sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:foregroundGravity="left"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/eventLocationEducatorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/eventEducatorIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center_horizontal"
+                    tools:text="Профессор Снейп"
+                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:id="@+id/eventLocationName"-->
+<!--        tools:text="Университетская наб. 7-9-11"-->
+<!--        android:textSize="16sp"-->
+<!--        android:gravity="center_horizontal"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
