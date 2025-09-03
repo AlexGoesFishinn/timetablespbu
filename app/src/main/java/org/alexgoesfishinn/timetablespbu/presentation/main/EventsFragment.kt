@@ -88,6 +88,21 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             adapter = daysAdapter
             layoutManager = daysManager
         }
+        val adapterPosition = getAdapterPosition(groupEvents)
+        daysRecycler.post {
+            daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
+        }
+    }
+
+    private fun getAdapterPosition(groupEvents: GroupEvents): Int{
+        var adapterPosition = 0
+        if(!groupEvents.isCurrentWeekReferenceAvailable){
+            // TODO: реализовать выбор текущего дня
+            val days = groupEvents.days
+            adapterPosition = 0
+        }
+
+        return adapterPosition
     }
 
     private fun enableEventsRecycler(events: List<Event>){

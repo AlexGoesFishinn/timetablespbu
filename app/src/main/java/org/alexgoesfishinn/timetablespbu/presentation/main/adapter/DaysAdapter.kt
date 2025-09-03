@@ -51,7 +51,9 @@ class DaysAdapter(
                 holder.dayName.setTextColor(terraCotColor)
                 holder.dayDate.setTextColor(terraCotColor)
             }
+
         }
+
     }
 
 
@@ -59,6 +61,7 @@ class DaysAdapter(
     class DaysViewHolder(itemView: View): ViewHolder(itemView){
         val dayName: TextView = itemView.findViewById(R.id.dayName)
         val dayDate: TextView= itemView.findViewById(R.id.dayDate)
+
     }
 
 }
