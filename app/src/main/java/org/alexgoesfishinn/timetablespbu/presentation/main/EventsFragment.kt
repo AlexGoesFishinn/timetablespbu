@@ -20,6 +20,7 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.EventsAdapter
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -102,7 +103,11 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             // TODO: реализовать выбор текущего дня
             val days = groupEvents.days
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val currentDateString = LocalDate.now().format(formatter).toString()
+            val currentDate = LocalDate.now()
+            if(currentDate.dayOfWeek == DayOfWeek.SUNDAY){
+                getAnotherWeekEvents(groupEvents.nextWeekMonday)
+            }
+            val currentDateString = currentDate.format(formatter).toString()
             for(i in days.indices){
                 if(days[i].dateString.startsWith(currentDateString)){
                     adapterPosition = i
