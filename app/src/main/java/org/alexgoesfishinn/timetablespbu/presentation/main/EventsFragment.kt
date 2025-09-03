@@ -20,6 +20,8 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.EventsAdapter
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 // TODO: сохранять состояние страницы при смене ориентации
 
@@ -99,7 +101,13 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         if(!groupEvents.isCurrentWeekReferenceAvailable){
             // TODO: реализовать выбор текущего дня
             val days = groupEvents.days
-            adapterPosition = 0
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val currentDateString = LocalDate.now().format(formatter).toString()
+            for(i in days.indices){
+                if(days[i].dateString.startsWith(currentDateString)){
+                    adapterPosition = i
+                }
+            }
         }
 
         return adapterPosition
