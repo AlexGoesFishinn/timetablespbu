@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 
+/**
+ * @author a.bylev
+ */
 class GroupsAdapter(
     private val data: List<Group>,
     private val groupsClickListener: GroupsClickListener

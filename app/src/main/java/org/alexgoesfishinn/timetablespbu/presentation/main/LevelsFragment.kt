@@ -10,26 +10,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
+import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
-import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
-
-
-
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsClickListener
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
+/**
+ * @author a.bylev
+ */
+@AndroidEntryPoint
 class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private var binding: LevelsFragmentBinding? = null
     private val args: LevelsFragmentArgs by navArgs()
@@ -37,6 +34,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private lateinit var levelsAdapter: RecyclerView.Adapter<*>
     private lateinit var manager: RecyclerView.LayoutManager
     private var levels: List<Level> = emptyList()
+    @Inject lateinit var internetChecker: InternetChecker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +52,17 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
             })
         }
         if(levels.isEmpty()){
+            getData()
+
+        }
+    }
+
+    private fun getData(){
+        if(internetChecker.isInternetAvailable()){
             getLevels(args.alias)
+        } else {
+            Log.e(TAG, "no internet available")
+            internetChecker.showNoInternetDialog(requireContext(), { getData() })
         }
     }
 

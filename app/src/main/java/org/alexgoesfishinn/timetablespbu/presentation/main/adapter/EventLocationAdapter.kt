@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.EventLocation
 
+/**
+ * @author a.bylev
+ */
 class EventLocationAdapter(
     private var data: List<EventLocation>
 ): Adapter<EventLocationAdapter.EventLocationViewHolder>() {

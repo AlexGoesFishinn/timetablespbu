@@ -1,7 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.alexgoesfishinn.timetablespbu.R

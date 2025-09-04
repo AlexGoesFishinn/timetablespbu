@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Текущая неделя"
             android:textColor="@color/spbu_primary_terracot_color"
+            android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/previousWeekButton"

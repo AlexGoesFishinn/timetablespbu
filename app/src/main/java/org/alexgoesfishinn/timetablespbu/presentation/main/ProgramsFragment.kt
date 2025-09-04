@@ -1,7 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -17,6 +16,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramsClickListener
 
+/**
+ * @author a.bylev
+ */
 class ProgramsFragment: Fragment(R.layout.programs_fragment) {
 
     private  var binding: ProgramsFragmentBinding? = null

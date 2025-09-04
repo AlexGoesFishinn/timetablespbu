@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.android.material.card.MaterialCardView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Day
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 
+/**
+ * @author a.bylev
+ */
 class DaysAdapter(
     private val data: List<Day>,
     private val listener: DaysClickListener
@@ -43,11 +47,11 @@ class DaysAdapter(
                 notifyDataSetChanged()
             }
             if(index == holder.adapterPosition){
-                holder.itemView.setBackgroundColor(terraCotColor)
+                holder.dayCard.setCardBackgroundColor(terraCotColor)
                 holder.dayName.setTextColor(whiteColor)
                 holder.dayDate.setTextColor(whiteColor)
             } else{
-                holder.itemView.setBackgroundColor(whiteColor)
+                holder.dayCard.setCardBackgroundColor(whiteColor)
                 holder.dayName.setTextColor(terraCotColor)
                 holder.dayDate.setTextColor(terraCotColor)
             }
@@ -61,6 +65,7 @@ class DaysAdapter(
     class DaysViewHolder(itemView: View): ViewHolder(itemView){
         val dayName: TextView = itemView.findViewById(R.id.dayName)
         val dayDate: TextView= itemView.findViewById(R.id.dayDate)
+        val dayCard: MaterialCardView = itemView.findViewById(R.id.dayCard)
 
     }
 

@@ -10,6 +10,9 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 
+/**
+ * @author a.bylev
+ */
 class ProgramCombinationsAdapter(
     private val data: List<ProgramCombination>,
     private val programCombinationsClickListener: ProgramCombinationsClickListener

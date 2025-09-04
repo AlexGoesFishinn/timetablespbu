@@ -10,9 +10,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
+import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
@@ -20,12 +22,15 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.EventsAdapter
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 // TODO: сохранять состояние страницы при смене ориентации
-
+/**
+ * @author a.bylev
+ */
+@AndroidEntryPoint
 class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
     private val args: EventsFragmentArgs by navArgs()
@@ -42,8 +47,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var eventsManager: LinearLayoutManager
-
-
+    @Inject lateinit var internetChecker: InternetChecker
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,9 +69,9 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
 
         daysRecycler = view.findViewById(R.id.daysRecycler)
-        daysManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+        daysManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         daysRecycler.layoutManager = daysManager
-        daysRecycler.adapter = DaysAdapter(emptyList(), object : DaysClickListener{
+        daysRecycler.adapter = DaysAdapter(emptyList(), object : DaysClickListener {
             override fun onItemClick(events: List<Event>) {
                 enableEventsRecycler(events)
             }
@@ -81,7 +85,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private fun enableDaysRecycler(groupEvents: GroupEvents) {
         daysRecycler.visibility = View.VISIBLE
         val days = groupEvents.days
-        daysAdapter = DaysAdapter(days, object : DaysClickListener{
+        daysAdapter = DaysAdapter(days, object : DaysClickListener {
             override fun onItemClick(events: List<Event>) {
                 enableEventsRecycler(events)
             }
@@ -97,28 +101,24 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun getAdapterPosition(groupEvents: GroupEvents): Int{
-        var adapterPosition = 0
-        if(!groupEvents.isCurrentWeekReferenceAvailable){
-            // TODO: реализовать выбор текущего дня
-            val days = groupEvents.days
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val currentDate = LocalDate.now()
-            if(currentDate.dayOfWeek == DayOfWeek.SUNDAY){
-                getAnotherWeekEvents(groupEvents.nextWeekMonday)
-            }
-            val currentDateString = currentDate.format(formatter).toString()
-            for(i in days.indices){
-                if(days[i].dateString.startsWith(currentDateString)){
-                    adapterPosition = i
-                }
+    private fun getAdapterPosition(groupEvents: GroupEvents): Int {
+        if (groupEvents.isCurrentWeekReferenceAvailable) return 0
+        val days = groupEvents.days
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val currentDate = LocalDate.now()
+        for (i in days.indices) {
+            val dayDate = LocalDate.parse(days[i].dateString.substring(0, 10), formatter)
+            if (dayDate.isEqual(currentDate) ||
+                dayDate.isAfter(currentDate)
+            ) {
+                return i
             }
         }
+        return days.size - 1
 
-        return adapterPosition
     }
 
-    private fun enableEventsRecycler(events: List<Event>){
+    private fun enableEventsRecycler(events: List<Event>) {
         eventsRecycler.visibility = View.GONE
         eventsRecycler.visibility = View.VISIBLE
         eventsRecycler.apply {
@@ -132,7 +132,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         daysRecycler.visibility = View.GONE
     }
 
-    private fun disableEventsRecycler(){
+    private fun disableEventsRecycler() {
         eventsRecycler.visibility = View.GONE
     }
 
@@ -163,15 +163,19 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     }
 
     private fun getCurrentWeekEvents() {
-        lifecycleScope.launch {
-            val response = service.getEventsForCurrentWeek(groupId)
-            if (response.isSuccessful) {
-                val data = response.body()
+        if(internetChecker.isInternetAvailable()){
+            lifecycleScope.launch {
+                val response = service.getEventsForCurrentWeek(groupId)
+                if (response.isSuccessful) {
+                    val data = response.body()
 
-                if (data != null) {
-                    onSuccessResponse(data)
-                } else Log.i(TAG, "CurrentWeekResponse data is null")
-            } else Log.e(TAG, "CurrentWeekResponse is not successful")
+                    if (data != null) {
+                        onSuccessResponse(data)
+                    } else Log.i(TAG, "CurrentWeekResponse data is null")
+                } else Log.e(TAG, "CurrentWeekResponse is not successful")
+            }
+        } else{
+            internetChecker.showNoInternetDialog(requireContext()) { getCurrentWeekEvents() }
         }
 
 
@@ -179,15 +183,20 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     }
 
     private fun getAnotherWeekEvents(from: String) {
-        lifecycleScope.launch {
-            val response = service.getEventsForNotCurrentWeek(groupId, from)
-            if (response.isSuccessful) {
-                val data = response.body()
-                if (data != null) {
-                    onSuccessResponse(data)
-                } else Log.i(TAG, "NotCurrentWeekResponse data is null")
-            } else Log.e(TAG, "NotCurrentWeekResponse is not successful")
+        if(internetChecker.isInternetAvailable()){
+            lifecycleScope.launch {
+                val response = service.getEventsForNotCurrentWeek(groupId, from)
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data != null) {
+                        onSuccessResponse(data)
+                    } else Log.i(TAG, "NotCurrentWeekResponse data is null")
+                } else Log.e(TAG, "NotCurrentWeekResponse is not successful")
+            }
+        } else{
+            internetChecker.showNoInternetDialog(requireContext()) { getAnotherWeekEvents(from) }
         }
+
 
     }
 

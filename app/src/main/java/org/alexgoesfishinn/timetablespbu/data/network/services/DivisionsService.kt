@@ -11,8 +11,6 @@ import retrofit2.http.GET
  */
 
 interface DivisionsService {
-//    @GET("study/divisions")
-//    fun getDivisions(): Call<List<Division>>
 
     @GET("study/divisions")
     suspend fun getDivisions(): Response<List<Division>>

@@ -10,23 +10,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
+import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramGroups
-
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsClickListener
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
+/**
+ * @author a.bylev
+ */
+@AndroidEntryPoint
 class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private var binding: GroupsFragmentBinding? = null
     private val args: GroupsFragmentArgs by navArgs()
@@ -36,11 +34,13 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private var groups: List<Group> = emptyList()
     private lateinit var programGroupLabel: TextView
     private lateinit var yearGroupLabel: TextView
+    @Inject
+    lateinit var internetChecker: InternetChecker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = GroupsFragmentBinding.bind(view)
-        val programId: String = args.programId
+//        val programId: String = args.programId
         val programName: String = args.programName
         val programYear: String = args.programYear
         programGroupLabel = view.findViewById(R.id.programGroupLabel)
@@ -58,9 +58,20 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
             })
         }
         if(groups.isEmpty()){
-            getGroups(programId = programId)
+            getData()
+//            getGroups(programId = programId)
         }
 
+    }
+
+    private fun getData(){
+        if(internetChecker.isInternetAvailable()){
+
+            getGroups()
+        } else {
+            Log.e(TAG, "no internet available")
+            internetChecker.showNoInternetDialog(requireContext(), { getData() })
+        }
     }
 
     private fun navigateToEvents(groupId: Long, groupName: String){
@@ -68,7 +79,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
         findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupIdString, groupName))
     }
 
-    private fun getGroups(programId: String){
+    private fun getGroups(){
+        val programId: String = args.programId
         val service = RetrofitService.groupsService
         lifecycleScope.launch {
             val response = service.getGroups(programId)

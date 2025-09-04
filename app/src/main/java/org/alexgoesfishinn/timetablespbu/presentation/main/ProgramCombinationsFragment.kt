@@ -1,7 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -17,7 +16,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsClickListener
 
-
+/**
+ * @author a.bylev
+ */
 class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragment) {
     private var binding: ProgramCombinationsFragmentBinding? = null
     private val args: ProgramCombinationsFragmentArgs by navArgs()

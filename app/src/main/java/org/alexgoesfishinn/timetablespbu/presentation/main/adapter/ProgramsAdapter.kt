@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 
+/**
+ * @author a.bylev
+ */
 class ProgramsAdapter(
     private val data: List<Program>,
     private val programClickListener: ProgramsClickListener

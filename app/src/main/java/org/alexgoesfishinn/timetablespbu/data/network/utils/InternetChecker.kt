@@ -1,12 +1,15 @@
 package org.alexgoesfishinn.timetablespbu.data.network.utils
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
+/**
+ * @author a.bylev
+ */
 class InternetChecker @Inject constructor(
     @ApplicationContext private val context: Context
 )  {
@@ -20,6 +23,16 @@ class InternetChecker @Inject constructor(
             activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             else -> false
         }
+    }
+
+     fun showNoInternetDialog(context: Context, action: () -> Unit){
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Нет подключения к интернету")
+            .setMessage("Проверьте подключение к сети")
+            .setPositiveButton("ОК"
+            ) { _, _ -> action() }
+        val noInternetDialog = builder.create()
+        noInternetDialog.show()
     }
 
 

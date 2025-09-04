@@ -10,7 +10,9 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 
-
+/**
+ * @author a.bylev
+ */
 class LevelsAdapter(
     private val data: List<Level>,
     private val levelsClickListener: LevelsClickListener

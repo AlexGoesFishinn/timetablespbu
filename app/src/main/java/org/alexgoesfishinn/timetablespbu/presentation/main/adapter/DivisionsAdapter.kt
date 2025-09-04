@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 
+/**
+ * @author a.bylev
+ */
 class DivisionsAdapter(
     private val data: List<Division>,
     private val listener: DivisionsClickListener): RecyclerView.Adapter<DivisionsAdapter.DivisionsViewHolder>() {

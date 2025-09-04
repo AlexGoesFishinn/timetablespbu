@@ -56,7 +56,7 @@ class EventsAdapter(
                 val spanEducatorText = SpannableString(it.educatorDisplayText)
                 spanLocationText.setSpan(UnderlineSpan(), 0, spanLocationText.length, 0)
                 spanEducatorText.setSpan(UnderlineSpan(), 0 , spanEducatorText.length, 0)
-                holder.eventPlace.text = spanEducatorText
+                holder.eventPlace.text = spanLocationText
                 holder.eventLecturer.text = spanEducatorText
                 holder.eventPlace.setTextColor(terraCotColor)
                 holder.eventLecturer.setTextColor(terraCotColor)
