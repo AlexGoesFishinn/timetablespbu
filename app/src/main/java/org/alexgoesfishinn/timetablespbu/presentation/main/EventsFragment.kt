@@ -98,6 +98,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         val adapterPosition = getAdapterPosition(groupEvents)
         daysRecycler.post {
             daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
+            daysRecycler.smoothScrollToPosition(adapterPosition)
         }
     }
 
