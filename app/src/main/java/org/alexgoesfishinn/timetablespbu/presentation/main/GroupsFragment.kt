@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
@@ -34,13 +35,12 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private var groups: List<Group> = emptyList()
     private lateinit var programGroupLabel: TextView
     private lateinit var yearGroupLabel: TextView
-    @Inject
-    lateinit var internetChecker: InternetChecker
+    @Inject lateinit var internetChecker: InternetChecker
+    @Inject lateinit var groupsService: GroupsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = GroupsFragmentBinding.bind(view)
-//        val programId: String = args.programId
         val programName: String = args.programName
         val programYear: String = args.programYear
         programGroupLabel = view.findViewById(R.id.programGroupLabel)
@@ -81,9 +81,10 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 
     private fun getGroups(){
         val programId: String = args.programId
-        val service = RetrofitService.groupsService
+//        val service = RetrofitService.groupsService
         lifecycleScope.launch {
-            val response = service.getGroups(programId)
+            val response = groupsService.getGroups(programId)
+//            val response = service.getGroups(programId)
             if(response.isSuccessful){
                 val data = response.body()
                 if(data != null){

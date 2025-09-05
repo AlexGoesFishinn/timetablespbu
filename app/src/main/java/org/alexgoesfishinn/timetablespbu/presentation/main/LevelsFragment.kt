@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
@@ -35,6 +36,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private lateinit var manager: RecyclerView.LayoutManager
     private var levels: List<Level> = emptyList()
     @Inject lateinit var internetChecker: InternetChecker
+    @Inject lateinit var levelsService: LevelsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,9 +78,10 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(programCombinationsJson, levelName))
    }
     private fun getLevels(alias: String){
-        val service = RetrofitService.levelsService
+//        val service = RetrofitService.levelsService
         lifecycleScope.launch {
-            val response = service.getLevels(alias)
+            val response = levelsService.getLevels(alias)
+//            val response = service.getLevels(alias)
             Log.i(TAG, response.toString())
             if(response.isSuccessful){
                 val data = response.body()

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
@@ -37,7 +38,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var groupId: String
     private lateinit var noEventsText: TextView
     private lateinit var weekEventsNavPanelView: View
-    private lateinit var service: EventsService
+
+    //    private lateinit var service: EventsService
     private lateinit var weekDisplayTextView: TextView
     private lateinit var previousWeekButton: TextView
     private lateinit var nextWeekButton: TextView
@@ -47,7 +49,12 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var eventsManager: LinearLayoutManager
-    @Inject lateinit var internetChecker: InternetChecker
+
+    @Inject
+    lateinit var internetChecker: InternetChecker
+
+    @Inject
+    lateinit var eventsService: EventsService
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +63,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         groupId = args.groupdId
         noEventsText = view.findViewById(R.id.noEventsText)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
-        service = RetrofitService.eventsService
+//        service = RetrofitService.eventsService
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
@@ -95,11 +102,19 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             adapter = daysAdapter
             layoutManager = daysManager
         }
+
         val adapterPosition = getAdapterPosition(groupEvents)
+        daysRecycler.scrollToPosition(adapterPosition)
+
+        Log.i(TAG, "adapter position = $adapterPosition")
         daysRecycler.post {
-            daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
-            daysRecycler.smoothScrollToPosition(adapterPosition)
+//            daysRecycler.scrollToPosition(0)
+//        daysRecycler.smoothScrollToPosition(adapterPosition)
+            val click =
+                daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
+            Log.i(TAG, "click = $click")
         }
+
     }
 
     private fun getAdapterPosition(groupEvents: GroupEvents): Int {
@@ -164,9 +179,10 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     }
 
     private fun getCurrentWeekEvents() {
-        if(internetChecker.isInternetAvailable()){
+        if (internetChecker.isInternetAvailable()) {
             lifecycleScope.launch {
-                val response = service.getEventsForCurrentWeek(groupId)
+                val response = eventsService.getEventsForCurrentWeek(groupId)
+//                val response = service.getEventsForCurrentWeek(groupId)
                 if (response.isSuccessful) {
                     val data = response.body()
 
@@ -175,18 +191,18 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     } else Log.i(TAG, "CurrentWeekResponse data is null")
                 } else Log.e(TAG, "CurrentWeekResponse is not successful")
             }
-        } else{
+        } else {
             internetChecker.showNoInternetDialog(requireContext()) { getCurrentWeekEvents() }
         }
-
 
 
     }
 
     private fun getAnotherWeekEvents(from: String) {
-        if(internetChecker.isInternetAvailable()){
+        if (internetChecker.isInternetAvailable()) {
             lifecycleScope.launch {
-                val response = service.getEventsForNotCurrentWeek(groupId, from)
+                val response = eventsService.getEventsForNotCurrentWeek(groupId, from)
+//                val response = service.getEventsForNotCurrentWeek(groupId, from)
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data != null) {
@@ -194,7 +210,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     } else Log.i(TAG, "NotCurrentWeekResponse data is null")
                 } else Log.e(TAG, "NotCurrentWeekResponse is not successful")
             }
-        } else{
+        } else {
             internetChecker.showNoInternetDialog(requireContext()) { getAnotherWeekEvents(from) }
         }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.di.RetrofitService
@@ -31,6 +32,7 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private lateinit var manager: RecyclerView.LayoutManager
     private var divisions: List<Division> = emptyList()
     @Inject lateinit var internetChecker: InternetChecker
+    @Inject lateinit var divisionsService: DivisionsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,9 +86,10 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
 
     private fun getDivisions() {
 
-        val service = RetrofitService.divisionsService
+//        val service = RetrofitService.divisionsService
         lifecycleScope.launch {
-            val response = service.getDivisions()
+            val response = divisionsService.getDivisions()
+//            val response = service.getDivisions()
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {
