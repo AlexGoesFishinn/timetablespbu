@@ -40,7 +40,6 @@ class EventLocationAdapter(
     }
 
     override fun onBindViewHolder(holder: EventLocationViewHolder, position: Int) {
-        Log.i("List", locationEducators.toString())
         locationEducators[position].let {
             holder.eventLocationName.text = it.location
             holder.eventEducatorName.text = it.educator
@@ -53,8 +52,6 @@ class EventLocationAdapter(
                 val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
                 context.startActivity(mapIntent)
             }
-            Log.i("List", it.location)
-            Log.i("List", it.educator)
         }
 
     }
