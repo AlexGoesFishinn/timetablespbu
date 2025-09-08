@@ -1,7 +1,9 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.util.Log
@@ -16,6 +18,7 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.domain.entities.EventLocation
 import org.alexgoesfishinn.timetablespbu.presentation.main.EventLocationsDialog
+import androidx.core.net.toUri
 
 class EventsAdapter(
     private val data: List<Event>
@@ -28,6 +31,7 @@ class EventsAdapter(
         val eventLecturer: TextView = itemView.findViewById(R.id.eventLecturer)
         val subgroup: TextView = itemView.findViewById(R.id.eventSubgroup)
         val subgroupIcon: ImageView = itemView.findViewById(R.id.eventSubgroupIcon)
+        val eventPlaceIcon: ImageView = itemView.findViewById(R.id.eventPlaceIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
@@ -52,6 +56,21 @@ class EventsAdapter(
             if(eventLocations.size == 1 && educators.size == 1){
                 holder.eventPlace.text = eventLocations[0].displayName
                 holder.eventLecturer.text = it.educatorDisplayText
+                if(eventLocations[0].hasGeographicCoordinates){
+                    val longitude = eventLocations[0].longitude
+                    val latitude = eventLocations[0].latitude
+                    holder.eventPlaceIcon.setImageResource(R.drawable.ic_location_hasgeo)
+                    holder.eventPlaceIcon.setOnClickListener {
+
+//                        val ymIntentUri =
+//                            "https://yandex.ru/maps/?ll=$longitude,$latitude&z=12&l=map".toUri()
+                        val ymIntentUri =
+                            "https://yandex.ru/maps/?pt=$longitude,$latitude&z=18&l=map".toUri()
+                        val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
+                        context.startActivity(mapIntent)
+
+                    }
+                }
                 }
             else{
                 val spanLocationText = SpannableString(eventLocations[0].displayName)
