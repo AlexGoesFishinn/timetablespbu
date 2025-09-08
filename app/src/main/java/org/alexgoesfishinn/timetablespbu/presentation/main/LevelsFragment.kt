@@ -17,7 +17,6 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsAdapter
@@ -78,10 +77,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(programCombinationsJson, levelName))
    }
     private fun getLevels(alias: String){
-//        val service = RetrofitService.levelsService
         lifecycleScope.launch {
             val response = levelsService.getLevels(alias)
-//            val response = service.getLevels(alias)
             Log.i(TAG, response.toString())
             if(response.isSuccessful){
                 val data = response.body()

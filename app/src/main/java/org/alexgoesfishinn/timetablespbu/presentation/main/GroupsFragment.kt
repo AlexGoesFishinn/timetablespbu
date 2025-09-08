@@ -16,7 +16,6 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsClickListener
@@ -59,18 +58,16 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
         }
         if(groups.isEmpty()){
             getData()
-//            getGroups(programId = programId)
         }
 
     }
 
     private fun getData(){
         if(internetChecker.isInternetAvailable()){
-
             getGroups()
         } else {
             Log.e(TAG, "no internet available")
-            internetChecker.showNoInternetDialog(requireContext(), { getData() })
+            internetChecker.showNoInternetDialog(requireContext()) { getData() }
         }
     }
 
@@ -81,10 +78,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 
     private fun getGroups(){
         val programId: String = args.programId
-//        val service = RetrofitService.groupsService
         lifecycleScope.launch {
             val response = groupsService.getGroups(programId)
-//            val response = service.getGroups(programId)
             if(response.isSuccessful){
                 val data = response.body()
                 if(data != null){

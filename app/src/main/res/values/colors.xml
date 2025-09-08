@@ -14,5 +14,6 @@
     <color name="spbu_primary_terracot_color">#9F2D20</color>
     <color name="spbu_primary_grey_color">#A8ADB4</color>
     <color name="spbu_additional_light_grey_color">#BDBDBD</color>
+    <color name="spbu_event_changed_color">#ffebcf</color>
 
 </resources>

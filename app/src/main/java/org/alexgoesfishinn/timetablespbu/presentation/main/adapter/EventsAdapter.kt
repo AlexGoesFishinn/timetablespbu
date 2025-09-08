@@ -1,12 +1,13 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -39,6 +40,7 @@ class EventsAdapter(
 
     override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
         val terraCotColor = holder.itemView.context.getColor(R.color.spbu_primary_terracot_color)
+        val eventChangedColor = holder.itemView.context.getColor(R.color.spbu_event_changed_color)
         data[position].let {
             val eventLocations = it.eventLocations
             val educators = it.educatorIds
@@ -67,9 +69,28 @@ class EventsAdapter(
                     showEventLocationsDialog(eventLocations)
                 }
 
-                //TODO("implement dialog with eventLocations recyclerview")
+            }
+            if(it.isCancelled){
+                holder.eventTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                holder.eventTime.setBackgroundColor(eventChangedColor)
+                holder.eventName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                holder.eventName.setBackgroundColor(eventChangedColor)
+                holder.eventPlace.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                holder.eventPlace.setBackgroundColor(eventChangedColor)
+                holder.eventLecturer.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                holder.eventLecturer.setBackgroundColor(eventChangedColor)
+                holder.subgroup.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                holder.subgroup.setBackgroundColor(eventChangedColor)
 
-
+            }
+            if(it.timeWasChanged){
+                holder.eventTime.setBackgroundColor(eventChangedColor)
+            }
+            if(it.locationWasChanged){
+                holder.eventPlace.setBackgroundColor(eventChangedColor)
+            }
+            if(it.educatorsWereReassigned){
+                holder.eventLecturer.setBackgroundColor(eventChangedColor)
             }
         }
     }

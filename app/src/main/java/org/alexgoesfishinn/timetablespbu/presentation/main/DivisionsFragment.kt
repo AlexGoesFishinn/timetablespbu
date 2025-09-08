@@ -14,7 +14,6 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsClickListener
@@ -63,19 +62,10 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         } else {
             Log.e(TAG, "no internet available")
             internetChecker.showNoInternetDialog(requireContext(), { getData() })
-        //showNoInternetDialog()
+
         }
     }
 
-//    private fun showNoInternetDialog(){
-//        val builder = AlertDialog.Builder(requireContext())
-//            .setTitle("Нет подключения к интернету")
-//            .setMessage("Проверьте подключение к сети")
-//            .setPositiveButton("ОК"
-//            ) { _, _ -> getData() }
-//        val noInternetDialog = builder.create()
-//        noInternetDialog.show()
-//    }
 
     private fun navigateToLevelsFragment(alias: String, name: String) {
         findNavController().navigate(DivisionsFragmentDirections.actionDivisionsToLevels(
@@ -85,11 +75,8 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     }
 
     private fun getDivisions() {
-
-//        val service = RetrofitService.divisionsService
         lifecycleScope.launch {
             val response = divisionsService.getDivisions()
-//            val response = service.getDivisions()
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data != null) {

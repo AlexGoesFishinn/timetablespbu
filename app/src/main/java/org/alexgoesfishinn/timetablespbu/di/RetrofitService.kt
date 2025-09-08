@@ -18,17 +18,10 @@ import javax.inject.Inject
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitService {
-//    private lateinit var retrofit: Retrofit
+
     private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
 
-//    private fun provideRetrofit(): Retrofit {
-//            retrofit = Retrofit.Builder()
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .baseUrl(BASE_URL)
-//                .build()
-//
-//        return retrofit
-//    }
+
 
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -59,8 +52,5 @@ object RetrofitService {
         return retrofit.create(EventsService::class.java)
     }
 
-//    val divisionsService = provideRetrofit().create(DivisionsService::class.java)
-//    val levelsService = provideRetrofit().create(LevelsService::class.java)
-//    val groupsService = provideRetrofit().create(GroupsService::class.java)
-//    val eventsService = provideRetrofit().create(EventsService::class.java)
+
 }

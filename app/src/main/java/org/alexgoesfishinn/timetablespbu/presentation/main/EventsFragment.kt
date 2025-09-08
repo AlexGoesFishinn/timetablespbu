@@ -102,14 +102,10 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             adapter = daysAdapter
             layoutManager = daysManager
         }
-
         val adapterPosition = getAdapterPosition(groupEvents)
         daysRecycler.scrollToPosition(adapterPosition)
-
         Log.i(TAG, "adapter position = $adapterPosition")
         daysRecycler.post {
-//            daysRecycler.scrollToPosition(0)
-//        daysRecycler.smoothScrollToPosition(adapterPosition)
             val click =
                 daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
             Log.i(TAG, "click = $click")
@@ -182,7 +178,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         if (internetChecker.isInternetAvailable()) {
             lifecycleScope.launch {
                 val response = eventsService.getEventsForCurrentWeek(groupId)
-//                val response = service.getEventsForCurrentWeek(groupId)
+
                 if (response.isSuccessful) {
                     val data = response.body()
 
