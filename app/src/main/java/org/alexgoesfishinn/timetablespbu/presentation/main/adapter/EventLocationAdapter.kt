@@ -47,10 +47,13 @@ class EventLocationAdapter(
                 holder.eventPlaceIcon.setImageResource(R.drawable.ic_location_hasgeo)
                 val latitude = it.latitude
                 val longitude = it.longitude
-                val ymIntentUri =
-                    "https://yandex.ru/maps/?pt=$longitude,$latitude&z=18&l=map".toUri()
-                val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
-                context.startActivity(mapIntent)
+                holder.eventPlaceIcon.setOnClickListener {
+                    val ymIntentUri =
+                        "https://yandex.ru/maps/?pt=$longitude,$latitude&z=18&l=map".toUri()
+                    val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
+                    context.startActivity(mapIntent)
+                }
+
             }
         }
 
