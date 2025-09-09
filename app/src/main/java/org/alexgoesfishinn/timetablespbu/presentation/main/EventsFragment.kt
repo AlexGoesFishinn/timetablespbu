@@ -11,13 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.di.RetrofitService
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
@@ -38,8 +36,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var groupId: String
     private lateinit var noEventsText: TextView
     private lateinit var weekEventsNavPanelView: View
-
-    //    private lateinit var service: EventsService
     private lateinit var weekDisplayTextView: TextView
     private lateinit var previousWeekButton: TextView
     private lateinit var nextWeekButton: TextView
@@ -49,10 +45,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var eventsManager: LinearLayoutManager
-
     @Inject
     lateinit var internetChecker: InternetChecker
-
     @Inject
     lateinit var eventsService: EventsService
 
@@ -61,9 +55,11 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
+
         noEventsText = view.findViewById(R.id.noEventsText)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
-//        service = RetrofitService.eventsService
+        val groupNameText: TextView = view.findViewById(R.id.groupNameText)
+        groupNameText.text = args.groupName
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
@@ -85,7 +81,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
         })
 
-//        TODO("добавить отображение названия группы")
         getCurrentWeekEvents()
     }
 

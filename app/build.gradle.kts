@@ -66,8 +66,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
     implementation(libs.kotlinx.coroutines.android)
     // https://mvnrepository.com/artifact/com.google.dagger/hilt-android
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+//    implementation("com.google.dagger:hilt-android:2.51.1")
+//    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // https://mvnrepository.com/artifact/androidx.datastore/datastore-preferences
+    implementation(libs.androidx.datastore.preferences)
 
 
 }
