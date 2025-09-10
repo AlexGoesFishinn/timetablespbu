@@ -10,12 +10,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
+import org.alexgoesfishinn.timetablespbu.domain.DataStoreManager
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DaysAdapter
@@ -34,6 +37,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
     private val args: EventsFragmentArgs by navArgs()
     private lateinit var groupId: String
+    private lateinit var groupName: String
     private lateinit var noEventsText: TextView
     private lateinit var weekEventsNavPanelView: View
     private lateinit var weekDisplayTextView: TextView
@@ -45,21 +49,28 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var eventsManager: LinearLayoutManager
+    private lateinit var addToFavouriteText: TextView
+    private lateinit var addToFavoriteCard: MaterialCardView
+    private lateinit var groupNameText: TextView
     @Inject
     lateinit var internetChecker: InternetChecker
     @Inject
     lateinit var eventsService: EventsService
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
-
+        groupName = args.groupName
         noEventsText = view.findViewById(R.id.noEventsText)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
-        val groupNameText: TextView = view.findViewById(R.id.groupNameText)
-        groupNameText.text = args.groupName
+        groupNameText= view.findViewById(R.id.groupNameText)
+        groupNameText.text = groupName
+        addToFavouriteText = view.findViewById(R.id.addToFavouriteText)
+        addToFavoriteCard = view.findViewById(R.id.addToFavouriteCard)
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
@@ -80,8 +91,37 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             }
 
         })
+        lifecycleScope.launch { initAddToFavouriteButton() }
 
         getCurrentWeekEvents()
+    }
+
+    private suspend fun initAddToFavouriteButton(){
+
+        val storedName = lifecycleScope.async { dataStoreManager.getGroupName() }.await()
+        val storedId = lifecycleScope.async { dataStoreManager.getGroupId() }.await()
+        Log.i(TAG, "storedGroupName = $storedName")
+        Log.i(TAG, "storedGroupId = $storedId")
+        if(groupId.equals(storedId)){
+            addToFavouriteText.text = "Из избранного"
+            addToFavoriteCard.setOnClickListener { 
+                lifecycleScope.launch { 
+                    dataStoreManager.save("","")
+                    initAddToFavouriteButton()
+                }
+            }
+        } else{
+            addToFavouriteText.text = "В избранное"
+            addToFavoriteCard.setOnClickListener {
+                lifecycleScope.launch {
+                    dataStoreManager.save(groupId, groupName)
+                    initAddToFavouriteButton()
+                }
+
+
+            }
+        }
+        
     }
 
     private fun enableDaysRecycler(groupEvents: GroupEvents) {
