@@ -41,7 +41,9 @@
                 android:id="@+id/addToFavouriteText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="В избранное"
+                android:text="Из избранного"
+                android:gravity="center"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:layout_margin="4dp"
                 />
