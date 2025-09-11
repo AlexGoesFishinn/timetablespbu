@@ -98,40 +98,7 @@
             app:layout_constraintStart_toEndOf="@id/currentWeekText"
             app:layout_constraintEnd_toEndOf="parent"
             />
-        <!--        -->
-        <!--       <Button-->
-        <!--           android:id="@+id/previousWeekButton"-->
-        <!--           android:layout_width="wrap_content"-->
-        <!--           android:layout_height="wrap_content"-->
-        <!--           android:text="Назад"-->
-        <!--           app:layout_constraintStart_toStartOf="parent"-->
-        <!--           app:layout_constraintTop_toTopOf="parent"-->
-        <!--           app:layout_constraintEnd_toStartOf="@id/nextWeekButton"-->
-        <!--           android:textSize="16sp"-->
-        <!--           android:gravity="start"-->
 
-        <!--           />-->
-        <!--       <TextView-->
-        <!--           android:id="@+id/currentWeekText"-->
-        <!--           android:layout_width="wrap_content"-->
-        <!--           android:layout_height="wrap_content"-->
-        <!--           android:text="Текущая неделя"-->
-        <!--           app:layout_constraintStart_toStartOf="parent"-->
-        <!--           app:layout_constraintTop_toBottomOf="@+id/previousWeekButton"-->
-        <!--           app:layout_constraintEnd_toEndOf="parent"-->
-        <!--           android:textSize="16sp"-->
-        <!--           android:textColor="@color/spbu_primary_terracot_color"-->
-        <!--           />-->
-        <!--       <Button-->
-        <!--           android:id="@+id/nextWeekButton"-->
-        <!--           android:layout_width="wrap_content"-->
-        <!--           android:layout_height="wrap_content"-->
-        <!--           android:text="Вперед"-->
-        <!--           app:layout_constraintStart_toEndOf="@id/previousWeekButton"-->
-        <!--           app:layout_constraintTop_toTopOf="parent"-->
-        <!--           app:layout_constraintEnd_toEndOf="parent"-->
-        <!--           android:textSize="16sp"-->
-        <!--           android:gravity="end"/>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/noEventsText"
@@ -148,26 +115,6 @@
         android:layout_marginTop="16dp"/>
 
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/noEvents"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/weekEventsNavPanel">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/noEventsText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:text="Нет событий"-->
-<!--            android:textColor="@color/spbu_primary_terracot_color"-->
-<!--            android:textSize="16sp" />-->
-
-<!--    </androidx.cardview.widget.CardView>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/daysRecycler"
@@ -183,15 +130,12 @@
 
 
         />
-    <!--    app:layout_constraintHorizontal_bias="1.0"-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:foregroundGravity="center_vertical"

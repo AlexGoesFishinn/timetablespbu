@@ -1,15 +1,13 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,53 +32,36 @@ private lateinit var navigation: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        navigation = this.findNavController()
-//        navigation = findNavController(R.id.nav_host_fragment)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navigation = navHostFragment.findNavController()
+        initBottomNavigation()
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-//        findNavController().navigate()
-        if (menu != null) {
-            menu.add("Главная")
-            menu.add("Избранное")
-        }
-
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.title == "Главная"){
+    fun initBottomNavigation(){
+        val navigationToMain = findViewById<CardView>(R.id.bottom_navigation_to_main)
+        navigationToMain.setOnClickListener {
             Log.i(TAG, "На главную")
             navigation.navigate(R.id.toDivisions)
-            return true
         }
-        if(item.title == "Избранное"){
-            lifecycleScope.launch {
-                val groupId = async { dataStoreManager.getGroupId() }.await()
-                val groupName = async { dataStoreManager.getGroupName() }.await()
-                if(groupId == ""){
-
-                    val builder = AlertDialog.Builder(this@MainActivity)
-                        .setMessage("Нет группы в избранном")
-                        .setTitle("Ошибка").setPositiveButton("Ok"){dialog, id -> dialog.cancel() }
-                    val dialog = builder.create()
-                    dialog.show()
-
-                } else{
-                    val action = NavGraphDirections.toEvents(groupId, groupName)
-                    navigation.navigate(action)
+        val navigationToEvents = findViewById<CardView>(R.id.bottom_navigation_to_events)
+        val navigationToEventsText = findViewById<TextView>(R.id.bottom_navigation_to_events_text)
+        lifecycleScope.launch {
+            val groupId = async { dataStoreManager.getGroupId() }.await()
+            val groupName = async { dataStoreManager.getGroupName() }.await()
+            if(groupId == ""){
+                navigationToEvents.visibility = View.GONE
+            }
+            else{
+                navigationToEventsText.text = groupName
+                navigationToEvents.visibility = View.VISIBLE
+                navigationToEvents.setOnClickListener {
+                    Log.i(TAG, "В избранное groupId = $groupId, groupName = $groupName")
+                    val actionToEvents = NavGraphDirections.toEvents(groupId, groupName)
+                    navigation.navigate(actionToEvents)
                 }
             }
-//            val action = NavGraphDirections.toEvents()
-//            navigation.navigate(R.id.toEvents)
-            return true
         }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object{

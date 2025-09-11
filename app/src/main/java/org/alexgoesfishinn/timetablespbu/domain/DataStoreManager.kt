@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 
-
+/**
+ * @author a.bylev
+ */
 private val Context.dataStore by preferencesDataStore("user-favourite-group")
 class DataStoreManager(private val context: Context) {
 

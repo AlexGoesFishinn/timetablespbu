@@ -52,6 +52,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var addToFavouriteText: TextView
     private lateinit var addToFavoriteCard: MaterialCardView
     private lateinit var groupNameText: TextView
+    private lateinit var activity: MainActivity
     @Inject
     lateinit var internetChecker: InternetChecker
     @Inject
@@ -62,6 +63,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity = requireActivity() as MainActivity
         binding = EventsFragmentBinding.bind(view)
         groupId = args.groupdId
         groupName = args.groupName
@@ -103,18 +105,21 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         Log.i(TAG, "storedGroupName = $storedName")
         Log.i(TAG, "storedGroupId = $storedId")
         if(groupId.equals(storedId)){
-            addToFavouriteText.text = "Из избранного"
+            addToFavouriteText.text = "Убрать из избранного"
             addToFavoriteCard.setOnClickListener { 
                 lifecycleScope.launch { 
                     dataStoreManager.save("","")
+                    activity.initBottomNavigation()
                     initAddToFavouriteButton()
+
                 }
             }
         } else{
-            addToFavouriteText.text = "В избранное"
+            addToFavouriteText.text = "Добавить в избранное"
             addToFavoriteCard.setOnClickListener {
                 lifecycleScope.launch {
                     dataStoreManager.save(groupId, groupName)
+                    activity.initBottomNavigation()
                     initAddToFavouriteButton()
                 }
 

@@ -8,6 +8,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.domain.DataStoreManager
 
+/**
+ * @author a.bylev
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreManager {
