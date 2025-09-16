@@ -10,14 +10,13 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 /**
  * @author a.bylev
  */
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitService {
+object ApplicationModule {
 
     private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
 

@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/divivisions"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.DivisionsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.division.DivisionsFragment"
         tools:layout="@layout/divisions_fragment"
         >
         <action android:id="@+id/actionDivisionsToLevels"

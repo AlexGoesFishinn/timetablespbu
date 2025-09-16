@@ -7,14 +7,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.domain.entities.Division
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem
 
 /**
  * @author a.bylev
  */
 class DivisionsAdapter(
-    private val data: List<Division>,
+//    private val data: List<Division>,
     private val listener: DivisionsClickListener): RecyclerView.Adapter<DivisionsAdapter.DivisionsViewHolder>() {
+
+    var data: List<DivisionItem> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DivisionsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
