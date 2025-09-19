@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.division
+package org.alexgoesfishinn.timetablespbu.presentation.main.divisions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

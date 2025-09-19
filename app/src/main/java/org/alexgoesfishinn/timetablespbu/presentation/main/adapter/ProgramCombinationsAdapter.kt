@@ -9,14 +9,21 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 
 /**
  * @author a.bylev
  */
 class ProgramCombinationsAdapter(
-    private val data: List<ProgramCombination>,
+//    private val data: List<ProgramCombination>,
     private val programCombinationsClickListener: ProgramCombinationsClickListener
 ): RecyclerView.Adapter<ProgramCombinationsAdapter.ProgramCombinationsViewHolder>() {
+
+    var data: List<ProgramCombinationItem> = emptyList()
+        set(newValue){
+            field = newValue
+            notifyDataSetChanged()
+        }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -29,9 +36,9 @@ class ProgramCombinationsAdapter(
         data[position].let {
             val programName = it.programName
             holder.programCombinationName.text = programName
-            val programs = it.programs
+//            val programs = it.programs
             holder.itemView.setOnClickListener {
-                programCombinationsClickListener.onClick(programs, programName)
+                programCombinationsClickListener.onClick(programName)
             }
         }
     }
@@ -43,5 +50,5 @@ class ProgramCombinationsAdapter(
     }
 }
 interface ProgramCombinationsClickListener {
-    fun onClick(programs: List<Program>, programName: String)
+    fun onClick(programName: String)
 }

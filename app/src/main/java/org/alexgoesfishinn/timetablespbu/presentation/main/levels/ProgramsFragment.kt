@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main
+package org.alexgoesfishinn.timetablespbu.presentation.main.levels
 
 import android.os.Bundle
 import android.view.View

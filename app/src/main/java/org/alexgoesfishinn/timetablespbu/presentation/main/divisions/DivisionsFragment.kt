@@ -1,7 +1,6 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.division
+package org.alexgoesfishinn.timetablespbu.presentation.main.divisions
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,7 +39,7 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = DivisionsFragmentBinding.bind(view)
 
-        manager = LinearLayoutManager(requireContext())
+//        manager = LinearLayoutManager(requireContext())
         divisionRecycler = view.findViewById(R.id.divisionRecycler)
 
         initDivisionRecycler()

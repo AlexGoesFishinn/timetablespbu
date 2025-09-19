@@ -9,14 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 
 /**
  * @author a.bylev
  */
 class LevelsAdapter(
-    private val data: List<Level>,
+//    private val data: List<Level>,
     private val levelsClickListener: LevelsClickListener
 ):RecyclerView.Adapter<LevelsAdapter.LevelsViewHolder>() {
+
+    var data: List<LevelItem> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
 
 
@@ -46,5 +54,5 @@ class LevelsAdapter(
 }
 
 interface LevelsClickListener{
-    fun onClick(programCombinations: List<ProgramCombination>, levelName: String)
+    fun onClick(programCombinations: List<ProgramCombinationItem>, levelName: String)
 }

@@ -1,13 +1,16 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main
+package org.alexgoesfishinn.timetablespbu.presentation.main.levels
 
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.ProgramCombinationsFragmentBinding
@@ -21,37 +24,56 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombin
  */
 class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragment) {
     private var binding: ProgramCombinationsFragmentBinding? = null
+    private val viewmodel: LevelsViewModel by activityViewModels<LevelsViewModel>()
     private val args: ProgramCombinationsFragmentArgs by navArgs()
     private lateinit var programCombinations: List<ProgramCombination>
     private lateinit var programCombinationsRecycler: RecyclerView
-    private lateinit var programCombinationsAdapter: RecyclerView.Adapter<*>
+    private lateinit var programCombinationsAdapter: ProgramCombinationsAdapter
     private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var programCombinationsLabel: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramCombinationsFragmentBinding.bind(view)
-        val programCombinationsJson = args.programCombinations
-        programCombinations =
-            Json.decodeFromString<List<ProgramCombination>>(programCombinationsJson)
-        manager = LinearLayoutManager(requireContext())
+//        val programCombinationsJson = args.programCombinations
+//        programCombinations =
+//            Json.decodeFromString<List<ProgramCombination>>(programCombinationsJson)
+//        manager = LinearLayoutManager(requireContext())
         programCombinationsLabel = view.findViewById(R.id.programCombinationsLabel)
         programCombinationsLabel.text = args.levelName
         programCombinationsRecycler = view.findViewById(R.id.programCombinationsRecycler)
+//        programCombinationsAdapter = ProgramCombinationsAdapter(
+//            programCombinations,
+//            object : ProgramCombinationsClickListener {
+//                override fun onClick(programs: List<Program>, programName: String) {
+//                    navigateToPrograms(programs, programName)
+//                }
+//            }
+//        )
+//        programCombinationsRecycler.apply {
+//            layoutManager = manager
+//            adapter = programCombinationsAdapter
+//        }
+        initProgramCombinationsRecycler()
+        subscribeToProgramCombinations()
+
+
+    }
+
+    private fun initProgramCombinationsRecycler(){
         programCombinationsAdapter = ProgramCombinationsAdapter(
-            programCombinations,
             object : ProgramCombinationsClickListener {
-                override fun onClick(programs: List<Program>, programName: String) {
-                    navigateToPrograms(programs, programName)
+                override fun onClick(programName: String) {
+                    navigateToPrograms(emptyList(),programName)
                 }
             }
         )
-        programCombinationsRecycler.apply {
-            layoutManager = manager
-            adapter = programCombinationsAdapter
-        }
+        programCombinationsRecycler.adapter = programCombinationsAdapter
+        programCombinationsRecycler.layoutManager = LinearLayoutManager(requireContext())
+    }
 
-
+    private fun subscribeToProgramCombinations(){
+        programCombinationsAdapter.data = viewmodel.programCombinations
     }
 
     private fun navigateToPrograms(programs: List<Program>, programName: String) {

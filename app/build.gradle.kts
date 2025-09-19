@@ -3,9 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.pluginSerialization)
     id("androidx.navigation.safeargs.kotlin")
-    kotlin("kapt")
+//    kotlin("kapt")
 //    kotlin("ksp")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 
 }
 
@@ -69,19 +70,19 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     // https://mvnrepository.com/artifact/com.google.dagger/hilt-android
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+//    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 //    implementation("com.google.dagger:hilt-android:2.51.1")
 //    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     // https://mvnrepository.com/artifact/androidx.datastore/datastore-preferences
     implementation(libs.androidx.datastore.preferences)
-//    // https://mvnrepository.com/artifact/androidx.room/room-runtime
-//    implementation(libs.androidx.room.runtime)
-//    // https://mvnrepository.com/artifact/androidx.room/room-ktx
-//    implementation(libs.androidx.room.ktx)
-//    kapt(libs.androidx.room.compiler)
-//
-//    // https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing-api
-//    implementation(libs.symbol.processing.api)
+//    Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+
+
+
 
 
 

@@ -16,7 +16,7 @@ okhttp = "4.12.0"
 retrofit = "2.9.0"
 kotlinx-serialization="1.8.1"
 
-#room = "2.8.0"
+room = "2.8.0"
 #symbolProcessingApi = "2.2.20-2.0.2"
 #hilt-version = "2.51.1"
 
@@ -26,8 +26,9 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragmentKtx" }
-#androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-#androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
