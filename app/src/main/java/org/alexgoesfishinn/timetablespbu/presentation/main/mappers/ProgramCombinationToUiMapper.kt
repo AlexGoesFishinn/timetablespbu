@@ -7,12 +7,13 @@ import javax.inject.Inject
 
 class ProgramCombinationToUiMapper @Inject constructor(): (ProgramCombinationN) -> ProgramCombinationItem {
     override fun invoke(p1: ProgramCombinationN): ProgramCombinationItem {
-        val programs = mutableListOf<ProgramItem>()
-        p1.programs.forEach { p -> programs.add(ProgramToUiMapper().invoke(p)) }
+//        val programs = mutableListOf<ProgramItem>()
+//        p1.programs.forEach { p -> programs.add(ProgramToUiMapper().invoke(p)) }
         return ProgramCombinationItem(
             programName = p1.programName,
             programNameEng = p1.programNameEng,
-            programs = programs
+            programCombinationId = p1.programCombinationId
+//            programs = programs
         )
     }
 }

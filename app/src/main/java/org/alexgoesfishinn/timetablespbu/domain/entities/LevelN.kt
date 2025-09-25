@@ -1,10 +1,7 @@
 package org.alexgoesfishinn.timetablespbu.domain.entities
 
-
-data class Level (
+data class LevelN (
     val levelName: String,
     val levelNameEng: String,
-    val levelId: Long
-//    val programCombinations: List<ProgramCombinationN>
-
+    val programCombinations: List<ProgramCombinationN>
 )

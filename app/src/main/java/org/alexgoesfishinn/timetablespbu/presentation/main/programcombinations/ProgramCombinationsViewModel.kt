@@ -1,0 +1,45 @@
+package org.alexgoesfishinn.timetablespbu.presentation.main.programcombinations
+
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramCombinationsUseCase
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.ProgramCombinationToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
+import javax.inject.Inject
+
+@HiltViewModel
+class ProgramCombinationsViewModel @Inject constructor(
+    private val subscribeProgramCombinationsUseCase: SubscribeProgramCombinationsUseCase,
+    private val programCombinationToUiMapper: ProgramCombinationToUiMapper,
+    savedStateHandle: SavedStateHandle
+): ViewModel(){
+    private val _programCombinations: MutableStateFlow<List<ProgramCombinationItem>> = MutableStateFlow(
+        emptyList()
+    )
+    val programCombinations: StateFlow<List<ProgramCombinationItem>> = _programCombinations.asStateFlow()
+
+    init {
+        Log.i(TAG, "init")
+        val levelId: Long? = savedStateHandle["level_id"]
+        Log.i(TAG, "levelId = $levelId")
+        viewModelScope.launch {
+            if(levelId != null){
+                _programCombinations.value = subscribeProgramCombinationsUseCase.getProgramCombinations(levelId).map {
+                    programCombinationToUiMapper.invoke(it)
+                }
+                Log.i(TAG, "_programCombinations = ${_programCombinations.value}")
+            }
+        }
+    }
+
+    companion object{
+        const val TAG = "ProgramCombinationsViewModel"
+    }
+}

@@ -40,9 +40,9 @@ class LevelsAdapter(
         data[position].let {
             holder.levelName.text = it.levelName
             val level = it.levelName
-            val programCombinations = it.programCombinations
+            val levelId = it.levelId
             holder.itemView.setOnClickListener {
-                levelsClickListener.onClick(programCombinations, level)
+                levelsClickListener.onClick(levelId, level)
                 Log.i("LEVELNAME", level)
             }
         }
@@ -54,5 +54,5 @@ class LevelsAdapter(
 }
 
 interface LevelsClickListener{
-    fun onClick(programCombinations: List<ProgramCombinationItem>, levelName: String)
+    fun onClick(levelId: Long, levelName: String)
 }

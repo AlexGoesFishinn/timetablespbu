@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.data.network.mappers.level
+package org.alexgoesfishinn.timetablespbu.data.network.mappers.program
 
 import org.alexgoesfishinn.timetablespbu.data.network.entities.ProgramApi
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramN

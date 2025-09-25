@@ -37,8 +37,9 @@ class ProgramCombinationsAdapter(
             val programName = it.programName
             holder.programCombinationName.text = programName
 //            val programs = it.programs
+            val programCombinationId = it.programCombinationId
             holder.itemView.setOnClickListener {
-                programCombinationsClickListener.onClick(programName)
+                programCombinationsClickListener.onClick(programCombinationId, programName)
             }
         }
     }
@@ -50,5 +51,5 @@ class ProgramCombinationsAdapter(
     }
 }
 interface ProgramCombinationsClickListener {
-    fun onClick(programName: String)
+    fun onClick(programCombinationId: Long, programName: String)
 }

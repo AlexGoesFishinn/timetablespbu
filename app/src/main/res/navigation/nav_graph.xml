@@ -35,10 +35,13 @@
     </fragment>
 
     <fragment android:id="@+id/programCombinations"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.levels.ProgramCombinationsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.programcombinations.ProgramCombinationsFragment"
         tools:layout="@layout/program_combinations_fragment">
-        <argument android:name="program_combinations"
-            app:argType="string"
+<!--        <argument android:name="program_combinations"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="false"/>-->
+        <argument android:name="level_id"
+            app:argType="long"
             app:nullable="false"/>
         <argument android:name="level_name"
             app:argType="string"
@@ -48,10 +51,13 @@
     </fragment>
 
     <fragment android:id="@+id/programs"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.levels.ProgramsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.programs.ProgramsFragment"
         tools:layout="@layout/programs_fragment">
-        <argument android:name="programs"
-            app:argType="string"
+<!--        <argument android:name="programs"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="false"/>-->
+        <argument android:name="program_combination_id"
+            app:argType="long"
             app:nullable="false"/>
         <argument android:name="programName"
             app:argType="string"
@@ -63,7 +69,7 @@
     <fragment android:id="@+id/groups"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.GroupsFragment"
         tools:layout="@layout/groups_fragment">
-        <argument android:name="programId"
+        <argument android:name="program_id"
             app:argType="string"
             app:nullable="false"/>
         <argument android:name="programName"

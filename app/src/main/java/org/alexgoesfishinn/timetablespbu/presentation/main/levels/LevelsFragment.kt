@@ -67,9 +67,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
 
     private fun initLevelsRecycler(){
         levelsAdapter = LevelsAdapter(object : LevelsClickListener {
-            override fun onClick(programCombinations: List<ProgramCombinationItem>, levelName: String) {
-                viewmodel.programCombinations = programCombinations
-                navigateToProgramCombinationsFragment(programCombinations, levelName)
+            override fun onClick(levelId: Long, levelName: String) {
+                navigateToProgramCombinationsFragment(levelId, levelName)
             }
         })
         levelsRecycler.adapter = levelsAdapter
@@ -101,9 +100,9 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         binding = null
     }
 
-    private fun navigateToProgramCombinationsFragment(programCombinations: List<ProgramCombinationItem>, levelName: String){
-        val programCombinationsJson = Json.encodeToString(programCombinations)
-        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(programCombinationsJson, levelName))
+    private fun navigateToProgramCombinationsFragment(levelId: Long, levelName: String){
+//        val programCombinationsJson = Json.encodeToString(programCombinations)
+        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(levelId, levelName))
    }
 //    private fun getLevels(alias: String){
 //        lifecycleScope.launch {

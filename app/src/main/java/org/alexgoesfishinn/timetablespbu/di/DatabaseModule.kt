@@ -26,4 +26,16 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDivisionDao(db: AppDatabase) = db.divisionDao()
+
+    @Singleton
+    @Provides
+    fun provideLevelDao(db: AppDatabase) = db.levelDao()
+
+    @Singleton
+    @Provides
+    fun provideProgramCombinationDao(db: AppDatabase) = db.programCombinationDao()
+
+    @Singleton
+    @Provides
+    fun provideProgramDao(db: AppDatabase) = db.programDao()
 }

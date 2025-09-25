@@ -8,16 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramItem
 
 /**
  * @author a.bylev
  */
 class ProgramsAdapter(
-    private val data: List<Program>,
+//    private val data: List<Program>,
     private val programClickListener: ProgramsClickListener
 ): RecyclerView.Adapter<ProgramsAdapter.ProgramsViewHolder>() {
 
-
+    var data: List<ProgramItem> = emptyList()
+        set(newValue){
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.program_recycler_item, parent, false)
