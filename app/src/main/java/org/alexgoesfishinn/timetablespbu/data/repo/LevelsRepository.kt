@@ -3,7 +3,6 @@ package org.alexgoesfishinn.timetablespbu.data.repo
 
 import android.util.Log
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.level.LevelApiToDbMapper
-//import org.alexgoesfishinn.timetablespbu.data.network.mappers.level.LevelApiToDomainMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
@@ -12,7 +11,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.ProgramDao
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
-import org.alexgoesfishinn.timetablespbu.domain.entities.LevelN
+
 import javax.inject.Inject
 
 interface LevelsRepository {

@@ -1,9 +1,7 @@
 package org.alexgoesfishinn.timetablespbu.data.storage.mappers.level
 
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
-import org.alexgoesfishinn.timetablespbu.data.storage.mappers.programcombination.ProgramCombinationDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombinationN
 import javax.inject.Inject
 
 class LevelDbToDomainMapper @Inject constructor(): (LevelDb) -> Level {

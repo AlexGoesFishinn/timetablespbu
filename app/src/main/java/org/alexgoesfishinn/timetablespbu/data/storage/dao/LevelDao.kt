@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import kotlinx.coroutines.coroutineScope
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramCombinationDb
@@ -35,7 +34,7 @@ abstract class LevelDao {
     }
 
     private suspend fun insertProgramCombinations(id: Long, vararg programCombinationDb: ProgramCombinationDb){
-        programCombinationDb.forEach { pc -> pc.levelId = id }
+        programCombinationDb.forEach { it.levelId = id }
         programCombinationDb.forEach {
             pc -> coroutineScope {
                 val programCombinationId = insertProgramCombination(pc)
@@ -45,7 +44,7 @@ abstract class LevelDao {
     }
 
     private suspend fun insertPrograms(id: Long, vararg programDb: ProgramDb){
-        programDb.forEach { p -> p.programCombinationId = id }
+        programDb.forEach { it.programCombinationId = id }
         insertProgram(*programDb)
     }
 

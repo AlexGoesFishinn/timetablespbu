@@ -1,11 +1,5 @@
 package org.alexgoesfishinn.timetablespbu.data.network.mappers.programcombination
 
-import org.alexgoesfishinn.timetablespbu.data.network.entities.ProgramCombinationApi
-import org.alexgoesfishinn.timetablespbu.data.network.mappers.program.ProgramApiToDomainMapper
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombinationN
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramN
-import javax.inject.Inject
-
 //class ProgramCombinationApiToDomainMapper @Inject constructor(): (ProgramCombinationApi) -> ProgramCombinationN {
 //    override fun invoke(p1: ProgramCombinationApi): ProgramCombinationN {
 //        val programs = mutableListOf<ProgramN>()

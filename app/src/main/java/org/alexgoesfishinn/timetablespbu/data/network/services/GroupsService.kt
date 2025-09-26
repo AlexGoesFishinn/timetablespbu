@@ -12,5 +12,5 @@ import retrofit2.http.Path
 interface GroupsService {
 
       @GET("programs/{id}/groups")
-      suspend fun getGroups(@Path("id") id: String): Response<ProgramGroups>
+      suspend fun getGroups(@Path("id") id: String): ProgramGroups
 }
