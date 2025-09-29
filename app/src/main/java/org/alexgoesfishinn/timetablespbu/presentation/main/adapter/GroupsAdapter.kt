@@ -8,14 +8,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem
 
 /**
  * @author a.bylev
  */
 class GroupsAdapter(
-    private val data: List<Group>,
+//    private val data: List<Group>,
     private val groupsClickListener: GroupsClickListener
 ):RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
+
+    var data:List<GroupItem> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
 
 

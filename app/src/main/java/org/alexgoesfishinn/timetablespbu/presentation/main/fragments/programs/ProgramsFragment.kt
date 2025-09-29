@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.programs
+package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs
 
 import android.os.Bundle
 import android.util.Log
@@ -29,10 +29,10 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     private  var binding: ProgramsFragmentBinding? = null
     private val args: ProgramsFragmentArgs by navArgs()
     private val viewmodel by viewModels<ProgramsViewModel>()
-    private lateinit var programs: List<Program>
+//    private lateinit var programs: List<Program>
     private lateinit var programsRecycler: RecyclerView
     private lateinit var programsAdapter: ProgramsAdapter
-    private lateinit var manager: RecyclerView.LayoutManager
+//    private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var programLabel: TextView
     private lateinit var programName: String
 
@@ -82,8 +82,8 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     }
 
     private fun navigateToGroups(programId: Long, programYear: String){
-        val programIdString = programId.toString()
-        findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programIdString, programName, programYear))
+//        val programIdString = programId.toString()
+        findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programId, programName, programYear))
     }
     override fun onDestroyView() {
         super.onDestroyView()

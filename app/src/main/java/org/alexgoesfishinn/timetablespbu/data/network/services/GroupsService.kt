@@ -1,9 +1,7 @@
 package org.alexgoesfishinn.timetablespbu.data.network.services
 
 
-import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramGroups
-
-import retrofit2.Response
+import org.alexgoesfishinn.timetablespbu.data.network.entities.ProgramGroupsApi
 import retrofit2.http.GET
 import retrofit2.http.Path
 /**
@@ -12,5 +10,5 @@ import retrofit2.http.Path
 interface GroupsService {
 
       @GET("programs/{id}/groups")
-      suspend fun getGroups(@Path("id") id: String): ProgramGroups
+      suspend fun getGroups(@Path("id") id: Long): ProgramGroupsApi
 }

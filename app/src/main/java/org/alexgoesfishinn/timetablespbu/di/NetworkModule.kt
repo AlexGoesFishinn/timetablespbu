@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.repo.DivisionsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramCombinationsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
@@ -28,4 +30,7 @@ abstract class NetworkModule {
 
     @Binds
     abstract fun bindProgramRepository(impl: SubscribeProgramsRepositoryImpl): ProgramsRepository
+
+    @Binds
+    abstract fun bindGroupRepository(impl: GroupsRepositoryImpl): GroupsRepository
 }

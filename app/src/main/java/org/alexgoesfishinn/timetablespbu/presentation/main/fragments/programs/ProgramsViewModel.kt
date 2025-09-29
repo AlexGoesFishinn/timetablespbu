@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.programs
+package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle

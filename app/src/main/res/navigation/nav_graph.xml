@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/divivisions"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.divisions.DivisionsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions.DivisionsFragment"
         tools:layout="@layout/divisions_fragment"
         >
         <action android:id="@+id/actionDivisionsToLevels"
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/levels"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.levels.LevelsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.levels.LevelsFragment"
         tools:layout="@layout/levels_fragment">
         <argument android:name="alias"
             app:argType="string"
@@ -35,7 +35,7 @@
     </fragment>
 
     <fragment android:id="@+id/programCombinations"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.programcombinations.ProgramCombinationsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programcombinations.ProgramCombinationsFragment"
         tools:layout="@layout/program_combinations_fragment">
 <!--        <argument android:name="program_combinations"-->
 <!--            app:argType="string"-->
@@ -51,7 +51,7 @@
     </fragment>
 
     <fragment android:id="@+id/programs"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.programs.ProgramsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs.ProgramsFragment"
         tools:layout="@layout/programs_fragment">
 <!--        <argument android:name="programs"-->
 <!--            app:argType="string"-->
@@ -67,10 +67,10 @@
     </fragment>
 
     <fragment android:id="@+id/groups"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.GroupsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.groups.GroupsFragment"
         tools:layout="@layout/groups_fragment">
         <argument android:name="program_id"
-            app:argType="string"
+            app:argType="long"
             app:nullable="false"/>
         <argument android:name="programName"
             app:argType="string"

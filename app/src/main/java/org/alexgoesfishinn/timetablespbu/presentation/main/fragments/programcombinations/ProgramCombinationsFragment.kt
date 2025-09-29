@@ -1,11 +1,10 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.programcombinations
+package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programcombinations
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,7 +18,6 @@ import org.alexgoesfishinn.timetablespbu.databinding.ProgramCombinationsFragment
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsClickListener
-import org.alexgoesfishinn.timetablespbu.presentation.main.levels.LevelsViewModel
 
 /**
  * @author a.bylev

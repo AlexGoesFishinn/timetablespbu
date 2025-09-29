@@ -5,11 +5,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.repo.DivisionsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramCombinationsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCaseImpl
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCase
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramCombinationsUseCase
@@ -43,5 +46,11 @@ object DomainModule {
     @Provides
     fun provideSubscribeProgramsUseCase(repository: ProgramsRepository): SubscribeProgramsUseCase{
         return SubscribeProgramsUseCaseImpl(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSubscribeGroupsUseCase(repository: GroupsRepository): SubscribeGroupsUseCase{
+        return SubscribeGroupsUseCaseImpl(repository)
     }
 }

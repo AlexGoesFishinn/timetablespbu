@@ -38,4 +38,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideProgramDao(db: AppDatabase) = db.programDao()
+
+    @Singleton
+    @Provides
+    fun provideGroupDao(db: AppDatabase) = db.groupDao()
 }
