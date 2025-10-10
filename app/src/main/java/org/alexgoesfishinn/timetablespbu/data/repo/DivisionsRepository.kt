@@ -1,11 +1,9 @@
 package org.alexgoesfishinn.timetablespbu.data.repo
 
-import android.util.Log
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.division.DivisionApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.DivisionDao
-import org.alexgoesfishinn.timetablespbu.data.storage.entities.DivisionDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.division.DivisionDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import javax.inject.Inject
@@ -22,19 +20,26 @@ class SubscribeDivisionsRepositoryImpl @Inject constructor(
     private val divisionApiToDbMapper: DivisionApiToDbMapper,
     private val divisionDbToDomainMapper: DivisionDbToDomainMapper
 
-): DivisionsRepository{
+) : DivisionsRepository {
     override suspend fun getDivisions(): List<Division> {
-        if(internetChecker.isInternetAvailable()){
-            val divisionsDb = mutableListOf<DivisionDb>()
-            divisionsService.getDivisions().forEach { d -> divisionsDb.add(divisionApiToDbMapper.invoke(d)) }
-            divisionDao.insertAll(*divisionsDb.toTypedArray())
-            Log.i("DivisionRepository", "internetchecker = ${internetChecker.isInternetAvailable()}")
-            Log.i("DivisionRepository", "divisionsDb = $divisionsDb")
+        if (internetChecker.isInternetAvailable()) {
+//            val divisionsDb = mutableListOf<DivisionDb>()
+//            divisionsService.getDivisions().forEach { d -> divisionsDb.add(divisionApiToDbMapper.invoke(d)) }
+//            divisionDao.insertAll(*divisionsDb.toTypedArray())
+//            Log.i("DivisionRepository", "internetchecker = ${internetChecker.isInternetAvailable()}")
+//            Log.i("DivisionRepository", "divisionsDb = $divisionsDb")
+            val divisionsDb = divisionsService.getDivisions().map {
+                divisionApiToDbMapper.invoke(it)
+            }
+            divisionDao.insertAll(
+                *divisionsDb.toTypedArray()
+            )
         }
-        val divisions = mutableListOf<Division>()
-        divisionDao.getAll().forEach { d -> divisions.add(divisionDbToDomainMapper.invoke(d)) }
-        Log.i("DivisionRepository", "divisions = $divisions")
-        return divisions
+//        val divisions = mutableListOf<Division>()
+//        divisionDao.getAll().forEach { d -> divisions.add(divisionDbToDomainMapper.invoke(d)) }
+//        Log.i("DivisionRepository", "divisions = $divisions")
+//        return divisions
+        return divisionDao.getAll().map { divisionDbToDomainMapper.invoke(it) }
     }
     //    override suspend fun getDivisions(): List<Division> {
 //        if(internetChecker.isInternetAvailable()){

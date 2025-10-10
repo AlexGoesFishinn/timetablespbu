@@ -21,7 +21,7 @@ abstract class LevelDao {
 
     suspend fun insertLevels(alias: String, vararg levels: LevelDb){
         deleteAlias(alias)
-        levels.forEach { l -> l.alias = alias }
+        levels.forEach { it.alias = alias }
         levels.forEach { level ->
             coroutineScope {
                 val levelId = insertLevel(level)

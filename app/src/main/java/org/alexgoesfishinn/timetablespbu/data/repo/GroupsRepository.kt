@@ -4,7 +4,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.mappers.group.GroupApiToDb
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupDao
-import org.alexgoesfishinn.timetablespbu.data.storage.mappers.GroupDbToDomainMapper
+import org.alexgoesfishinn.timetablespbu.data.storage.mappers.group.GroupDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ interface GroupsRepository {
     suspend fun getGroups(id: Long): List<Group>
 }
 
-class GroupsRepositoryImpl @Inject constructor(
+class SubscribeGroupsRepositoryImpl @Inject constructor(
     private val internetChecker: InternetChecker,
     private val groupsService: GroupsService,
     private val groupApiToDbMapper: GroupApiToDbMapper,

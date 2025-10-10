@@ -83,12 +83,12 @@
     </fragment>
 
     <fragment android:id="@+id/events"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.EventsFragment"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events.EventsFragment"
         tools:layout="@layout/events_fragment">
-        <argument android:name="groupdId"
-            app:argType="string"
+        <argument android:name="group_id"
+            app:argType="long"
             app:nullable="false"/>
-        <argument android:name="groupName"
+        <argument android:name="group_name"
             app:argType="string"
             app:nullable="false"/>
 

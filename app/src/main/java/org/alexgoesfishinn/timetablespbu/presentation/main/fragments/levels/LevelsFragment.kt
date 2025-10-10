@@ -18,8 +18,8 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.LevelsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsClickListener
 import javax.inject.Inject
 
 /**

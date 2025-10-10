@@ -57,7 +57,8 @@ private lateinit var navigation: NavController
                 navigationToEvents.visibility = View.VISIBLE
                 navigationToEvents.setOnClickListener {
                     Log.i(TAG, "В избранное groupId = $groupId, groupName = $groupName")
-                    val actionToEvents = NavGraphDirections.toEvents(groupId, groupName)
+                    val groupIdLong = groupId.toLong()
+                    val actionToEvents = NavGraphDirections.toEvents(groupIdLong, groupName)
                     navigation.navigate(actionToEvents)
                 }
             }

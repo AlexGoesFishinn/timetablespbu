@@ -15,15 +15,16 @@ class SubscribeProgramCombinationsRepositoryImpl @Inject constructor(
     private val programCombinationDbToDomainMapper: ProgramCombinationDbToDomainMapper
 ): ProgramCombinationsRepository{
     override suspend fun getProgramCombinations(levelId: Long): List<ProgramCombination> {
-        Log.i(TAG, "all = ${programCombinationDao.getAll()}")
-        val programCombination = mutableListOf<ProgramCombination>()
-        val programscombinationsDb = programCombinationDao.getLevelId(levelId)
-        Log.i(TAG, "programscombinationsDb = $programscombinationsDb")
-        programscombinationsDb.forEach {
-            pc -> programCombination.add(programCombinationDbToDomainMapper.invoke(pc))
-        }
-        Log.i(TAG, "programCombination = $programCombination")
-        return programCombination
+//        Log.i(TAG, "all = ${programCombinationDao.getAll()}")
+//        val programCombination = mutableListOf<ProgramCombination>()
+//        val programCombinationsDb = programCombinationDao.getLevelId(levelId)
+//        Log.i(TAG, "programCombinationsDb = $programCombinationsDb")
+//        programCombinationsDb.forEach {
+//            programCombination.add(programCombinationDbToDomainMapper.invoke(it))
+//        }
+//        Log.i(TAG, "programCombination = $programCombination")
+//        return programCombination
+        return programCombinationDao.getLevelId(levelId).map { programCombinationDbToDomainMapper.invoke(it) }
     }
 
     private companion object{

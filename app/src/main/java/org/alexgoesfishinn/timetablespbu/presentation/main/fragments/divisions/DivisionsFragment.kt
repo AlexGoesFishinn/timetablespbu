@@ -15,8 +15,8 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.DivisionsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DivisionsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DivisionsClickListener
 import javax.inject.Inject
 
 /**
@@ -28,12 +28,12 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private var binding: DivisionsFragmentBinding? = null
     private lateinit var divisionRecycler: RecyclerView
     private lateinit var divisionAdapter: DivisionsAdapter
-    private lateinit var manager: RecyclerView.LayoutManager
-    private var divisions: List<Division> = emptyList()
-    @Inject
-    lateinit var internetChecker: InternetChecker
-    @Inject
-    lateinit var divisionsService: DivisionsService
+//    private lateinit var manager: RecyclerView.LayoutManager
+//    private var divisions: List<Division> = emptyList()
+//    @Inject
+//    lateinit var internetChecker: InternetChecker
+//    @Inject
+//    lateinit var divisionsService: DivisionsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

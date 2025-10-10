@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.ProgramCombinationsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramCombinationsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramCombinationsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramCombinationsClickListener
 
 /**
  * @author a.bylev

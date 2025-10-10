@@ -25,27 +25,30 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
     private val levelApiToDbMapper: LevelApiToDbMapper,
     private val levelDbToDomainMapper: LevelDbToDomainMapper,
     private val levelDao: LevelDao,
-    private val programCombinationDao: ProgramCombinationDao,
-    private val programDao: ProgramDao
+//    private val programCombinationDao: ProgramCombinationDao,
+//    private val programDao: ProgramDao
 ) : LevelsRepository {
 
     override suspend fun getLevels(alias: String): List<Level> {
         if(internetChecker.isInternetAvailable()){
-            val levelsDb = mutableListOf<LevelDb>()
-            levelsService.getLevels(alias).forEach {
-                l -> levelsDb.add(levelApiToDbMapper.invoke(l))
-            }
+            val levelsDb = levelsService.getLevels(alias).map { levelApiToDbMapper.invoke(it) }
             levelDao.insertLevels(alias, *levelsDb.toTypedArray())
-            Log.i("LevelRepository", "internetchecker = ${internetChecker.isInternetAvailable()}")
-            Log.i("LevelRepository", "levelsDb = $levelsDb")
+//            val levelsDb = mutableListOf<LevelDb>()
+//            levelsService.getLevels(alias).forEach {
+//                l -> levelsDb.add(levelApiToDbMapper.invoke(l))
+//            }
+//            levelDao.insertLevels(alias, *levelsDb.toTypedArray())
+//            Log.i("LevelRepository", "internetchecker = ${internetChecker.isInternetAvailable()}")
+//            Log.i("LevelRepository", "levelsDb = $levelsDb")
 //            levelDao.getAlias(alias).forEach {
 //                l -> programCombinationDao.insertAll(l.)
 //            }
         }
-        val levels = mutableListOf<Level>()
-        levelDao.getAlias(alias).forEach { l -> levels.add(levelDbToDomainMapper.invoke(l)) }
-        Log.i("LevelRepository", "levelsDb = $levels")
-        return levels
+//        val levels = mutableListOf<Level>()
+//        levelDao.getAlias(alias).forEach { levels.add(levelDbToDomainMapper.invoke(it)) }
+//        Log.i("LevelRepository", "levelsDb = $levels")
+//        return levels
+        return levelDao.getAlias(alias).map { levelDbToDomainMapper.invoke(it) }
     }
 
 //    override suspend fun getLevels(alias: String): List<Level> {

@@ -1,7 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.groups
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -12,18 +11,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
-import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.domain.entities.Group
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.GroupsClickListener
-import java.util.Collections
-import javax.inject.Inject
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.GroupsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.GroupsClickListener
 
 /**
  * @author a.bylev
@@ -106,8 +98,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 //    }
 
     private fun navigateToEvents(groupId: Long, groupName: String){
-        val groupIdString = groupId.toString()
-        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupIdString, groupName))
+//        val groupIdString = groupId.toString()
+        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupId, groupName))
     }
 
 //    private fun getGroups(){

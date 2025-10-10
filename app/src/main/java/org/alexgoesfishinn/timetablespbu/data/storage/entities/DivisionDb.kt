@@ -16,6 +16,6 @@ data class DivisionDb (
     val alias: String
 ) {
     companion object{
-        const val DIVISION_TABLE_NAME = "division_table"
+        const val DIVISION_TABLE_NAME = "divisions_table"
     }
 }

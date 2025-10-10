@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.ProgramsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.domain.entities.Program
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramsAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapter.ProgramsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramsClickListener
 
 /**
  * @author a.bylev

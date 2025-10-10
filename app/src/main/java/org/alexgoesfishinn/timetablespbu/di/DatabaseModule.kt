@@ -42,4 +42,24 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideGroupDao(db: AppDatabase) = db.groupDao()
+
+    @Singleton
+    @Provides
+    fun provideGroupEventsDao(db: AppDatabase) = db.groupEventsDao()
+
+    @Singleton
+    @Provides
+    fun provideDayDao(db: AppDatabase) = db.dayDao()
+
+    @Singleton
+    @Provides
+    fun provideEventDao(db: AppDatabase) = db.eventDao()
+
+    @Singleton
+    @Provides
+    fun provideLocationDao(db: AppDatabase) = db.locationDao()
+
+    @Singleton
+    @Provides
+    fun provideEducatorDao(db: AppDatabase) = db.educatorDao()
 }
