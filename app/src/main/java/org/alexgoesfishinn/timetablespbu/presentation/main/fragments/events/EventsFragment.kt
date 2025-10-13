@@ -7,27 +7,20 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
-import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.domain.DataStoreManager
-import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.MainActivity
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.EventsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 /**
@@ -63,6 +56,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     lateinit var dataStoreManager: DataStoreManager
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
+//    private lateinit var generatedWeekDisplayText: String
 
 
 
@@ -90,6 +84,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         scrollToDay()
         subscribePreviousMonday()
         subscribeNextMonday()
+        subscribeWeekDisplayText()
         initButtons()
 
 //        scrollToDay()
@@ -126,8 +121,16 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     viewmodel.getWeek(previousWeekMondayString)
                 }
                 noEventsText.visibility = View.VISIBLE
+
+//                TODO("generate weekDisplayText")
+//                weekDisplayTextView.text = generatedWeekDisplayText
                 if(groupEvents != null){
-                    weekDisplayTextView.text = groupEvents.weekDisplayText
+//                    if(groupEvents.weekDisplayText != ""){
+//                        weekDisplayTextView.text = groupEvents.weekDisplayText
+//                    } else {
+//                        weekDisplayTextView.text = generatedWeekDisplayText
+//                    }
+
 //                    if (!groupEvents.isPreviousWeekReferenceAvailable) {
 //                        previousWeekButton.visibility = View.GONE
 //                    } else previousWeekButton.visibility = View.VISIBLE
@@ -219,6 +222,16 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         lifecycleScope.launch {
             viewmodel.nextWeekMondayString.collect {
                 nextWeekMondayString = it
+            }
+        }
+    }
+
+    private fun subscribeWeekDisplayText(){
+        lifecycleScope.launch {
+            viewmodel.generatedWeekDisplayText.collect {
+//                generatedWeekDisplayText = it
+//                weekDisplayTextView.text = generatedWeekDisplayText
+                weekDisplayTextView.text = it
             }
         }
     }

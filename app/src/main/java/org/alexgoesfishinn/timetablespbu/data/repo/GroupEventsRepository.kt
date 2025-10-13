@@ -6,6 +6,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.DayDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupEventsDao
+import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.groupevents.GroupEventsDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import javax.inject.Inject
@@ -37,18 +38,39 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
         }
 
         val groupEventDb = groupEventsDao.getWeek(groupId, weekMonday)
-        val days = dayDao.getDays(groupEventDb.id)
-        groupEventDb.days = days
-        Log.i("GroupEventsRepository", "groupEventDb = $groupEventDb")
-        Log.i("GroupEventsRepository", "groupEventDb.days = ${groupEventDb.days}")
-        val groupEventsDomain = groupEventsDbToDomainMapper.invoke(
-            groupEventDb
-        )
-        Log.i("GroupEventsRepository", "groupEventDomain.days = $groupEventsDomain")
-        Log.i("GroupEventsRepository", "groupEventDomain.days = ${groupEventsDomain.days}")
-        return  groupEventsDbToDomainMapper.invoke(
-            groupEventDb
-        )
+        if (groupEventDb == null){
+            val nullGroupEventDb = GroupEventsDb(
+                id = Long.MIN_VALUE,
+                groupId = groupId,
+                groupName = "",
+                timeTableDisplayName = "",
+                previousWeekMonday = "",
+                nextWeekMonday = "",
+                isPreviousWeekReferenceAvailable = true,
+                isNextWeekReferenceAvailable = true,
+                isCurrentWeekReferenceAvailable = false,
+                weekDisplayText = "",
+                weekMonday = ""
+            )
+            nullGroupEventDb.days = emptyList()
+            return groupEventsDbToDomainMapper.invoke(nullGroupEventDb)
+        }
+        else{
+            val days = dayDao.getDays(groupEventDb.id)
+            groupEventDb.days = days
+            return  groupEventsDbToDomainMapper.invoke(
+                groupEventDb
+            )
+
+        }
+
+//        Log.i("GroupEventsRepository", "groupEventDb = $groupEventDb")
+//        Log.i("GroupEventsRepository", "groupEventDb.days = ${groupEventDb.days}")
+//        val groupEventsDomain = groupEventsDbToDomainMapper.invoke(
+//            groupEventDb
+//        )
+//        Log.i("GroupEventsRepository", "groupEventDomain.days = $groupEventsDomain")
+//        Log.i("GroupEventsRepository", "groupEventDomain.days = ${groupEventsDomain.days}")
 
     }
 }

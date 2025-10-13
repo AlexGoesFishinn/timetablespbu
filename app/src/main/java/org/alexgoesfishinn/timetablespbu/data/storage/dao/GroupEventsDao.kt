@@ -15,7 +15,7 @@ abstract class GroupEventsDao {
 //    abstract suspend fun getCurrentWeek(groupId: Long)
 
     @Query("SELECT * FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND WeekMonday = :weekMonday")
-    abstract suspend fun getWeek(groupId: Long, weekMonday: String): GroupEventsDb
+    abstract suspend fun getWeek(groupId: Long, weekMonday: String): GroupEventsDb?
 
 //    @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND IsCurrentWeekReferenceAvailable = false")
 //    abstract suspend fun deleteCurrentWeek(groupId: Long)

@@ -33,6 +33,7 @@ class EventsViewModel @Inject constructor(
     private val groupId: Long? = savedStateHandle["group_id"]
     val groupName: String? = savedStateHandle["group_name"]
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private val generatedWeekDisplayTextFormatter = DateTimeFormatter.ofPattern("dd MMMM")
     private val now: LocalDate = LocalDate.now()
     private var currentWeekMondayString: String = now.with(ChronoField.DAY_OF_WEEK, 1)
         .format(formatter)
@@ -51,6 +52,8 @@ class EventsViewModel @Inject constructor(
     val daysAdapterPosition: StateFlow<Int> =_daysAdapterPosition.asStateFlow()
     private val _days: MutableStateFlow<List<DayItem>> = MutableStateFlow(emptyList())
     val days: StateFlow<List<DayItem>> = _days.asStateFlow()
+    private val _generatedWeekDisplayText: MutableStateFlow<String> = MutableStateFlow("")
+    val generatedWeekDisplayText: StateFlow<String> = _generatedWeekDisplayText.asStateFlow()
 
     init {
         getWeek(currentWeekMondayString)
@@ -78,6 +81,7 @@ class EventsViewModel @Inject constructor(
     }
 
     fun getWeek(weekMonday: String){
+        generateWeekDisplayText(weekMonday)
         weekMondayString = weekMonday
         val nextMonday = LocalDate.parse(weekMonday, formatter).with(TemporalAdjusters.next(DayOfWeek.MONDAY))
         val previousMonday = LocalDate.parse(weekMonday, formatter).with(TemporalAdjusters.previous(DayOfWeek.MONDAY))
@@ -93,6 +97,17 @@ class EventsViewModel @Inject constructor(
             _days.value = week.days
             calculateAdapterPosition()
         }
+    }
+
+    private fun generateWeekDisplayText(weekMonday: String){
+
+        val monday = LocalDate.parse(weekMonday, formatter)
+        val sunday = monday.with(ChronoField.DAY_OF_WEEK, 7)
+        val mondayString = monday.format(generatedWeekDisplayTextFormatter)
+        val sundayString = sunday.format(generatedWeekDisplayTextFormatter)
+        _generatedWeekDisplayText.value = "$mondayString - $sundayString"
+        Log.i("EventsViewModel", "generateWeekDisplayText weekMonday = $weekMonday")
+        Log.i("EventsViewModel", "generateWeekDisplayText result = $mondayString - $sundayString")
     }
 
     private fun calculateAdapterPosition() {
