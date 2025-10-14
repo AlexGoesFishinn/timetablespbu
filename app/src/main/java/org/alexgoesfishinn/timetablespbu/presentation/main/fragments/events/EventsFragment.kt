@@ -81,11 +81,12 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         initDaysRecycler()
         initEventsRecycler()
         subscribeToDays()
-        scrollToDay()
+
         subscribePreviousMonday()
         subscribeNextMonday()
         subscribeWeekDisplayText()
         initButtons()
+        scrollToDay()
 
 //        scrollToDay()
 //        scrollToDay()
@@ -194,8 +195,10 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     private fun initDaysRecycler(){
         daysAdapter = DaysAdapter(object : DaysClickListener {
-            override fun onItemClick(events: List<EventItem>) {
+            override fun onItemClick(events: List<EventItem>, adapterPosition: Int) {
 //                TODO("сохранять позицию адаптера")
+                viewmodel.setAdapterPosition(adapterPosition)
+                Log.i("EventsFragment", "onClick adapterPosition = $adapterPosition")
                 enableEventsRecycler(events)
             }
         })
@@ -241,7 +244,11 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             viewmodel.daysAdapterPosition.collect {
                 val adapterPosition = it
                 daysRecycler.scrollToPosition(adapterPosition)
+                daysRecycler.smoothScrollToPosition(adapterPosition)
                 Log.i(TAG, "adapter position = $adapterPosition")
+//                val click =
+//                    daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
+//                Log.i(TAG, "click = $click")
                 daysRecycler.post {
                     val click =
                         daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()

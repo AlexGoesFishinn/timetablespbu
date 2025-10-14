@@ -106,8 +106,8 @@ class EventsViewModel @Inject constructor(
         val mondayString = monday.format(generatedWeekDisplayTextFormatter)
         val sundayString = sunday.format(generatedWeekDisplayTextFormatter)
         _generatedWeekDisplayText.value = "$mondayString - $sundayString"
-        Log.i("EventsViewModel", "generateWeekDisplayText weekMonday = $weekMonday")
-        Log.i("EventsViewModel", "generateWeekDisplayText result = $mondayString - $sundayString")
+//        Log.i("EventsViewModel", "generateWeekDisplayText weekMonday = $weekMonday")
+//        Log.i("EventsViewModel", "generateWeekDisplayText result = $mondayString - $sundayString")
     }
 
     private fun calculateAdapterPosition() {

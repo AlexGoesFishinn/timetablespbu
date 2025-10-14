@@ -10,27 +10,27 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb.Com
 data class GroupEventsDb(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("Id")
-    val id: Long = 0L,
+    val id: Long = Long.MIN_VALUE,
     @ColumnInfo("GroupId")
     val groupId: Long,
     @ColumnInfo("StudentGroupDisplayName")
-    val groupName: String,
+    val groupName: String = "",
     @ColumnInfo("TimeTableDisplayName")
-    val timeTableDisplayName: String,
+    val timeTableDisplayName: String = "",
     @ColumnInfo("PreviousWeekMonday")
-    val previousWeekMonday: String,
+    val previousWeekMonday: String = "",
     @ColumnInfo("NextWeekMonday")
-    val nextWeekMonday: String,
+    val nextWeekMonday: String = "",
     @ColumnInfo("IsPreviousWeekReferenceAvailable")
-    val isPreviousWeekReferenceAvailable: Boolean,
+    val isPreviousWeekReferenceAvailable: Boolean = true,
     @ColumnInfo("IsNextWeekReferenceAvailable")
-    val isNextWeekReferenceAvailable: Boolean,
+    val isNextWeekReferenceAvailable: Boolean = true,
     @ColumnInfo("IsCurrentWeekReferenceAvailable")
-    val isCurrentWeekReferenceAvailable: Boolean,
+    val isCurrentWeekReferenceAvailable: Boolean = false,
     @ColumnInfo("WeekDisplayText")
-    val weekDisplayText: String,
+    val weekDisplayText: String = "",
     @ColumnInfo("WeekMonday")
-    val weekMonday: String,
+    val weekMonday: String = ""
 
 ) {
     @Ignore

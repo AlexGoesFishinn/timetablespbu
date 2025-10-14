@@ -39,21 +39,7 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
 
         val groupEventDb = groupEventsDao.getWeek(groupId, weekMonday)
         if (groupEventDb == null){
-            val nullGroupEventDb = GroupEventsDb(
-                id = Long.MIN_VALUE,
-                groupId = groupId,
-                groupName = "",
-                timeTableDisplayName = "",
-                previousWeekMonday = "",
-                nextWeekMonday = "",
-                isPreviousWeekReferenceAvailable = true,
-                isNextWeekReferenceAvailable = true,
-                isCurrentWeekReferenceAvailable = false,
-                weekDisplayText = "",
-                weekMonday = ""
-            )
-            nullGroupEventDb.days = emptyList()
-            return groupEventsDbToDomainMapper.invoke(nullGroupEventDb)
+            return groupEventsDbToDomainMapper.invoke(GroupEventsDb(groupId = groupId))
         }
         else{
             val days = dayDao.getDays(groupEventDb.id)
