@@ -11,6 +11,7 @@ class DayDbToDomainMapper @Inject constructor(
     override fun invoke(p1: DayDb): Day {
         val events = p1.events.map { eventDbToDomainMapper.invoke(it) }
         val day = Day(
+            id = p1.id,
             dateString = p1.dateString,
             name = p1.name,
             events = events

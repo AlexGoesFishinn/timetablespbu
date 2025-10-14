@@ -88,6 +88,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         subscribePreviousMonday()
         subscribeNextMonday()
         subscribeWeekDisplayText()
+        subscribeToEvents()
         initButtons()
         scrollToDay()
 
@@ -197,7 +198,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //    }
 
     private fun initEventsRecycler() {
-        eventsRecycler.visibility = View.GONE
+//        eventsRecycler.visibility = View.GONE
         eventsAdapter = EventsAdapter()
         eventsRecycler.adapter = eventsAdapter
         eventsRecycler.layoutManager = LinearLayoutManager(requireContext())
@@ -205,10 +206,12 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     private fun initDaysRecycler() {
         daysAdapter = DaysAdapter(object : DaysClickListener {
-            override fun onItemClick(events: List<EventItem>, adapterPosition: Int) {
+            override fun onItemClick(dayId: Long, adapterPosition: Int) {
                 viewmodel.setAdapterPosition(adapterPosition)
                 Log.i("EventsFragment", "onClick adapterPosition = $adapterPosition")
-                enableEventsRecycler(events)
+//                enableEventsRecycler(events)
+                viewmodel.getEvents(dayId)
+
             }
         })
         daysRecycler.adapter = daysAdapter
@@ -220,6 +223,18 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         lifecycleScope.launch {
             viewmodel.days.collect {
                 daysAdapter.data = it
+                if(it.isEmpty()){
+                    eventsRecycler.visibility = View.GONE
+                } else eventsRecycler.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun subscribeToEvents(){
+        lifecycleScope.launch {
+            viewmodel.events.collect {
+                eventsAdapter.data = it
+                Log.i(TAG, "events = $it")
             }
         }
     }

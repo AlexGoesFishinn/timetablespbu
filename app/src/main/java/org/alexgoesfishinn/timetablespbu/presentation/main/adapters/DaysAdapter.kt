@@ -46,10 +46,10 @@ class DaysAdapter(
             val dayInfo = it.name.split(", ")
             holder.dayName.text = dayInfo[0]
             holder.dayDate.text = dayInfo[1]
-
+            val dayId = it.id
             val events = it.events
             holder.itemView.setOnClickListener {
-                listener.onItemClick(events, holder.adapterPosition)
+                listener.onItemClick(dayId, holder.adapterPosition)
                 index = holder.adapterPosition
                 notifyDataSetChanged()
             }
@@ -79,5 +79,5 @@ class DaysAdapter(
 }
 
 interface DaysClickListener{
-    fun onItemClick(events: List<EventItem>, adapterPosition: Int)
+    fun onItemClick(dayId: Long, adapterPosition: Int)
 }

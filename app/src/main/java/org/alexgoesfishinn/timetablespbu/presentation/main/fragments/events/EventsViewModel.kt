@@ -12,8 +12,10 @@ import kotlinx.coroutines.launch
 import okhttp3.internal.notify
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.EventToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.GroupEventsToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupEventsItem
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -27,6 +29,7 @@ class EventsViewModel @Inject constructor(
     private val subscribeGroupEventsUseCase: SubscribeGroupEventsUseCase,
     private val subscribeEventsUseCase: SubscribeEventsUseCase,
     private val groupEventsToUiMapper: GroupEventsToUiMapper,
+    private val eventToUiMapper: EventToUiMapper,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _groupEvents = MutableStateFlow<GroupEventsItem?>(null)
@@ -56,6 +59,8 @@ class EventsViewModel @Inject constructor(
     val days: StateFlow<List<DayItem>> = _days.asStateFlow()
     private val _generatedWeekDisplayText: MutableStateFlow<String> = MutableStateFlow("")
     val generatedWeekDisplayText: StateFlow<String> = _generatedWeekDisplayText.asStateFlow()
+    private val _events: MutableStateFlow<List<EventItem>> = MutableStateFlow(emptyList())
+    val events: StateFlow<List<EventItem>> = _events.asStateFlow()
 
     init {
         getWeek(currentWeekMondayString)
@@ -100,6 +105,12 @@ class EventsViewModel @Inject constructor(
             _groupEvents.value = week
             _days.value = week.days
             calculateAdapterPosition()
+        }
+    }
+
+    fun getEvents(dayId: Long){
+        viewModelScope.launch {
+            _events.value = subscribeEventsUseCase.getEvents(dayId).map { eventToUiMapper.invoke(it) }
         }
     }
 

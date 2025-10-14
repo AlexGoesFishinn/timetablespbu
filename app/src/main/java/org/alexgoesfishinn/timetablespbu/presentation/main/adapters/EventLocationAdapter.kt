@@ -12,7 +12,6 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.domain.entities.Location
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem
 
 /**

@@ -5,6 +5,7 @@ package org.alexgoesfishinn.timetablespbu.domain.entities
  */
 
 data class Day (
+    val id: Long,
     val dateString:String,
     val name: String,
     val events: List<Event>
