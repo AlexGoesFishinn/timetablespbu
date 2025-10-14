@@ -29,9 +29,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EventsFragment : Fragment(R.layout.events_fragment) {
     private var binding: EventsFragmentBinding? = null
-//    private val args: EventsFragmentArgs by navArgs()
+
+    //    private val args: EventsFragmentArgs by navArgs()
     private val viewmodel by viewModels<EventsViewModel>()
-//    private  var groupId: Long
+
+    //    private  var groupId: Long
 //    private lateinit var groupName: String
     private lateinit var noEventsText: TextView
     private lateinit var weekEventsNavPanelView: View
@@ -40,15 +42,18 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var nextWeekButton: TextView
     private lateinit var daysRecycler: RecyclerView
     private lateinit var daysAdapter: DaysAdapter
-//    private lateinit var daysManager: RecyclerView.LayoutManager
+
+    //    private lateinit var daysManager: RecyclerView.LayoutManager
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
-//    private lateinit var eventsManager: LinearLayoutManager
+
+    //    private lateinit var eventsManager: LinearLayoutManager
     private lateinit var addToFavouriteText: TextView
     private lateinit var addToFavoriteCard: MaterialCardView
     private lateinit var groupNameText: TextView
     private lateinit var activity: MainActivity
-//    @Inject
+
+    //    @Inject
 //    lateinit var internetChecker: InternetChecker
 //    @Inject
 //    lateinit var eventsService: EventsService
@@ -59,7 +64,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //    private lateinit var generatedWeekDisplayText: String
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity = requireActivity() as MainActivity
@@ -68,8 +72,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //        groupName = args.groupName
         noEventsText = view.findViewById(R.id.noEventsText)
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
-        groupNameText= view.findViewById(R.id.groupNameText)
-
+        groupNameText = view.findViewById(R.id.groupNameText)
         addToFavouriteText = view.findViewById(R.id.addToFavouriteText)
         addToFavoriteCard = view.findViewById(R.id.addToFavouriteCard)
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
@@ -111,7 +114,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //        getCurrentWeekEvents()
     }
 
-    private fun initButtons(){
+    private fun initButtons() {
         lifecycleScope.launch {
             viewmodel.groupEvents.collect() {
                 val groupEvents = it
@@ -122,10 +125,17 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     viewmodel.getWeek(previousWeekMondayString)
                 }
                 noEventsText.visibility = View.VISIBLE
-
-//                TODO("generate weekDisplayText")
+                if (groupEvents != null && groupEvents.days.isNotEmpty()) {
+                    noEventsText.visibility = View.GONE
+                }
 //                weekDisplayTextView.text = generatedWeekDisplayText
-                if(groupEvents != null){
+//                if (groupEvents!!.days.isEmpty()) {
+//                    noEventsText.visibility = View.VISIBLE
+////                        disableDaysRecycler()
+//                } else {
+//                    noEventsText.visibility = View.GONE
+//                }
+//                if(groupEvents != null){
 //                    if(groupEvents.weekDisplayText != ""){
 //                        weekDisplayTextView.text = groupEvents.weekDisplayText
 //                    } else {
@@ -138,12 +148,12 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //                    if (!groupEvents.isNextWeekReferenceAvailable) {
 //                        nextWeekButton.visibility = View.GONE
 //                    } else nextWeekButton.visibility = View.VISIBLE
-                    if (groupEvents.days.isEmpty()) {
-                        noEventsText.visibility = View.VISIBLE
-//                        disableDaysRecycler()
-                    } else {
-                        noEventsText.visibility = View.GONE
-                    }
+//                    if (groupEvents.days.isEmpty()) {
+//                        noEventsText.visibility = View.VISIBLE
+////                        disableDaysRecycler()
+//                    } else {
+//                        noEventsText.visibility = View.GONE
+//                    }
 //                    nextWeekButton.setOnClickListener {
 //                        viewmodel.getWeek(groupEvents.nextWeekMonday)
 ////                        getAnotherWeekEvents(groupEvents.nextWeekMonday)
@@ -154,7 +164,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 ////                        getAnotherWeekEvents(groupEvents.previousWeekMonday)
 ////                        disableEventsRecycler()
 //                    }
-                }
+//                }
 
             }
         }
@@ -186,34 +196,35 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //
 //    }
 
-    private fun initEventsRecycler(){
+    private fun initEventsRecycler() {
         eventsRecycler.visibility = View.GONE
         eventsAdapter = EventsAdapter()
         eventsRecycler.adapter = eventsAdapter
         eventsRecycler.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun initDaysRecycler(){
+    private fun initDaysRecycler() {
         daysAdapter = DaysAdapter(object : DaysClickListener {
             override fun onItemClick(events: List<EventItem>, adapterPosition: Int) {
-//                TODO("сохранять позицию адаптера")
                 viewmodel.setAdapterPosition(adapterPosition)
                 Log.i("EventsFragment", "onClick adapterPosition = $adapterPosition")
                 enableEventsRecycler(events)
             }
         })
         daysRecycler.adapter = daysAdapter
-        daysRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        daysRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun subscribeToDays(){
+    private fun subscribeToDays() {
         lifecycleScope.launch {
-             viewmodel.days.collect {
+            viewmodel.days.collect {
                 daysAdapter.data = it
             }
         }
     }
-    private fun subscribePreviousMonday(){
+
+    private fun subscribePreviousMonday() {
         lifecycleScope.launch {
             viewmodel.previousWeekMondayString.collect {
                 previousWeekMondayString = it
@@ -221,7 +232,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun subscribeNextMonday(){
+    private fun subscribeNextMonday() {
         lifecycleScope.launch {
             viewmodel.nextWeekMondayString.collect {
                 nextWeekMondayString = it
@@ -229,7 +240,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun subscribeWeekDisplayText(){
+    private fun subscribeWeekDisplayText() {
         lifecycleScope.launch {
             viewmodel.generatedWeekDisplayText.collect {
 //                generatedWeekDisplayText = it
@@ -239,21 +250,22 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun scrollToDay(){
+    private fun scrollToDay() {
         lifecycleScope.launch {
             viewmodel.daysAdapterPosition.collect {
-                val adapterPosition = it
-                daysRecycler.scrollToPosition(adapterPosition)
-                daysRecycler.smoothScrollToPosition(adapterPosition)
-                Log.i(TAG, "adapter position = $adapterPosition")
-//                val click =
-//                    daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
-//                Log.i(TAG, "click = $click")
-                daysRecycler.post {
-                    val click =
-                        daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
-                    Log.i(TAG, "click = $click")
+                if(it >= 0){
+                    val adapterPosition = it
+                    Log.i(TAG, "scrollToDay method")
+                    daysRecycler.scrollToPosition(adapterPosition)
+                    daysRecycler.smoothScrollToPosition(adapterPosition)
+                    Log.i(TAG, "adapter position = $adapterPosition")
+                    daysRecycler.post {
+                        val click =
+                            daysRecycler.findViewHolderForAdapterPosition(adapterPosition)?.itemView?.performClick()
+                        Log.i(TAG, "click = $click")
+                    }
                 }
+
             }
         }
 //        val adapterPosition = viewmodel.daysAdapterPosition
@@ -266,7 +278,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 //        }
     }
 
-    private suspend fun initAddToFavouriteButton(){
+    private suspend fun initAddToFavouriteButton() {
 
 //        val storedName = lifecycleScope.async { dataStoreManager.getGroupName() }.await()
 //        val storedId = lifecycleScope.async { dataStoreManager.getGroupId() }.await()
@@ -355,7 +367,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private fun disableEventsRecycler() {
         eventsRecycler.visibility = View.GONE
     }
-
 
 
     private fun getCurrentWeekEvents() {

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.internal.notify
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.GroupEventsToUiMapper
@@ -39,7 +40,8 @@ class EventsViewModel @Inject constructor(
         .format(formatter)
 
     private var weekMondayString: String = ""
-//    private var nextWeekMondayString: String = ""
+
+    //    private var nextWeekMondayString: String = ""
 //    private var previousWeekMondayString: String = ""
     private val _nextWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val nextWeekMondayString: StateFlow<String> = _nextWeekMondayString.asStateFlow()
@@ -47,9 +49,9 @@ class EventsViewModel @Inject constructor(
     val previousWeekMondayString: StateFlow<String> = _previousWeekMondayString.asStateFlow()
 
 
-//    var daysAdapterPosition = 0
+    //    var daysAdapterPosition = 0
     private val _daysAdapterPosition: MutableStateFlow<Int> = MutableStateFlow(0)
-    val daysAdapterPosition: StateFlow<Int> =_daysAdapterPosition.asStateFlow()
+    val daysAdapterPosition: StateFlow<Int> = _daysAdapterPosition.asStateFlow()
     private val _days: MutableStateFlow<List<DayItem>> = MutableStateFlow(emptyList())
     val days: StateFlow<List<DayItem>> = _days.asStateFlow()
     private val _generatedWeekDisplayText: MutableStateFlow<String> = MutableStateFlow("")
@@ -80,11 +82,13 @@ class EventsViewModel @Inject constructor(
 //        }
     }
 
-    fun getWeek(weekMonday: String){
+    fun getWeek(weekMonday: String) {
         generateWeekDisplayText(weekMonday)
         weekMondayString = weekMonday
-        val nextMonday = LocalDate.parse(weekMonday, formatter).with(TemporalAdjusters.next(DayOfWeek.MONDAY))
-        val previousMonday = LocalDate.parse(weekMonday, formatter).with(TemporalAdjusters.previous(DayOfWeek.MONDAY))
+        val nextMonday =
+            LocalDate.parse(weekMonday, formatter).with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+        val previousMonday = LocalDate.parse(weekMonday, formatter)
+            .with(TemporalAdjusters.previous(DayOfWeek.MONDAY))
         _nextWeekMondayString.value = nextMonday.format(formatter)
         _previousWeekMondayString.value = previousMonday.format(formatter)
 //        nextWeekMondayString = nextMonday.format(formatter)
@@ -99,7 +103,7 @@ class EventsViewModel @Inject constructor(
         }
     }
 
-    private fun generateWeekDisplayText(weekMonday: String){
+    private fun generateWeekDisplayText(weekMonday: String) {
 
         val monday = LocalDate.parse(weekMonday, formatter)
         val sunday = monday.with(ChronoField.DAY_OF_WEEK, 7)
@@ -111,23 +115,27 @@ class EventsViewModel @Inject constructor(
     }
 
     private fun calculateAdapterPosition() {
-        if(weekMondayString == currentWeekMondayString){
+        _daysAdapterPosition.value = -1
+        Log.i("EventsViewModel", "calculateMethod")
+        if (weekMondayString == currentWeekMondayString) {
             val weekDays = days.value
             Log.i("ViewModel", "weekDays = $weekDays")
-            for (i in weekDays.indices){
-                val day = LocalDate.parse(weekDays[i].dateString.substring(0,10), formatter)
-                if(day.isEqual(now) ||
-                    day.isAfter(now)){
+            for (i in weekDays.indices) {
+                val day = LocalDate.parse(weekDays[i].dateString.substring(0, 10), formatter)
+                if (day.isEqual(now) ||
+                    day.isAfter(now)
+                ) {
                     _daysAdapterPosition.value = i
                     Log.i("ViewModel", "daysAdapterPositionMethod = ${_daysAdapterPosition.value} ")
                     return
                 }
             }
             _daysAdapterPosition.value = weekDays.size - 1
-        }
-        else{
+        } else {
             _daysAdapterPosition.value = 0
         }
+
+
 //        if (groupEvents.isCurrentWeekReferenceAvailable) return 0
 //        val days = groupEvents.days
 //        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -144,7 +152,7 @@ class EventsViewModel @Inject constructor(
 
     }
 
-    fun setAdapterPosition(position:Int){
+    fun setAdapterPosition(position: Int) {
         _daysAdapterPosition.value = position
     }
 }
