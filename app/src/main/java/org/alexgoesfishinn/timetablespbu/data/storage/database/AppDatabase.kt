@@ -6,6 +6,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.DayDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.DivisionDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.EducatorDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.EventDao
+import org.alexgoesfishinn.timetablespbu.data.storage.dao.FavouriteDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupEventsDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
@@ -16,6 +17,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.DayDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.DivisionDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EducatorDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb
+import org.alexgoesfishinn.timetablespbu.data.storage.entities.FavouriteDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
@@ -35,7 +37,8 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramDb
         DayDb::class,
         EventDb::class,
         LocationDb::class,
-        EducatorDb::class
+        EducatorDb::class,
+    FavouriteDb::class
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -59,6 +62,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun locationDao(): LocationDao
 
     abstract fun educatorDao(): EducatorDao
+
+    abstract fun favouriteDao() : FavouriteDao
 
     companion object {
         const val DATABASE_NAME = "timetable.db"

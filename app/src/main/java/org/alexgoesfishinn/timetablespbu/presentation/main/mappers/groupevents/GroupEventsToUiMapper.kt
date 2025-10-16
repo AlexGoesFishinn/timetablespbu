@@ -1,6 +1,7 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.groupevents
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.day.DayToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupEventsItem
 import javax.inject.Inject
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCase
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.LevelToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.level.LevelToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 import javax.inject.Inject

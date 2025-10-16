@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.repo.DivisionsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.EventsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.FavouriteRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeFavouriteRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeGroupsRepositoryImpl
@@ -43,4 +45,7 @@ abstract class NetworkModule {
 
     @Binds
     abstract fun bindEventsRepository(impl: SubscribeEventsRepositoryImpl): EventsRepository
+
+    @Binds
+    abstract fun bindFavouriteRepository(impl: SubscribeFavouriteRepositoryImpl): FavouriteRepository
 }

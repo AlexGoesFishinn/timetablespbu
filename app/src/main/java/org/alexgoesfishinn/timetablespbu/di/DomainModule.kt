@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.repo.DivisionsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.EventsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.FavouriteRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
@@ -15,6 +16,8 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCa
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCaseImpl
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCase
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCase
@@ -70,5 +73,11 @@ object DomainModule {
     @Provides
     fun provideSubscribeEventsUseCase(repository: EventsRepository): SubscribeEventsUseCase{
         return SubscribeEventsUseCaseImpl(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSubscribeFavouriteUseCase(repository: FavouriteRepository): SubscribeFavouriteUseCase {
+        return SubscribeFavouriteUseCaseImpl(repository)
     }
 }

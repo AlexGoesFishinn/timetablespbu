@@ -10,6 +10,14 @@
         app:destination="@id/events"/>
 
     <fragment
+        android:id="@+id/favorite"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.FavouriteDialog"
+        tools:layout="@layout/favourite_dialog">
+        <action android:id="@+id/favourite_to_events"
+            app:destination="@id/events"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/divivisions"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions.DivisionsFragment"
         tools:layout="@layout/divisions_fragment"
@@ -88,9 +96,9 @@
         <argument android:name="group_id"
             app:argType="long"
             app:nullable="false"/>
-        <argument android:name="group_name"
-            app:argType="string"
-            app:nullable="false"/>
+<!--        <argument android:name="group_name"-->
+<!--            app:argType="string"-->
+<!--            app:nullable="false"/>-->
 
     </fragment>
 

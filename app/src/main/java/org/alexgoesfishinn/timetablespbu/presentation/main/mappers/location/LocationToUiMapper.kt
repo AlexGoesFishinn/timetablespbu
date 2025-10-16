@@ -1,6 +1,7 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.location
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Location
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.educator.EducatorToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem
 import javax.inject.Inject
 

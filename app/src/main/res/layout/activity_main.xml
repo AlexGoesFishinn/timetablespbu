@@ -52,7 +52,7 @@
                 android:layout_margin="4dp"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/bottom_navigation_to_events"
+            android:id="@+id/bottom_navigation_favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -65,10 +65,10 @@
             android:backgroundTint="@color/spbu_primary_terracot_color"
             >
             <TextView
-                android:id="@+id/bottom_navigation_to_events_text"
+                android:id="@+id/bottom_navigation_favourite_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:text="22.Б31-ю"
+                android:text="Избранное"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:gravity="center"

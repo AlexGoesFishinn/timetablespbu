@@ -62,4 +62,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideEducatorDao(db: AppDatabase) = db.educatorDao()
+
+    @Singleton
+    @Provides
+    fun provideFavouriteDao(db: AppDatabase) = db.favouriteDao()
 }

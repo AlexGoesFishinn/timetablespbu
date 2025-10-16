@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.DivisionToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.division.DivisionToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem
 import javax.inject.Inject
 

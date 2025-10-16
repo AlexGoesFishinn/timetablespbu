@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.group
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem

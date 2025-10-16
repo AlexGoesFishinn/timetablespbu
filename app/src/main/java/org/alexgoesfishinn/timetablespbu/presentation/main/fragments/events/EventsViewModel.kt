@@ -9,11 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.notify
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.EventToUiMapper
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.GroupEventsToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.event.EventToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.groupevents.GroupEventsToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupEventsItem
@@ -44,15 +43,13 @@ class EventsViewModel @Inject constructor(
 
     private var weekMondayString: String = ""
 
-    //    private var nextWeekMondayString: String = ""
-//    private var previousWeekMondayString: String = ""
+
     private val _nextWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val nextWeekMondayString: StateFlow<String> = _nextWeekMondayString.asStateFlow()
     private val _previousWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val previousWeekMondayString: StateFlow<String> = _previousWeekMondayString.asStateFlow()
 
 
-    //    var daysAdapterPosition = 0
     private val _daysAdapterPosition: MutableStateFlow<Int> = MutableStateFlow(0)
     val daysAdapterPosition: StateFlow<Int> = _daysAdapterPosition.asStateFlow()
     private val _days: MutableStateFlow<List<DayItem>> = MutableStateFlow(emptyList())
@@ -61,30 +58,13 @@ class EventsViewModel @Inject constructor(
     val generatedWeekDisplayText: StateFlow<String> = _generatedWeekDisplayText.asStateFlow()
     private val _events: MutableStateFlow<List<EventItem>> = MutableStateFlow(emptyList())
     val events: StateFlow<List<EventItem>> = _events.asStateFlow()
+    private val _groupDisplayName: MutableStateFlow<String> = MutableStateFlow("")
+    val groupDisplayName: StateFlow<String> = _groupDisplayName.asStateFlow()
 
     init {
         getWeek(currentWeekMondayString)
-//        val monday = now.with(ChronoField.DAY_OF_WEEK, 1)
-//        currentWeekMondayString = monday.format(formatter)
 
 
-//        val nextMonday = monday.with(TemporalAdjusters.next(DayOfWeek.MONDAY))
-//        val previousMonday = monday.with(TemporalAdjusters.previous(DayOfWeek.MONDAY))
-//
-//        nextWeekMondayString = nextMonday.format(formatter)
-//        previousWeekMondayString = previousMonday.format(formatter)
-//        weekMondayString = currentWeekMondayString
-
-//        groupId = savedStateHandle["group_id"]
-
-//        viewModelScope.launch {
-//            val week = groupEventsToUiMapper.invoke(
-//                subscribeGroupEventsUseCase.getEvents(groupId!!, currentWeekMondayString)
-//            )
-//            _groupEvents.value = week
-//            _days.value = week.days
-//            calculateAdapterPosition()
-//        }
     }
 
     fun getWeek(weekMonday: String) {
@@ -96,14 +76,15 @@ class EventsViewModel @Inject constructor(
             .with(TemporalAdjusters.previous(DayOfWeek.MONDAY))
         _nextWeekMondayString.value = nextMonday.format(formatter)
         _previousWeekMondayString.value = previousMonday.format(formatter)
-//        nextWeekMondayString = nextMonday.format(formatter)
-//        previousWeekMondayString = previousMonday.format(formatter)
         viewModelScope.launch {
             val week = groupEventsToUiMapper.invoke(
                 subscribeGroupEventsUseCase.getEvents(groupId!!, weekMonday)
             )
             _groupEvents.value = week
             _days.value = week.days
+            if(week.groupName != ""){
+                _groupDisplayName.value = week.groupName
+            }
             calculateAdapterPosition()
         }
     }
@@ -121,8 +102,6 @@ class EventsViewModel @Inject constructor(
         val mondayString = monday.format(generatedWeekDisplayTextFormatter)
         val sundayString = sunday.format(generatedWeekDisplayTextFormatter)
         _generatedWeekDisplayText.value = "$mondayString - $sundayString"
-//        Log.i("EventsViewModel", "generateWeekDisplayText weekMonday = $weekMonday")
-//        Log.i("EventsViewModel", "generateWeekDisplayText result = $mondayString - $sundayString")
     }
 
     private fun calculateAdapterPosition() {
@@ -145,21 +124,6 @@ class EventsViewModel @Inject constructor(
         } else {
             _daysAdapterPosition.value = 0
         }
-
-
-//        if (groupEvents.isCurrentWeekReferenceAvailable) return 0
-//        val days = groupEvents.days
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-//        val currentDate = LocalDate.now()
-//        for (i in days.indices) {
-//            val dayDate = LocalDate.parse(days[i].dateString.substring(0, 10), formatter)
-//            if (dayDate.isEqual(currentDate) ||
-//                dayDate.isAfter(currentDate)
-//            ) {
-//                return i
-//            }
-//        }
-//        return days.size - 1
 
     }
 

@@ -10,7 +10,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb.Com
 data class GroupEventsDb(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("Id")
-    val id: Long = Long.MIN_VALUE,
+    val id: Long = 0L,
     @ColumnInfo("GroupId")
     val groupId: Long,
     @ColumnInfo("StudentGroupDisplayName")

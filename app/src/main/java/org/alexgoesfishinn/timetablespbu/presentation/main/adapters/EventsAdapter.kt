@@ -26,6 +26,7 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
         }
 
     private lateinit var context: Context
+
     class EventsViewHolder(itemView: View): ViewHolder(itemView){
         val eventTime: TextView = itemView.findViewById(R.id.eventTime)
         val eventName: TextView = itemView.findViewById(R.id.eventName)
@@ -55,7 +56,7 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
 
             holder.subgroup.visibility = View.GONE
             holder.subgroupIcon.visibility = View.GONE
-            if(eventLocations.size == 1){
+            if(eventLocations.size == 1 && eventLocations[0].educators.size == 1){
                 holder.eventPlace.text = eventLocations[0].displayName
                 holder.eventLecturer.text = it.educatorDisplayText
                 if(eventLocations[0].hasGeographicCoordinates){
@@ -83,6 +84,8 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                 holder.eventLecturer.text = spanEducatorText
                 holder.eventPlace.setTextColor(terraCotColor)
                 holder.eventLecturer.setTextColor(terraCotColor)
+
+                TODO("Сохранять клик при смене ориентации")
                 holder.eventPlace.setOnClickListener {
                     showEventLocationsDialog(eventLocations)
                 }

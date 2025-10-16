@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.day
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Day
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem

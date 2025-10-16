@@ -1,8 +1,7 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.level
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
-import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 import javax.inject.Inject
 
 class LevelToUiMapper @Inject constructor(): (Level) -> LevelItem {

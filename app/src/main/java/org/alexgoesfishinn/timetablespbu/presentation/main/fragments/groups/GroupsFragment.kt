@@ -79,8 +79,8 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private fun initRecycler(){
         groupsAdapter = GroupsAdapter(
             object : GroupsClickListener {
-                override fun onClick(groupId: Long, groupName: String) {
-                    navigateToEvents(groupId, groupName)
+                override fun onClick(groupId: Long) {
+                    navigateToEvents(groupId)
                 }
             }
         )
@@ -97,9 +97,9 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 //        }
 //    }
 
-    private fun navigateToEvents(groupId: Long, groupName: String){
+    private fun navigateToEvents(groupId: Long){
 //        val groupIdString = groupId.toString()
-        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupId, groupName))
+        findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupId))
     }
 
 //    private fun getGroups(){

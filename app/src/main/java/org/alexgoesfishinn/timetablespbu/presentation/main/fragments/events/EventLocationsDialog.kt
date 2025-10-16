@@ -9,7 +9,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.domain.entities.Location
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.EventLocationAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem
 

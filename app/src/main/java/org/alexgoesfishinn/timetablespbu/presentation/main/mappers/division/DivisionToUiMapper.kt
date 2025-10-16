@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.mappers
+package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.division
 
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem

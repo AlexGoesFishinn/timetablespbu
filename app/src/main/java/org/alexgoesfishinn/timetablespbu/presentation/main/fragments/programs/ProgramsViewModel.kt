@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramsUseCase
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.ProgramToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.program.ProgramToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramItem
 import javax.inject.Inject
 @HiltViewModel

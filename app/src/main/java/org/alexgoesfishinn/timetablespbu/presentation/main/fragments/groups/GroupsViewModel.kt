@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCase
-import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.GroupToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.group.GroupToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem
 import javax.inject.Inject
 

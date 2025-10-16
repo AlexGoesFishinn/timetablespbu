@@ -23,50 +23,56 @@ import javax.inject.Inject
  * @author a.bylev
  */
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
-private lateinit var navigation: NavController
-@Inject lateinit var dataStoreManager: DataStoreManager
-
+class MainActivity : AppCompatActivity() {
+    private lateinit var navigation: NavController
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navigation = navHostFragment.findNavController()
         initBottomNavigation()
 
     }
 
-    fun initBottomNavigation(){
+
+    private fun initBottomNavigation() {
         val navigationToMain = findViewById<CardView>(R.id.bottom_navigation_to_main)
         navigationToMain.setOnClickListener {
             Log.i(TAG, "На главную")
             navigation.navigate(R.id.toDivisions)
         }
-        val navigationToEvents = findViewById<CardView>(R.id.bottom_navigation_to_events)
-        val navigationToEventsText = findViewById<TextView>(R.id.bottom_navigation_to_events_text)
-        lifecycleScope.launch {
-            val groupId = async { dataStoreManager.getGroupId() }.await()
-            val groupName = async { dataStoreManager.getGroupName() }.await()
-            if(groupId == ""){
-                navigationToEvents.visibility = View.GONE
-            }
-            else{
-                navigationToEventsText.text = groupName
-                navigationToEvents.visibility = View.VISIBLE
-                navigationToEvents.setOnClickListener {
-                    Log.i(TAG, "В избранное groupId = $groupId, groupName = $groupName")
-                    val groupIdLong = groupId.toLong()
-                    val actionToEvents = NavGraphDirections.toEvents(groupIdLong, groupName)
-                    navigation.navigate(actionToEvents)
-                }
-            }
+        val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)
+        favouriteButton.setOnClickListener {
+            FavouriteDialog().show(supportFragmentManager, "FavoriteDialog")
+//            FavouriteDialog().showsDialog
         }
+//        val navigationToEvents = findViewById<CardView>(R.id.bottom_navigation_favourite)
+//        val navigationToEventsText = findViewById<TextView>(R.id.bottom_navigation_favourite_text)
+//        lifecycleScope.launch {
+//            val groupId = async { dataStoreManager.getGroupId() }.await()
+//            val groupName = async { dataStoreManager.getGroupName() }.await()
+//            if (groupId == "") {
+//                navigationToEvents.visibility = View.GONE
+//            } else {
+//                navigationToEventsText.text = groupName
+//                navigationToEvents.visibility = View.VISIBLE
+//                navigationToEvents.setOnClickListener {
+//                    Log.i(TAG, "В избранное groupId = $groupId, groupName = $groupName")
+//                    val groupIdLong = groupId.toLong()
+//                    val actionToEvents = NavGraphDirections.toEvents(groupIdLong)
+//                    navigation.navigate(actionToEvents)
+//                }
+//            }
+//        }
     }
 
-    companion object{
+    companion object {
         private const val TAG = "Main Activity"
     }
 
-    }
+}

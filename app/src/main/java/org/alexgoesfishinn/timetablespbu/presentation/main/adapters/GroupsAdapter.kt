@@ -40,7 +40,7 @@ class GroupsAdapter(
             val groupId = it.groupId
             holder.itemView.setOnClickListener {
                 Log.i("GroupId", groupId.toString())
-                groupsClickListener.onClick(groupId, groupName)
+                groupsClickListener.onClick(groupId)
             }
 
         }
@@ -51,5 +51,5 @@ class GroupsAdapter(
     }
 }
 interface GroupsClickListener{
-    fun onClick(groupId: Long, groupName: String)
+    fun onClick(groupId: Long)
 }
