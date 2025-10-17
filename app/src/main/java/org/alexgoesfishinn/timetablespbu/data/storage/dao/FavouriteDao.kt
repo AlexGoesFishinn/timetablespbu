@@ -13,6 +13,6 @@ interface FavouriteDao {
     @Insert
     suspend fun insert(favouriteDb: FavouriteDb): Long
 
-    @Query("DELETE FROM ${FavouriteDb.FAVOURITE_TABLE_NAME} WHERE Oid = :oid")
-    suspend fun delete(oid: Long)
+    @Query("DELETE FROM ${FavouriteDb.FAVOURITE_TABLE_NAME} WHERE Id = :id")
+    suspend fun delete(id: Long)
 }

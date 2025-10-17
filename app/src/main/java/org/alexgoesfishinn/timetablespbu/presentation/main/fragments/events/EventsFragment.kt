@@ -14,12 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.EventsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.domain.DataStoreManager
 import org.alexgoesfishinn.timetablespbu.presentation.main.MainActivity
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.EventsAdapter
-import javax.inject.Inject
+
 
 /**
  * @author a.bylev
@@ -41,8 +40,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var addToFavoriteCard: MaterialCardView
     private lateinit var groupNameText: TextView
     private lateinit var activity: MainActivity
-    @Inject
-    lateinit var dataStoreManager: DataStoreManager
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
 
@@ -73,9 +70,32 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         initButtons()
         scrollToDay()
         subscribeToGroupName()
+        subscribeToFavourite()
 
-        lifecycleScope.launch { initAddToFavouriteButton() }
 
+    }
+
+
+    private fun subscribeToFavourite(){
+        lifecycleScope.launch {
+            viewmodel.isFavourite.collect{
+                val isFavourite = it
+                Log.i(TAG,"Favourite = $isFavourite")
+                if(isFavourite){
+                    addToFavouriteText.text = "Убрать из избранного"
+                    addToFavoriteCard.setOnClickListener {
+                        viewmodel.removeFromFavourite()
+
+                    }
+                } else{
+                    addToFavouriteText.text = "Добавить в избранное"
+                    addToFavoriteCard.setOnClickListener {
+                        viewmodel.addToFavourite()
+                    }
+                }
+
+            }
+        }
     }
 
     private fun subscribeToGroupName(){
@@ -88,7 +108,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     private fun initButtons() {
         lifecycleScope.launch {
-            viewmodel.groupEvents.collect() {
+            viewmodel.groupEvents.collect {
                 val groupEvents = it
                 nextWeekButton.setOnClickListener {
                     viewmodel.getWeek(nextWeekMondayString)
@@ -191,36 +211,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     }
 
-    private suspend fun initAddToFavouriteButton() {
-
-//        val storedName = lifecycleScope.async { dataStoreManager.getGroupName() }.await()
-//        val storedId = lifecycleScope.async { dataStoreManager.getGroupId() }.await()
-//        Log.i(TAG, "storedGroupName = $storedName")
-//        Log.i(TAG, "storedGroupId = $storedId")
-//        if(groupId.equals(storedId)){
-//            addToFavouriteText.text = "Убрать из избранного"
-//            addToFavoriteCard.setOnClickListener {
-//                lifecycleScope.launch {
-//                    dataStoreManager.save("","")
-//                    activity.initBottomNavigation()
-//                    initAddToFavouriteButton()
-//
-//                }
-//            }
-//        } else{
-//            addToFavouriteText.text = "Добавить в избранное"
-//            addToFavoriteCard.setOnClickListener {
-//                lifecycleScope.launch {
-//                    dataStoreManager.save(groupId.toString(), groupName)
-//                    activity.initBottomNavigation()
-//                    initAddToFavouriteButton()
-//                }
-//
-//
-//            }
-//        }
-
-    }
 
 
 

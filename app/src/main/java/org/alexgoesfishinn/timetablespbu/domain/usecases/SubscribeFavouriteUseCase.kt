@@ -7,7 +7,7 @@ import javax.inject.Inject
 interface SubscribeFavouriteUseCase {
     suspend fun getAll(): List<Favourite>
 
-    suspend fun delete(oid: Long)
+    suspend fun delete(id: Long)
 
     suspend fun insert(favourite: Favourite)
 }
@@ -19,8 +19,8 @@ class SubscribeFavouriteUseCaseImpl @Inject constructor(
         return favouriteRepository.getAll()
     }
 
-    override suspend fun delete(oid: Long) {
-        favouriteRepository.delete(oid)
+    override suspend fun delete(id: Long) {
+        favouriteRepository.delete(id)
     }
 
     override suspend fun insert(favourite: Favourite) {

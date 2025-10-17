@@ -1,5 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -22,6 +23,11 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var favouriteIsEmptyText: TextView
 
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        return super.onCreateDialog(savedInstanceState)
+//    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,12 +38,12 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
         subscribeFavourite()
     }
 
-    override fun onResume() {
-        val window = dialog!!.window
-        val display = requireContext().display
-
-        super.onResume()
-    }
+//    override fun onResume() {
+//        val window = dialog!!.window
+//        val display = requireContext().display
+//
+//        super.onResume()
+//    }
 
 
 

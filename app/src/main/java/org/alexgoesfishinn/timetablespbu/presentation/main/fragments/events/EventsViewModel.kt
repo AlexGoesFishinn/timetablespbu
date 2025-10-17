@@ -10,11 +10,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
+import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.event.EventToUiMapper
+import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.favourite.FavouriteUiToDomainMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.groupevents.GroupEventsToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
+import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupEventsItem
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -27,9 +30,11 @@ import javax.inject.Inject
 class EventsViewModel @Inject constructor(
     private val subscribeGroupEventsUseCase: SubscribeGroupEventsUseCase,
     private val subscribeEventsUseCase: SubscribeEventsUseCase,
+    private val subscribeFavourite: SubscribeFavouriteUseCase,
     private val groupEventsToUiMapper: GroupEventsToUiMapper,
     private val eventToUiMapper: EventToUiMapper,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val favouriteUiToDomainMapper: FavouriteUiToDomainMapper
 ) : ViewModel() {
     private val _groupEvents = MutableStateFlow<GroupEventsItem?>(null)
     val groupEvents: StateFlow<GroupEventsItem?> = _groupEvents.asStateFlow()
@@ -43,12 +48,10 @@ class EventsViewModel @Inject constructor(
 
     private var weekMondayString: String = ""
 
-
     private val _nextWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val nextWeekMondayString: StateFlow<String> = _nextWeekMondayString.asStateFlow()
     private val _previousWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val previousWeekMondayString: StateFlow<String> = _previousWeekMondayString.asStateFlow()
-
 
     private val _daysAdapterPosition: MutableStateFlow<Int> = MutableStateFlow(0)
     val daysAdapterPosition: StateFlow<Int> = _daysAdapterPosition.asStateFlow()
@@ -60,11 +63,42 @@ class EventsViewModel @Inject constructor(
     val events: StateFlow<List<EventItem>> = _events.asStateFlow()
     private val _groupDisplayName: MutableStateFlow<String> = MutableStateFlow("")
     val groupDisplayName: StateFlow<String> = _groupDisplayName.asStateFlow()
+    private val _isFavourite: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isFavourite: StateFlow<Boolean> = _isFavourite.asStateFlow()
 
     init {
         getWeek(currentWeekMondayString)
+        getFavourite()
 
 
+    }
+
+    fun getFavourite() {
+        viewModelScope.launch {
+            _isFavourite.value = subscribeFavourite.getAll().map { it.id }.contains(groupId)
+        }
+
+    }
+
+    fun addToFavourite() {
+        if (groupId != null && _groupDisplayName.value != "") {
+            viewModelScope.launch {
+                val favourite = FavouriteItem(
+                    id = groupId,
+                    displayName = _groupDisplayName.value
+                )
+                subscribeFavourite.insert(favouriteUiToDomainMapper.invoke(favourite))
+                getFavourite()
+            }
+        }
+
+    }
+
+    fun removeFromFavourite() {
+        viewModelScope.launch {
+            subscribeFavourite.delete(groupId!!)
+            getFavourite()
+        }
     }
 
     fun getWeek(weekMonday: String) {
@@ -82,16 +116,17 @@ class EventsViewModel @Inject constructor(
             )
             _groupEvents.value = week
             _days.value = week.days
-            if(week.groupName != ""){
+            if (week.groupName != "") {
                 _groupDisplayName.value = week.groupName
             }
             calculateAdapterPosition()
         }
     }
 
-    fun getEvents(dayId: Long){
+    fun getEvents(dayId: Long) {
         viewModelScope.launch {
-            _events.value = subscribeEventsUseCase.getEvents(dayId).map { eventToUiMapper.invoke(it) }
+            _events.value =
+                subscribeEventsUseCase.getEvents(dayId).map { eventToUiMapper.invoke(it) }
         }
     }
 

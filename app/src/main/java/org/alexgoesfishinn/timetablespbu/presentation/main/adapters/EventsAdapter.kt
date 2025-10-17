@@ -85,7 +85,7 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                 holder.eventPlace.setTextColor(terraCotColor)
                 holder.eventLecturer.setTextColor(terraCotColor)
 
-                TODO("Сохранять клик при смене ориентации")
+//                TODO("Сохранять клик при смене ориентации")
                 holder.eventPlace.setOnClickListener {
                     showEventLocationsDialog(eventLocations)
                 }

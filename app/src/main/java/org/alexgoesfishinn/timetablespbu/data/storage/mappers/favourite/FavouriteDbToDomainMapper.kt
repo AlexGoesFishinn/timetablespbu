@@ -7,7 +7,6 @@ import javax.inject.Inject
 class FavouriteDbToDomainMapper @Inject constructor(): (FavouriteDb) -> Favourite {
     override fun invoke(p1: FavouriteDb): Favourite {
         return Favourite(
-            oid = p1.oid,
             displayName = p1.displayName,
             id = p1.id
         )

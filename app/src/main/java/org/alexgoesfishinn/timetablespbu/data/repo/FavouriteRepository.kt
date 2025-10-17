@@ -23,8 +23,8 @@ class SubscribeFavouriteRepositoryImpl @Inject constructor(
         return favouriteDao.selectAll().map { favouriteDbToDomainMapper.invoke(it) }
     }
 
-    override suspend fun delete(oid: Long) {
-        favouriteDao.delete(oid)
+    override suspend fun delete(id: Long) {
+        favouriteDao.delete(id)
     }
 
     override suspend fun add(favourite: Favourite) {

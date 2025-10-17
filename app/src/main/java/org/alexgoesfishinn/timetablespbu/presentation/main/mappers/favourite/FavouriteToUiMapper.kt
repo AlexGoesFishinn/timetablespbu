@@ -7,7 +7,7 @@ import javax.inject.Inject
 class FavouriteToUiMapper @Inject constructor(): (Favourite) -> FavouriteItem {
     override fun invoke(p1: Favourite): FavouriteItem {
         return FavouriteItem(
-            oid = p1.oid,
+
             displayName = p1.displayName,
             id = p1.id
         )
