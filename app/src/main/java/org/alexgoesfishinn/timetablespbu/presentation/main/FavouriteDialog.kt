@@ -1,6 +1,5 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -15,7 +14,9 @@ import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.NavGraphDirections
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteAdapter
-import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteNavigateClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteRemoveClickListener
+
 @AndroidEntryPoint
 class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     private val viewModel: FavouriteDialogViewModel by viewModels()
@@ -23,37 +24,39 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var favouriteIsEmptyText: TextView
 
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        return super.onCreateDialog(savedInstanceState)
-//    }
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favouriteRecycler = view.findViewById(R.id.favourite_recycler)
-        favouriteIsEmptyText = view.findViewById(R.id.favourite_is_emty_text)
+        favouriteIsEmptyText = view.findViewById(R.id.favourite_is_empty_text)
 
         initFavouriteRecycler()
         subscribeFavourite()
     }
 
-//    override fun onResume() {
-//        val window = dialog!!.window
-//        val display = requireContext().display
-//
-//        super.onResume()
-//    }
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            resources.displayMetrics.widthPixels * 7 / 10,
+            resources.displayMetrics.heightPixels * 7 / 10
+        )
+    }
 
 
 
 
     private fun initFavouriteRecycler(){
-        favouriteAdapter = FavouriteAdapter(object : FavouriteClickListener {
+        favouriteAdapter = FavouriteAdapter(object : FavouriteNavigateClickListener {
             override fun onClick(id: Long) {
                 val actionToEvents = NavGraphDirections.toEvents(id)
                 findNavController().navigate(actionToEvents)
-//                TODO("Not yet implemented")
+
+            }
+        }, object  : FavouriteRemoveClickListener {
+            override fun onClick(id: Long) {
+                viewModel.removeFromFavourite(id)
             }
         })
         favouriteRecycler.adapter = favouriteAdapter

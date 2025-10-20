@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/eventLocationRecycler"
         android:id="@+id/eventLocationLabel"
-        android:text="Места проведения:"
+        android:text="@string/event_locations"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:textColor="@color/spbu_primary_terracot_color"/>
@@ -31,16 +31,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         />
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/eventLocationRecycler"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:text="Конец"-->
-<!--        android:textSize="32dp"/>-->
-
 
 
 

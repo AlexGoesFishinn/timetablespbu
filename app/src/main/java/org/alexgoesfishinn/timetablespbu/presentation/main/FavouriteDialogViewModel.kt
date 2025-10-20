@@ -11,15 +11,27 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCa
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.favourite.FavouriteToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
 import javax.inject.Inject
+
 @HiltViewModel
 class FavouriteDialogViewModel @Inject constructor(
     private val subscribeFavouriteUseCase: SubscribeFavouriteUseCase,
     private val uiMapper: FavouriteToUiMapper
-): ViewModel() {
+) : ViewModel() {
     private val _favorite: MutableStateFlow<List<FavouriteItem>> = MutableStateFlow(emptyList())
     val favourite: StateFlow<List<FavouriteItem>> = _favorite.asStateFlow()
 
     init {
+        getFavourite()
+    }
+
+    fun removeFromFavourite(id: Long) {
+        viewModelScope.launch {
+            subscribeFavouriteUseCase.delete(id)
+            getFavourite()
+        }
+    }
+
+    private fun getFavourite() {
         viewModelScope.launch {
             _favorite.value = subscribeFavouriteUseCase.getAll().map { uiMapper.invoke(it) }
         }

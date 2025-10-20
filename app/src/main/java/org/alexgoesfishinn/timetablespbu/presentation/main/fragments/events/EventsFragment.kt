@@ -37,7 +37,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var eventsRecycler: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var addToFavouriteText: TextView
-    private lateinit var addToFavoriteCard: MaterialCardView
+    private lateinit var addToFavouriteCard: MaterialCardView
     private lateinit var groupNameText: TextView
     private lateinit var activity: MainActivity
     private lateinit var previousWeekMondayString: String
@@ -52,7 +52,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         weekEventsNavPanelView = view.findViewById(R.id.weekEventsNavPanel)
         groupNameText = view.findViewById(R.id.groupNameText)
         addToFavouriteText = view.findViewById(R.id.addToFavouriteText)
-        addToFavoriteCard = view.findViewById(R.id.addToFavouriteCard)
+        addToFavouriteCard = view.findViewById(R.id.addToFavouriteCard)
         weekDisplayTextView = view.findViewById(R.id.currentWeekText)
         nextWeekButton = view.findViewById(R.id.nextWeekButton)
         previousWeekButton = view.findViewById(R.id.previousWeekButton)
@@ -82,14 +82,14 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 val isFavourite = it
                 Log.i(TAG,"Favourite = $isFavourite")
                 if(isFavourite){
-                    addToFavouriteText.text = "Убрать из избранного"
-                    addToFavoriteCard.setOnClickListener {
+                    addToFavouriteText.text = getString(R.string.remove_from_favourite)
+                    addToFavouriteCard.setOnClickListener {
                         viewmodel.removeFromFavourite()
 
                     }
                 } else{
-                    addToFavouriteText.text = "Добавить в избранное"
-                    addToFavoriteCard.setOnClickListener {
+                    addToFavouriteText.text = getString(R.string.add_to_favourite)
+                    addToFavouriteCard.setOnClickListener {
                         viewmodel.addToFavourite()
                     }
                 }
@@ -101,6 +101,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private fun subscribeToGroupName(){
         lifecycleScope.launch {
             viewmodel.groupDisplayName.collect {
+                if(it == ""){addToFavouriteCard.visibility = View.GONE}
+                else{addToFavouriteCard.visibility = View.VISIBLE}
                 groupNameText.text = it
             }
         }

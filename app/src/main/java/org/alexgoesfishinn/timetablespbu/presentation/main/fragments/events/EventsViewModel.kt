@@ -73,7 +73,8 @@ class EventsViewModel @Inject constructor(
 
     }
 
-    fun getFavourite() {
+    // TODO: Удалять старые события из базы
+    private fun getFavourite() {
         viewModelScope.launch {
             _isFavourite.value = subscribeFavourite.getAll().map { it.id }.contains(groupId)
         }

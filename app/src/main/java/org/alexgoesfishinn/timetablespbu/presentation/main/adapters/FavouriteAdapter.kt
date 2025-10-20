@@ -10,7 +10,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
 
 class FavouriteAdapter(
-    private val listener: FavouriteClickListener
+    private val navigationListener: FavouriteNavigateClickListener,
+    private val removeClickListener: FavouriteRemoveClickListener
 ): Adapter<FavouriteAdapter.FavouriteViewHolder>() {
 
 
@@ -30,8 +31,12 @@ class FavouriteAdapter(
         data[position].let {
             holder.text.text = it.displayName
             val id = it.id
-            holder.itemView.setOnClickListener {
-                listener.onClick(id)
+            holder.text.setOnClickListener {
+                navigationListener.onClick(id)
+            }
+
+            holder.remove.setOnClickListener {
+                removeClickListener.onClick(id)
             }
         }
     }
@@ -40,9 +45,14 @@ class FavouriteAdapter(
 
     class FavouriteViewHolder(itemView: View): ViewHolder(itemView){
         val text: TextView = itemView.findViewById(R.id.favorite_item_text)
+        val remove: TextView = itemView.findViewById(R.id.favourite_remove)
     }
 }
 
-interface FavouriteClickListener{
+interface FavouriteNavigateClickListener{
+    fun onClick(id: Long)
+}
+
+interface FavouriteRemoveClickListener {
     fun onClick(id: Long)
 }
