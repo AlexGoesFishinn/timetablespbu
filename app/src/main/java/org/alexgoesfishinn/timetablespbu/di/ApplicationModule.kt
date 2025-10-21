@@ -1,13 +1,16 @@
 package org.alexgoesfishinn.timetablespbu.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
+import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -49,6 +52,11 @@ object ApplicationModule {
     @Provides
     fun provideEventsService(retrofit: Retrofit): EventsService{
         return retrofit.create(EventsService::class.java)
+    }
+
+    @Provides
+    fun provideInternetChecker(@ApplicationContext context: Context): InternetChecker {
+        return InternetChecker(context)
     }
 
 
