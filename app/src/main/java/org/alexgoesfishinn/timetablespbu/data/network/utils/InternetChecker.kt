@@ -4,6 +4,9 @@ package org.alexgoesfishinn.timetablespbu.data.network.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 /**
@@ -12,7 +15,17 @@ import javax.inject.Inject
 class InternetChecker @Inject constructor(
 private val context: Context
 )  {
+    private val _isInternetAvailableFlag: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    val isInternetAvailableFlag: StateFlow<Boolean> = _isInternetAvailableFlag.asStateFlow()
+    private val _apiError: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val apiError: StateFlow<Boolean> = _apiError.asStateFlow()
+
     fun isInternetAvailable(): Boolean{
+        _isInternetAvailableFlag.value = checkInternet()
+        return checkInternet()
+    }
+
+    private fun checkInternet(): Boolean{
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val network = connectivityManager.activeNetwork ?: return false
@@ -24,25 +37,11 @@ private val context: Context
         }
     }
 
-//     fun showNoInternetDialog(
-////         context: Context
-//     ){
-//        val builder = AlertDialog.Builder(MainActivity())
-//            .setTitle(context.getString(R.string.no_internet))
-//            .setMessage(context.getString(R.string.check_internet_connection))
-//        val noInternetDialog = builder.create()
-//        noInternetDialog.show()
-//    }
+    fun apiErrorOccurs(){
+        _apiError.value = true
+        _apiError.value = false
+    }
 
-//    fun somethingWentWrong(
-////        context: Context
-//    ){
-//        val builder = AlertDialog.Builder(MainActivity())
-//            .setTitle(context.getString(R.string.oops))
-//            .setMessage(R.string.something_went_wrong)
-//        val somethingWentWrongDialog = builder.create()
-//        somethingWentWrongDialog.show()
-//    }
 
 
 }

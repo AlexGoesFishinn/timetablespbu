@@ -1,5 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.data.repo
 
+import android.util.Log
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.group.GroupApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
@@ -22,10 +23,20 @@ class SubscribeGroupsRepositoryImpl @Inject constructor(
 ): GroupsRepository{
     override suspend fun getGroups(id: Long): List<Group> {
         if(internetChecker.isInternetAvailable()){
-            val groups = groupsService.getGroups(id).groups.map { groupApiToDbMapper.invoke(it) }
-            groups.forEach { it.programId = id }
-            groupDao.insertAll(id, *groups.toTypedArray())
+            try {
+                val groups = groupsService.getGroups(id).groups.map { groupApiToDbMapper.invoke(it) }
+                groups.forEach { it.programId = id }
+                groupDao.insertAll(id, *groups.toTypedArray())
+            } catch (re: RuntimeException){
+                internetChecker.apiErrorOccurs()
+                Log.e(TAG, "message = ${re.message}")
+            }
+
         }
         return groupDao.getId(id).map { groupDbToDomainMapper.invoke(it) }
+    }
+
+    companion object{
+        const val TAG = "SubscribeGroupsRepositoryImpl"
     }
 }

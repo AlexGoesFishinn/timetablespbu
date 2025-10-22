@@ -6,9 +6,6 @@ import org.alexgoesfishinn.timetablespbu.data.network.mappers.level.LevelApiToDb
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
-import org.alexgoesfishinn.timetablespbu.data.storage.dao.ProgramCombinationDao
-import org.alexgoesfishinn.timetablespbu.data.storage.dao.ProgramDao
-import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 
@@ -21,49 +18,27 @@ interface LevelsRepository {
 class SubscribeLevelsRepositoryImpl @Inject constructor(
     private val levelsService: LevelsService,
     private val internetChecker: InternetChecker,
-//    private val levelApiToDomainMapper: LevelApiToDomainMapper
     private val levelApiToDbMapper: LevelApiToDbMapper,
     private val levelDbToDomainMapper: LevelDbToDomainMapper,
     private val levelDao: LevelDao,
-//    private val programCombinationDao: ProgramCombinationDao,
-//    private val programDao: ProgramDao
+
 ) : LevelsRepository {
 
     override suspend fun getLevels(alias: String): List<Level> {
         if(internetChecker.isInternetAvailable()){
-            val levelsDb = levelsService.getLevels(alias).map { levelApiToDbMapper.invoke(it) }
-            levelDao.insertLevels(alias, *levelsDb.toTypedArray())
-//            val levelsDb = mutableListOf<LevelDb>()
-//            levelsService.getLevels(alias).forEach {
-//                l -> levelsDb.add(levelApiToDbMapper.invoke(l))
-//            }
-//            levelDao.insertLevels(alias, *levelsDb.toTypedArray())
-//            Log.i("LevelRepository", "internetchecker = ${internetChecker.isInternetAvailable()}")
-//            Log.i("LevelRepository", "levelsDb = $levelsDb")
-//            levelDao.getAlias(alias).forEach {
-//                l -> programCombinationDao.insertAll(l.)
-//            }
+            try {
+                val levelsDb = levelsService.getLevels(alias).map { levelApiToDbMapper.invoke(it) }
+                levelDao.insertLevels(alias, *levelsDb.toTypedArray())
+            } catch (re: RuntimeException) {internetChecker.apiErrorOccurs()
+            Log.e(TAG, "message = ${re.message}")}
+
+
         }
-//        val levels = mutableListOf<Level>()
-//        levelDao.getAlias(alias).forEach { levels.add(levelDbToDomainMapper.invoke(it)) }
-//        Log.i("LevelRepository", "levelsDb = $levels")
-//        return levels
+
         return levelDao.getAlias(alias).map { levelDbToDomainMapper.invoke(it) }
     }
 
-//    override suspend fun getLevels(alias: String): List<Level> {
-//        if(internetChecker.isInternetAvailable()){
-//            val levelsApi = levelsService.getLevels(alias)
-//            val levels = mutableListOf<Level>()
-//            levelsApi.forEach { l -> levels.add(levelApiToDomainMapper.invoke(l)) }
-//            return levels
-//        } else{
-////          TODO("В случае отсутствия сети")
-//            val levelsApi = levelsService.getLevels(alias)
-//            val levels = mutableListOf<Level>()
-//            levelsApi.forEach { l -> levels.add(levelApiToDomainMapper.invoke(l)) }
-//            return levels
-//        }
-//    }
-
+    companion object{
+        const val TAG = "SubscribeLevelsRepositoryImpl"
+    }
 }

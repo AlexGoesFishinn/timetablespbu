@@ -14,11 +14,7 @@ class SubscribeProgramsRepositoryImpl @Inject constructor(
     private val programDbToDomainMapper: ProgramDbToDomainMapper
 ): ProgramsRepository{
     override suspend fun getPrograms(programCombinationId: Long): List<Program> {
-//        val programs = mutableListOf<Program>()
-//        programDao.getProgramCombinationId(programCombinationId).forEach {
-//            p -> programs.add(programDbToDomainMapper.invoke(p))
-//        }
-//        return programs
+
         return programDao.getProgramCombinationId(programCombinationId).map { programDbToDomainMapper.invoke(it) }
     }
 }

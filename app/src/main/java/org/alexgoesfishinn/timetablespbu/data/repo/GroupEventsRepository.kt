@@ -25,16 +25,18 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
 ) : GroupEventsRepository{
     override suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents {
         if(internetChecker.isInternetAvailable()){
-            val groupEvents = eventsService.getEvents(groupId, weekMonday)
-            Log.i("GroupEventsRepository", "groupEventsApi = $groupEvents")
-            val groupEventDbMapper = groupEventsApiToDbMapper.invoke(groupEvents)
-            Log.i("GroupEventsRepository", "groupEventsApiToDbMapper = $groupEventDbMapper")
-            Log.i("GroupEventsRepository", "groupEventsApiToDbMapper.days = ${groupEventDbMapper.days}")
-            groupEventsDao.insertWeek(
-                groupEventsDb = groupEventsApiToDbMapper.invoke(groupEvents),
-                groupId = groupId,
-                weekMonday = weekMonday
-            )
+            try {
+                val groupEvents = eventsService.getEvents(groupId, weekMonday)
+                groupEventsDao.insertWeek(
+                    groupEventsDb = groupEventsApiToDbMapper.invoke(groupEvents),
+                    groupId = groupId,
+                    weekMonday = weekMonday
+                )
+            } catch (re: RuntimeException){
+                internetChecker.apiErrorOccurs()
+                Log.e(TAG, "message = ${re.message}")
+            }
+
         }
 
         val groupEventDb = groupEventsDao.getWeek(groupId, weekMonday)
@@ -50,13 +52,8 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
 
         }
 
-//        Log.i("GroupEventsRepository", "groupEventDb = $groupEventDb")
-//        Log.i("GroupEventsRepository", "groupEventDb.days = ${groupEventDb.days}")
-//        val groupEventsDomain = groupEventsDbToDomainMapper.invoke(
-//            groupEventDb
-//        )
-//        Log.i("GroupEventsRepository", "groupEventDomain.days = $groupEventsDomain")
-//        Log.i("GroupEventsRepository", "groupEventDomain.days = ${groupEventsDomain.days}")
-
+    }
+    companion object{
+        const val TAG ="SubscribeGroupEventsRepositoryImpl"
     }
 }

@@ -1,7 +1,19 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs
 
-import android.app.Dialog
-import android.content.Context
 
-class SomethingWentWrongDialog(context: Context): Dialog(context) {
+import android.app.AlertDialog
+import android.app.Dialog
+import android.os.Bundle
+import androidx.fragment.app.DialogFragment
+import org.alexgoesfishinn.timetablespbu.R
+
+class SomethingWentWrongDialog(): DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle(it.getString(R.string.oops))
+                .setMessage(it.getString(R.string.something_went_wrong))
+                .create()
+        }?: throw IllegalStateException("Activity cannot be null")
+    }
 }

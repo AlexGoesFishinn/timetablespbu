@@ -9,7 +9,7 @@ import javax.inject.Inject
 interface FavouriteRepository {
     suspend fun getAll(): List<Favourite>
 
-    suspend fun delete(oid: Long)
+    suspend fun delete(id: Long)
 
     suspend fun add(favourite: Favourite)
 }

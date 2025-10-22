@@ -1,5 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.data.repo
 
+import android.util.Log
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.division.DivisionApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.DivisionsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
@@ -22,18 +23,22 @@ class SubscribeDivisionsRepositoryImpl @Inject constructor(
 ) : DivisionsRepository {
     override suspend fun getDivisions(): List<Division> {
         if (internetChecker.isInternetAvailable()) {
-
-                val divisionsDb = divisionsService.getDivisions().map {
-                    divisionApiToDbMapper.invoke(it)
-                }
-                divisionDao.insertAll(
-                    *divisionsDb.toTypedArray()
-                )
+                try {
+                    val divisionsDb = divisionsService.getDivisions().map {
+                        divisionApiToDbMapper.invoke(it)
+                    }
+                    divisionDao.insertAll(
+                        *divisionsDb.toTypedArray()
+                    )
+                } catch (re: RuntimeException){internetChecker.apiErrorOccurs()
+                Log.e(TAG, "message = ${re.message}")}
 
 
         }
 
         return divisionDao.getAll().map { divisionDbToDomainMapper.invoke(it) }
     }
-
+companion object{
+    const val TAG = "SubscribeDivisionsRepositoryImpl"
+}
 }

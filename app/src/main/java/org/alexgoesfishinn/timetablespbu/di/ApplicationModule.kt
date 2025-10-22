@@ -13,6 +13,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * @author a.bylev
@@ -55,6 +56,7 @@ object ApplicationModule {
     }
 
     @Provides
+    @Singleton
     fun provideInternetChecker(@ApplicationContext context: Context): InternetChecker {
         return InternetChecker(context)
     }
