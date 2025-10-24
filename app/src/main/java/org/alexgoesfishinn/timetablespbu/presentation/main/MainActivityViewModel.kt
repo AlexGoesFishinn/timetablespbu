@@ -7,35 +7,46 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
+import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val internetChecker: InternetChecker
+    private val warningsNotificator: WarningsNotificator
 ): ViewModel() {
-    private val _isInternetAvailable: MutableStateFlow<Boolean> = MutableStateFlow(true)
-    val isInternetAvailable: StateFlow<Boolean> = _isInternetAvailable.asStateFlow()
+    private val _internetIsNotAvailable: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val internetIsNotAvailable: StateFlow<Boolean> = _internetIsNotAvailable.asStateFlow()
     private val _apiError: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val apiError: StateFlow<Boolean> = _apiError.asStateFlow()
+    private val _groupIsNotAvailable: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val groupIsNotAvailable: StateFlow<Boolean> = _groupIsNotAvailable.asStateFlow()
 
     init {
-        subscribeInternet()
+        subscribeInternetIsNotAvailable()
         subscribeApiError()
+        subscribeGroupIsNotAvailable()
     }
 
-    private fun subscribeInternet(){
+    private fun subscribeInternetIsNotAvailable(){
         viewModelScope.launch {
-            internetChecker.isInternetAvailableFlag.collect{
-                _isInternetAvailable.value = it
+            warningsNotificator.internetIsNotAvailable.collect{
+                _internetIsNotAvailable.value = it
             }
         }
     }
 
     private fun subscribeApiError(){
         viewModelScope.launch {
-            internetChecker.apiError.collect {
+            warningsNotificator.apiError.collect {
                 _apiError.value = it
+            }
+        }
+    }
+
+    private fun subscribeGroupIsNotAvailable(){
+        viewModelScope.launch {
+            warningsNotificator.groupIsNotAvailable.collect {
+                _groupIsNotAvailable.value = it
             }
         }
     }

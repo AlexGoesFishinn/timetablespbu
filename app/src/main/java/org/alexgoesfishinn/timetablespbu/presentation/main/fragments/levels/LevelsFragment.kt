@@ -17,7 +17,6 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
-import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsClickListener
 import javax.inject.Inject
@@ -29,34 +28,16 @@ import javax.inject.Inject
 class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private var binding: LevelsFragmentBinding? = null
     private val args: LevelsFragmentArgs by navArgs()
-//    private val viewmodel: LevelsViewModel by navGraphViewModels<LevelsViewModel>(R.id.nav_graph)
     private val viewmodel by viewModels<LevelsViewModel>()
     private lateinit var levelsRecycler: RecyclerView
     private lateinit var levelsAdapter: LevelsAdapter
-    private lateinit var manager: RecyclerView.LayoutManager
-    private var levels: List<Level> = emptyList()
-    @Inject lateinit var internetChecker: InternetChecker
-    @Inject lateinit var levelsService: LevelsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = LevelsFragmentBinding.bind(view)
         levelsRecycler = view.findViewById(R.id.levelsRecycler)
         val label:TextView = view.findViewById(R.id.levelsFragmentLabel)
-        label.text = "Направление " + args.name
-//        manager = LinearLayoutManager(requireContext())
-//        levelsRecycler.apply {
-//            layoutManager = manager
-//            adapter = LevelsAdapter(levels,object : LevelsClickListener{
-//                override fun onClick(programCombinations: List<ProgramCombination>, levelName: String) {
-//                    navigateToProgramCombinationsFragment(programCombinations, levelName)
-//                }
-//            })
-//        }
-//        if(levels.isEmpty()){
-//            getData()
-//
-//        }
+        label.text = getString(R.string.level_fragment_division_label_text, args.name)
         initLevelsRecycler()
         subscribeToLevels()
     }
@@ -82,46 +63,15 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
        }
     }
 
-//    private fun getData(){
-//        if(internetChecker.isInternetAvailable()){
-//            getLevels(args.alias)
-//        } else {
-//            Log.e(TAG, "no internet available")
-//            internetChecker.showNoInternetDialog(requireContext(), { getData() })
-//        }
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
 
     private fun navigateToProgramCombinationsFragment(levelId: Long, levelName: String){
-//        val programCombinationsJson = Json.encodeToString(programCombinations)
         findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(levelId, levelName))
    }
-//    private fun getLevels(alias: String){
-//        lifecycleScope.launch {
-//            val response = levelsService.getLevels(alias)
-//            Log.i(TAG, response.toString())
-//            if(response.isSuccessful){
-//                val data = response.body()
-//                if(data != null){
-//                    levels = data
-//                    levelsAdapter = LevelsAdapter(levels,object : LevelsClickListener {
-//                        override fun onClick(programCombinations: List<ProgramCombination>, levelName: String) {
-//                            navigateToProgramCombinationsFragment(programCombinations, levelName)
-//                        }
-//                    })
-//                    levelsRecycler.apply {
-//                        adapter = levelsAdapter
-//                    }
-//                } else Log.e(TAG, "received data is null")
-//            }
-//            else Log.e(TAG, "response if not successful")
-//        }
-//
-//    }
+
     private companion object{
 
         private const val TAG = "LevelsFragment"

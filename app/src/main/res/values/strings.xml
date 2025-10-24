@@ -10,4 +10,8 @@
     <string name="check_internet_connection">Проверьте подключение к сети</string>
     <string name="oops">Упс!!!</string>
     <string name="something_went_wrong">Что-то пошло не так. Повторите попытку.</string>
+    <string name="level_fragment_division_label_text">"Направление %s"</string>
+    <string name="group_is_not_available">Расписание данной группы не доступно</string>
+    <string name="remove_group_from_favourite">Можете удалить ее из избранного</string>
+    <string name="ok">Ок</string>
 </resources>

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.level.LevelToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
-import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +22,6 @@ class LevelsViewModel @Inject constructor(
 ): ViewModel() {
     private val _levels: MutableStateFlow<List<LevelItem>> = MutableStateFlow(emptyList())
     val levels: StateFlow<List<LevelItem>> = _levels.asStateFlow()
-    lateinit var programCombinations: List<ProgramCombinationItem>
 
 
     init {

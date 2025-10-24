@@ -11,6 +11,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
+import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -60,6 +61,10 @@ object ApplicationModule {
     fun provideInternetChecker(@ApplicationContext context: Context): InternetChecker {
         return InternetChecker(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideWarningsNotificator(): WarningsNotificator = WarningsNotificator()
 
 
 }

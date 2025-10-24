@@ -5,9 +5,11 @@ import android.util.Log
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.level.LevelApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
+import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
+import java.io.IOException
 
 import javax.inject.Inject
 
@@ -21,7 +23,7 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
     private val levelApiToDbMapper: LevelApiToDbMapper,
     private val levelDbToDomainMapper: LevelDbToDomainMapper,
     private val levelDao: LevelDao,
-
+    private val warningsNotificator: WarningsNotificator
 ) : LevelsRepository {
 
     override suspend fun getLevels(alias: String): List<Level> {
@@ -29,11 +31,11 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
             try {
                 val levelsDb = levelsService.getLevels(alias).map { levelApiToDbMapper.invoke(it) }
                 levelDao.insertLevels(alias, *levelsDb.toTypedArray())
-            } catch (re: RuntimeException) {internetChecker.apiErrorOccurs()
-            Log.e(TAG, "message = ${re.message}")}
+            } catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
+                Log.e(TAG, "message = ${ioe.message}")}
 
 
-        }
+        } else{warningsNotificator.internetIsNotAvailableNotify()}
 
         return levelDao.getAlias(alias).map { levelDbToDomainMapper.invoke(it) }
     }

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/divivisions">
-    <action android:id="@+id/toDivisions"
-        app:destination="@id/divivisions"/>
-    <action android:id="@+id/toEvents"
+    app:startDestination="@id/divisions">
+    <action android:id="@+id/to_divisions"
+        app:destination="@id/divisions"/>
+    <action android:id="@+id/to_events"
         app:destination="@id/events"/>
 
     <fragment
@@ -18,11 +18,11 @@
     </fragment>
 
     <fragment
-        android:id="@+id/divivisions"
+        android:id="@+id/divisions"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions.DivisionsFragment"
         tools:layout="@layout/divisions_fragment"
         >
-        <action android:id="@+id/actionDivisionsToLevels"
+        <action android:id="@+id/action_divisions_to_levels"
             app:destination="@id/levels"
             />
     </fragment>
@@ -37,40 +37,34 @@
         <argument android:name="name"
             app:argType="string"
             app:nullable="false"/>
-        <action android:id="@+id/actionLevelsToProgramCombinations"
-            app:destination="@+id/programCombinations"/>
+        <action android:id="@+id/action_levels_to_program_combinations"
+            app:destination="@+id/program_combinations"/>
 
     </fragment>
 
-    <fragment android:id="@+id/programCombinations"
+    <fragment android:id="@+id/program_combinations"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programcombinations.ProgramCombinationsFragment"
         tools:layout="@layout/program_combinations_fragment">
-<!--        <argument android:name="program_combinations"-->
-<!--            app:argType="string"-->
-<!--            app:nullable="false"/>-->
         <argument android:name="level_id"
             app:argType="long"
             app:nullable="false"/>
         <argument android:name="level_name"
             app:argType="string"
             app:nullable="false"/>
-        <action android:id="@+id/actionProgramCombinationsToPrograms"
+        <action android:id="@+id/action_program_combinations_to_programs"
             app:destination="@id/programs"/>
     </fragment>
 
     <fragment android:id="@+id/programs"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs.ProgramsFragment"
         tools:layout="@layout/programs_fragment">
-<!--        <argument android:name="programs"-->
-<!--            app:argType="string"-->
-<!--            app:nullable="false"/>-->
         <argument android:name="program_combination_id"
             app:argType="long"
             app:nullable="false"/>
-        <argument android:name="programName"
+        <argument android:name="program_name"
             app:argType="string"
             app:nullable="false"/>
-        <action android:id="@+id/actionProgramsToGroups"
+        <action android:id="@+id/action_programs_to_groups"
             app:destination="@id/groups"/>
     </fragment>
 
@@ -80,13 +74,13 @@
         <argument android:name="program_id"
             app:argType="long"
             app:nullable="false"/>
-        <argument android:name="programName"
+        <argument android:name="program_name"
             app:argType="string"
             app:nullable="false"/>
-        <argument android:name="programYear"
+        <argument android:name="program_year"
             app:argType="string"
             app:nullable="false"/>
-        <action android:id="@+id/actionGroupToEvents"
+        <action android:id="@+id/action_group_to_events"
             app:destination="@id/events"/>
     </fragment>
 
@@ -96,9 +90,6 @@
         <argument android:name="group_id"
             app:argType="long"
             app:nullable="false"/>
-<!--        <argument android:name="group_name"-->
-<!--            app:argType="string"-->
-<!--            app:nullable="false"/>-->
 
     </fragment>
 

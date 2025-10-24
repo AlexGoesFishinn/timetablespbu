@@ -27,36 +27,20 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     private  var binding: ProgramsFragmentBinding? = null
     private val args: ProgramsFragmentArgs by navArgs()
     private val viewmodel by viewModels<ProgramsViewModel>()
-//    private lateinit var programs: List<Program>
     private lateinit var programsRecycler: RecyclerView
     private lateinit var programsAdapter: ProgramsAdapter
-//    private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var programLabel: TextView
     private lateinit var programName: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramsFragmentBinding.bind(view)
-//        val programsJson = args.programs
         programName = args.programName
         programLabel = view.findViewById(R.id.programLabel)
         programLabel.text = programName
-//        programs = Json.decodeFromString<List<Program>>(programsJson)
-
-
-//        manager = LinearLayoutManager(requireContext())
-//        programsAdapter = ProgramsAdapter(data = programs, object : ProgramsClickListener {
-//            override fun onClick(programId: Long, programYear: String) {
-//                navigateToGroups(programId, programYear)
-//            }
-//        })
         programsRecycler = view.findViewById(R.id.programsRecycler)
         initProgramsRecycler()
         subscribeToPrograms()
-//        programsRecycler.apply {
-//            adapter = programsAdapter
-//            layoutManager = manager
-//        }
     }
 
     private fun initProgramsRecycler(){
@@ -80,7 +64,6 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     }
 
     private fun navigateToGroups(programId: Long, programYear: String){
-//        val programIdString = programId.toString()
         findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programId, programName, programYear))
     }
     override fun onDestroyView() {

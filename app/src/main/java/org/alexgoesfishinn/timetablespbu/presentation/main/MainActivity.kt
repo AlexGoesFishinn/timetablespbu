@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.GroupIsNotAvailableDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWentWrongDialog
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainActivityViewModel>()
     private val noInternetDialog = NoInternetDialog()
     private val somethingWentWrongDialog = SomethingWentWrongDialog()
+    private val groupIsNotAvailableDialog = GroupIsNotAvailableDialog()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +38,25 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
         subscribeInternetChecker()
         subscribeApiError()
+        subscribeGroupIsNotAvailable()
 
     }
 
     private fun subscribeInternetChecker(){
         lifecycleScope.launch {
-            viewModel.isInternetAvailable.collect{
+            viewModel.internetIsNotAvailable.collect{
                 Log.i("MainActivity", "$it")
-                if(!it){
+                if(it){
                     noInternetDialog.show(supportFragmentManager, "Internet is not available")
+                }
+            }
+        }
+    }
+    private fun subscribeGroupIsNotAvailable(){
+        lifecycleScope.launch {
+            viewModel.groupIsNotAvailable.collect{
+                if(it){
+                    groupIsNotAvailableDialog.show(supportFragmentManager, "Group is not available")
                 }
             }
         }
@@ -64,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigation() {
         val navigationToMain = findViewById<CardView>(R.id.bottom_navigation_to_main)
         navigationToMain.setOnClickListener {
-            navigation.navigate(R.id.toDivisions)
+            navigation.navigate(R.id.to_divisions)
         }
         val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)
         favouriteButton.setOnClickListener {
