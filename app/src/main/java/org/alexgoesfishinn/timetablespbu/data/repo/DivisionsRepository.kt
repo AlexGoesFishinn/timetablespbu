@@ -34,7 +34,11 @@ class SubscribeDivisionsRepositoryImpl @Inject constructor(
                     divisionDao.insertAll(
                         *divisionsDb.toTypedArray()
                     )
-                } catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
+                } catch (ste: SocketTimeoutException){
+                    warningsNotificator.serverTimeoutNotify()
+                    Log.e(TAG, "ste message = ${ste.message}")
+                }
+                catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                     Log.e(TAG, "message = ${ioe.message}")}
 
 

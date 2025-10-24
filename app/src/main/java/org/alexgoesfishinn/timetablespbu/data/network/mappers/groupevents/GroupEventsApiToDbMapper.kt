@@ -1,7 +1,7 @@
 package org.alexgoesfishinn.timetablespbu.data.network.mappers.groupevents
 
 import org.alexgoesfishinn.timetablespbu.data.network.entities.GroupEventsApi
-import org.alexgoesfishinn.timetablespbu.data.network.mappers.DayApiToDbMapper
+import org.alexgoesfishinn.timetablespbu.data.network.mappers.day.DayApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.DayDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import javax.inject.Inject

@@ -7,5 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
  * @author a.bylev
  */
 @HiltAndroidApp
-class TimetableSPBUApplication: Application() {
-}
+class TimetableSPBUApplication: Application()

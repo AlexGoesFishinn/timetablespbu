@@ -2,6 +2,7 @@ package org.alexgoesfishinn.timetablespbu.data.network.services
 
 import org.alexgoesfishinn.timetablespbu.data.network.entities.GroupEventsApi
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 /**
@@ -13,7 +14,7 @@ interface EventsService {
     @GET("groups/{id}/events")
     suspend fun checkGroup(
         @Path("id") id: Long
-    ): Call<GroupEventsApi>
+    ): Response<GroupEventsApi>
 
     @GET("groups/{id}/events/{from}")
     suspend fun getEvents(

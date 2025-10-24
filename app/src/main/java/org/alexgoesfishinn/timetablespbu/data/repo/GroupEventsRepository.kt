@@ -1,7 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.data.repo
 
 import android.util.Log
-import org.alexgoesfishinn.timetablespbu.data.network.entities.GroupEventsApi
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.groupevents.GroupEventsApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
@@ -11,14 +10,20 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupEventsDao
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.groupevents.GroupEventsDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 interface GroupEventsRepository {
     suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents
+
+    suspend fun deleteByGroupIdList(ids: List<Long>)
+
+    suspend fun getGroupIdsOfAllEvents(): List<Long>
+
+    suspend fun getWeekMondayOfAllEvents(): List<String>
+
+    suspend fun deleteByWeekMondaysList(weekMondays: List<String>)
 }
 
 class SubscribeGroupEventsRepositoryImpl @Inject constructor(
@@ -33,6 +38,7 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
     override suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents {
         if(internetChecker.isInternetAvailable()){
             if(isGroupAvailable(groupId)){
+                Log.i(TAG, "isGroupAvailable = ${isGroupAvailable(groupId)}")
                 try {
                     val groupEvents = eventsService.getEvents(groupId, weekMonday)
                     groupEventsDao.insertWeek(
@@ -40,7 +46,11 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
                         groupId = groupId,
                         weekMonday = weekMonday
                     )
-                } catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
+                } catch (ste: SocketTimeoutException){
+                    warningsNotificator.serverTimeoutNotify()
+                    Log.e(TAG, "ste message = ${ste.message}")
+                }
+                catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                     Log.e(TAG, "message = ${ioe.message}")}
             } else{warningsNotificator.groupIsNotAvailableNotify()}
 
@@ -62,24 +72,25 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
 
     }
 
+    override suspend fun getWeekMondayOfAllEvents(): List<String> {
+        return groupEventsDao.getAllGroupEvents().map { it.weekMonday }
+    }
+
+    override suspend fun deleteByWeekMondaysList(weekMondays: List<String>) {
+        groupEventsDao.deleteByWeekMondayList(weekMondays)
+    }
+
+    override suspend fun deleteByGroupIdList(ids: List<Long>) {
+        groupEventsDao.deleteByGroupIdList(ids)
+    }
+
+    override suspend fun getGroupIdsOfAllEvents(): List<Long> {
+        return groupEventsDao.getAllGroupEvents().map { it.groupId }
+    }
+
     private suspend fun isGroupAvailable(groupId:Long): Boolean{
-        var result = true
-        eventsService.checkGroup(groupId).enqueue(object : Callback<GroupEventsApi> {
-
-            override fun onResponse(
-                call: Call<GroupEventsApi>,
-                response: Response<GroupEventsApi>
-            ) {
-                if(response.code() == 404){
-                    result = false
-                }
-            }
-
-            override fun onFailure(call: Call<GroupEventsApi>, t: Throwable) {
-                Log.e(TAG, "isGroupAvailable method error ${t.message}")
-            }
-        })
-        return result
+        Log.i(TAG, "isGroupAvailable method response = ${eventsService.checkGroup(groupId).code()}")
+        return eventsService.checkGroup(groupId).code() != 404
 
 
     }

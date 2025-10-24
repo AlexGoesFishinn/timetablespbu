@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.data.network.mappers
+package org.alexgoesfishinn.timetablespbu.data.network.mappers.day
 
 import org.alexgoesfishinn.timetablespbu.data.network.entities.DayApi
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.event.EventApiToDbMapper

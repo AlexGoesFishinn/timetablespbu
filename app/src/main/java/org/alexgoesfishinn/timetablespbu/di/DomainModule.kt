@@ -12,6 +12,8 @@ import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramCombinationsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
+import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCase
+import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
@@ -79,5 +81,11 @@ object DomainModule {
     @Provides
     fun provideSubscribeFavouriteUseCase(repository: FavouriteRepository): SubscribeFavouriteUseCase {
         return SubscribeFavouriteUseCaseImpl(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteOldEventsUseCase(groupsRepository: GroupsRepository, groupEventsRepository: GroupEventsRepository): DeleteOldEventsUseCase {
+        return DeleteOldEventsUseCaseImpl(groupsRepository, groupEventsRepository)
     }
 }

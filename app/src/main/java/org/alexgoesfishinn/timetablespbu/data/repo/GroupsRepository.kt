@@ -9,10 +9,13 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.group.GroupDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 interface GroupsRepository {
     suspend fun getGroups(id: Long): List<Group>
+
+    suspend fun getAllGroupIds(): List<Long>
 }
 
 class SubscribeGroupsRepositoryImpl @Inject constructor(
@@ -29,11 +32,19 @@ class SubscribeGroupsRepositoryImpl @Inject constructor(
                 val groups = groupsService.getGroups(id).groups.map { groupApiToDbMapper.invoke(it) }
                 groups.forEach { it.programId = id }
                 groupDao.insertAll(id, *groups.toTypedArray())
-            } catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
+            } catch (ste: SocketTimeoutException){
+                warningsNotificator.serverTimeoutNotify()
+                Log.e(TAG, "ste message = ${ste.message}")
+            }
+            catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                 Log.e(TAG, "message = ${ioe.message}")}
 
         } else{warningsNotificator.internetIsNotAvailableNotify()}
         return groupDao.getId(id).map { groupDbToDomainMapper.invoke(it) }
+    }
+
+    override suspend fun getAllGroupIds(): List<Long> {
+        return groupDao.getAllGroups().map { it.groupId }
     }
 
     companion object{

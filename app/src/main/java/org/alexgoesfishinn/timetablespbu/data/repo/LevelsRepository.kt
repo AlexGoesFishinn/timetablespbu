@@ -10,6 +10,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 import javax.inject.Inject
 
@@ -31,7 +32,11 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
             try {
                 val levelsDb = levelsService.getLevels(alias).map { levelApiToDbMapper.invoke(it) }
                 levelDao.insertLevels(alias, *levelsDb.toTypedArray())
-            } catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
+            } catch (ste: SocketTimeoutException){
+                warningsNotificator.serverTimeoutNotify()
+                Log.e(TAG, "ste message = ${ste.message}")
+            }
+            catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                 Log.e(TAG, "message = ${ioe.message}")}
 
 

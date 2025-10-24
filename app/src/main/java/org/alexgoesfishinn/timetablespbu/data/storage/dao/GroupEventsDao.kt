@@ -23,6 +23,15 @@ abstract class GroupEventsDao {
     @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND WeekMonday = :weekMonday")
     abstract suspend fun deleteWeek(groupId: Long, weekMonday: String)
 
+    @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId")
+    abstract suspend fun deleteByGroupId(groupId: Long)
+
+    @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE WeekMonday = :weekMonday")
+    abstract suspend fun deleteByWeekMonday(weekMonday: String)
+
+    @Query("SELECT * FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME}")
+    abstract suspend fun getAllGroupEvents(): List<GroupEventsDb>
+
     @Insert
     abstract suspend fun insertGroupEvents(groupEventsDb: GroupEventsDb): Long
 
@@ -38,6 +47,13 @@ abstract class GroupEventsDao {
     @Insert
     abstract suspend fun insertEducators(vararg educatorDb: EducatorDb)
 
+    suspend fun deleteByGroupIdList(ids: List<Long>){
+        ids.forEach { deleteByGroupId(it) }
+    }
+
+    suspend fun deleteByWeekMondayList(weekMondays: List<String>){
+        weekMondays.forEach { deleteByWeekMonday(it) }
+    }
 //    @Insert
 //    abstract suspend fun insertEducator(educatorDb: EducatorDb): Long
 

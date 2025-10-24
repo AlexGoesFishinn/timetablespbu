@@ -14,7 +14,9 @@ import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.GroupIsNotAvailableDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.ServerTimeoutErrorDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWentWrongDialog
+import javax.inject.Inject
 
 
 /**
@@ -24,10 +26,19 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWent
 class MainActivity : AppCompatActivity() {
     private lateinit var navigation: NavController
     private val viewModel by viewModels<MainActivityViewModel>()
-    private val noInternetDialog = NoInternetDialog()
-    private val somethingWentWrongDialog = SomethingWentWrongDialog()
-    private val groupIsNotAvailableDialog = GroupIsNotAvailableDialog()
 
+    @Inject
+    lateinit var noInternetDialog: NoInternetDialog
+    @Inject
+    lateinit var somethingWentWrongDialog: SomethingWentWrongDialog
+    @Inject
+    lateinit var groupIsNotAvailableDialog: GroupIsNotAvailableDialog
+    @Inject
+    lateinit var serverTimeoutErrorDialog: ServerTimeoutErrorDialog
+//    private val noInternetDialog = NoInternetDialog()
+//    private val somethingWentWrongDialog = SomethingWentWrongDialog()
+//    private val groupIsNotAvailableDialog = GroupIsNotAvailableDialog()
+//    private val serverTimeoutErrorDialog = ServerTimeoutErrorDialog()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,34 +50,53 @@ class MainActivity : AppCompatActivity() {
         subscribeInternetChecker()
         subscribeApiError()
         subscribeGroupIsNotAvailable()
+        subscribeServerTimeout()
 
     }
 
-    private fun subscribeInternetChecker(){
+    private fun subscribeServerTimeout() {
         lifecycleScope.launch {
-            viewModel.internetIsNotAvailable.collect{
+            viewModel.serverTimeout.collect {
+                if (it) {
+                    serverTimeoutErrorDialog.show(
+                        supportFragmentManager,
+                        "Server timeout exception"
+                    )
+                    viewModel.serverTimeoutNotified()
+                }
+            }
+        }
+    }
+
+    private fun subscribeInternetChecker() {
+        lifecycleScope.launch {
+            viewModel.internetIsNotAvailable.collect {
                 Log.i("MainActivity", "$it")
-                if(it){
+                if (it) {
                     noInternetDialog.show(supportFragmentManager, "Internet is not available")
-                }
-            }
-        }
-    }
-    private fun subscribeGroupIsNotAvailable(){
-        lifecycleScope.launch {
-            viewModel.groupIsNotAvailable.collect{
-                if(it){
-                    groupIsNotAvailableDialog.show(supportFragmentManager, "Group is not available")
+                    viewModel.internetIsNotAvailableNotified()
                 }
             }
         }
     }
 
-    private fun subscribeApiError(){
+    private fun subscribeGroupIsNotAvailable() {
+        lifecycleScope.launch {
+            viewModel.groupIsNotAvailable.collect {
+                if (it) {
+                    groupIsNotAvailableDialog.show(supportFragmentManager, "Group is not available")
+                    viewModel.groupIsNotAvailableNotified()
+                }
+            }
+        }
+    }
+
+    private fun subscribeApiError() {
         lifecycleScope.launch {
             viewModel.apiError.collect {
-                if(it){
+                if (it) {
                     somethingWentWrongDialog.show(supportFragmentManager, "Something went wrong")
+                    viewModel.apiErrorNotified()
                 }
             }
         }
