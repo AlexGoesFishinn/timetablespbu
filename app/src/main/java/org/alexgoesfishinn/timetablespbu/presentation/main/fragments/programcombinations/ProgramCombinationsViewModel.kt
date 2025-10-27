@@ -13,7 +13,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramCombina
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.programcombination.ProgramCombinationToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class ProgramCombinationsViewModel @Inject constructor(
     private val subscribeProgramCombinationsUseCase: SubscribeProgramCombinationsUseCase,

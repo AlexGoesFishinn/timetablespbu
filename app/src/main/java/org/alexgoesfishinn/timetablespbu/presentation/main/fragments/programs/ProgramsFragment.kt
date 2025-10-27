@@ -36,9 +36,9 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramsFragmentBinding.bind(view)
         programName = args.programName
-        programLabel = view.findViewById(R.id.programLabel)
+        programLabel = view.findViewById(R.id.program_label)
         programLabel.text = programName
-        programsRecycler = view.findViewById(R.id.programsRecycler)
+        programsRecycler = view.findViewById(R.id.programs_recycler)
         initProgramsRecycler()
         subscribeToPrograms()
     }

@@ -9,7 +9,9 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDia
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.ServerTimeoutErrorDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWentWrongDialog
 import javax.inject.Singleton
-
+/**
+ * @author a.bylev
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object PresentationModule {

@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.domain.usecases
 import org.alexgoesfishinn.timetablespbu.data.repo.DivisionsRepository
 import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface SubscribeDivisionsUseCase {
     suspend fun getDivisions(): List<Division>
 }

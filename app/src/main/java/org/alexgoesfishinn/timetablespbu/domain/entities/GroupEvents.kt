@@ -19,17 +19,4 @@ data class GroupEvents (
     val days: List<Day>
 
 )
-/*
-{"StudentGroupId":394871,
-"StudentGroupDisplayName":"Группа 24.Б01-и",
-"TimeTableDisplayName":"Все занятия",
-"PreviousWeekMonday":"2025-07-28",
-"NextWeekMonday":"2025-08-11",
-"IsPreviousWeekReferenceAvailable":true,
-"IsNextWeekReferenceAvailable":true,
-"IsCurrentWeekReferenceAvailable":false,
-"WeekDisplayText":"4 августа – 10 августа",
-"WeekMonday":"2025-08-04",
-"Days":[]}
-*/
 

@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main
+package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCa
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.favourite.FavouriteToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class FavouriteDialogViewModel @Inject constructor(
     private val subscribeFavouriteUseCase: SubscribeFavouriteUseCase,

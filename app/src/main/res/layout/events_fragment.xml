@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/groupAddToFavouritePanel"
+        android:id="@+id/group_add_to_favourite_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/weekEventsNavPanel"
+        app:layout_constraintBottom_toTopOf="@id/week_events_nav_panel"
         android:background="@color/spbu_additional_light_grey_color">
         <TextView
-            android:id="@+id/groupNameText"
+            android:id="@+id/group_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
             android:textSize="16sp"
             android:layout_marginStart="16dp"/>
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/addToFavouriteCard"
+            android:id="@+id/add_to_favourite_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,10 +38,10 @@
             android:layout_marginBottom="4dp"
             >
             <TextView
-                android:id="@+id/addToFavouriteText"
+                android:id="@+id/add_to_favourite_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Из избранного"
+                android:text="@string/from_favourite"
                 android:gravity="center"
                 android:textSize="16sp"
                 android:textColor="@color/white"
@@ -53,62 +53,62 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:id="@+id/weekEventsNavPanel"
+        android:id="@+id/week_events_nav_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/noEventsText"
+        app:layout_constraintBottom_toTopOf="@id/no_events_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupAddToFavouritePanel"
+        app:layout_constraintTop_toBottomOf="@id/group_add_to_favourite_panel"
         android:layout_marginTop="8dp">
 
         <TextView
-            android:id="@+id/previousWeekButton"
+            android:id="@+id/previous_week_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Назад"
+            android:text="@string/backward"
             android:textColor="@color/spbu_primary_terracot_color"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/currentWeekText"
+            app:layout_constraintEnd_toStartOf="@id/current_week_text"
             />
 
         <TextView
-            android:id="@+id/currentWeekText"
+            android:id="@+id/current_week_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Текущая неделя"
+            android:text="@string/current_week"
             android:textColor="@color/spbu_primary_terracot_color"
             android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/previousWeekButton"
-            app:layout_constraintEnd_toStartOf="@+id/nextWeekButton"
+            app:layout_constraintStart_toEndOf="@+id/previous_week_button"
+            app:layout_constraintEnd_toStartOf="@+id/next_week_button"
             />
 
         <TextView
-            android:id="@+id/nextWeekButton"
+            android:id="@+id/next_week_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Вперед"
+            android:text="@string/forward"
             android:textColor="@color/spbu_primary_terracot_color"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/currentWeekText"
+            app:layout_constraintStart_toEndOf="@id/current_week_text"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
-        android:id="@+id/noEventsText"
+        android:id="@+id/no_events_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Нет событий"
+        android:text="@string/no_events"
         android:textColor="@color/spbu_primary_terracot_color"
         android:textSize="16sp"
         android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/weekEventsNavPanel"
+        app:layout_constraintTop_toBottomOf="@id/week_events_nav_panel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
@@ -117,7 +117,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/daysRecycler"
+        android:id="@+id/days_recycler"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -126,12 +126,12 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weekEventsNavPanel"
+        app:layout_constraintTop_toBottomOf="@id/week_events_nav_panel"
 
 
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/eventsRecycler"
+        android:id="@+id/events_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -139,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:foregroundGravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/daysRecycler"
+        app:layout_constraintTop_toBottomOf="@id/days_recycler"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

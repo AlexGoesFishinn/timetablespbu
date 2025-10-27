@@ -6,7 +6,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.LocationDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.event.EventDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface EventsRepository {
     suspend fun getEvents(dayId: Long): List<Event>
 }

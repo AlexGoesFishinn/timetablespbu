@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EducatorDb.Companion.EDUCATOR_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = EDUCATOR_TABLE_NAME,
     foreignKeys = [ForeignKey(
         entity = LocationDb::class,

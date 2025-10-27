@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/daysRecyclerItem"
+    android:id="@+id/days_recycler_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +14,7 @@
     >
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/dayCard"
+        android:id="@+id/day_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="10dp"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/dayName"
+                android:id="@+id/day_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,10 +40,10 @@
                 android:layout_marginEnd="8dp"
                 />
             <TextView
-                android:id="@+id/dayDate"
+                android:id="@+id/day_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/dayName"
+                app:layout_constraintTop_toBottomOf="@id/day_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="дата"
@@ -55,155 +55,6 @@
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
-<!--    <TextView-->
-<!--        android:id="@+id/dayName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:text="день недели"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/spbu_primary_terracot_color"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        />-->
-<!--    <TextView-->
-<!--        android:id="@+id/dayDate"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/dayName"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:text="дата"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/spbu_primary_terracot_color"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        />-->
-
-
-
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/dayItemBackground"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-<!--            <TextView-->
-<!--                android:id="@+id/dayName"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                tools:text="день недели"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="@color/spbu_primary_terracot_color"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:elevation="2dp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:id="@+id/dayDate"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/dayName"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                tools:text="дата"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="@color/spbu_primary_terracot_color"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:elevation="2dp"-->
-<!--                />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </androidx.cardview.widget.CardView>-->
-<!--    <TextView-->
-<!--        android:id="@+id/dayName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:text="день недели"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/spbu_primary_terracot_color"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:elevation="2dp"-->
-<!--        />-->
-<!--    <TextView-->
-<!--        android:id="@+id/dayDate"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/dayName"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:text="дата"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/spbu_primary_terracot_color"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:elevation="2dp"-->
-<!--        />-->
-
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/dayCard"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        >-->
-<!--        <TextView-->
-<!--            android:id="@+id/dayName"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            tools:text="день недели"-->
-<!--            android:textSize="16sp"-->
-<!--            android:textColor="@color/spbu_primary_terracot_color"-->
-
-<!--            />-->
-<!--        -->
-<!--        <TextView-->
-<!--        android:id="@+id/dayDate"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:text="дата"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/spbu_primary_terracot_color"-->
-
-<!--        />-->
-
-<!--    </androidx.cardview.widget.CardView>-->
-
-
-<!--    <Button-->
-<!--        android:id="@+id/dayButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/spbu_additional_light_grey_color"-->
-<!--        android:text="День недели"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/event"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/dayCard"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
 
 
 

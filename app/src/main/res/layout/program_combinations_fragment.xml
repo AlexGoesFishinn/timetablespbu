@@ -7,20 +7,19 @@
     android:id="@+id/program_combinations_fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/programCombinationsFragmentLabelCard"
+        android:id="@+id/program_combinations_fragment_label_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/programCombinationsRecycler"
+        app:layout_constraintBottom_toTopOf="@+id/program_combinations_recycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/spbu_additional_light_grey_color">
-        <!--app:cardBackgroundColor="@color/grey_background">-->
         <TextView
-            android:id="@+id/programCombinationsLabel"
+            android:id="@+id/program_combinations_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test"
+            tools:text="Test"
             android:textSize="16sp"
             android:gravity="start"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,13 +29,13 @@
             android:layout_marginEnd="16dp"
             />
         <TextView
-            android:id="@+id/programCombinationsLabelText"
+            android:id="@+id/program_combinations_label_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Образовательные программы"
+            android:text="@string/program_combinations"
             android:textSize="16sp"
             android:gravity="start"
-            app:layout_constraintTop_toBottomOf="@id/programCombinationsLabel"
+            app:layout_constraintTop_toBottomOf="@id/program_combinations_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="16dp"
@@ -44,46 +43,13 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--<androidx.cardview.widget.CardView
-        android:id="@+id/programCombinationsFragmentLabelCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/programCombinationsRecycler"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cardBackgroundColor="@color/grey_background">
-        <TextView
-            android:id="@+id/programCombinationsLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Test"
-            android:textSize="16sp"
-            android:gravity="start"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="16dp"
-            />
-        <TextView
-            android:id="@+id/programCombinationsLabelText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Образовательные программы"
-            android:textSize="16sp"
-            android:gravity="start"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="16dp"
-            />
-    </androidx.cardview.widget.CardView>-->
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/programCombinationsRecycler"
+        android:id="@+id/program_combinations_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/programCombinationsFragmentLabelCard"
+        app:layout_constraintTop_toBottomOf="@+id/program_combinations_fragment_label_card"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"/>

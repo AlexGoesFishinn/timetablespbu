@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.LocationDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.educator.EducatorDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Location
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class LocationDbToDomainMapper @Inject constructor(
     private val educatorDbToDomainMapper: EducatorDbToDomainMapper
 ): (LocationDb) -> Location {

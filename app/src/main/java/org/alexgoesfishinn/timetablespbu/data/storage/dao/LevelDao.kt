@@ -8,7 +8,9 @@ import kotlinx.coroutines.coroutineScope
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramCombinationDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramDb
-
+/**
+ * @author a.bylev
+ */
 @Dao
 abstract class LevelDao {
     @Query("SELECT * FROM ${LevelDb.LEVEL_TABLE_NAME} WHERE alias = :alias")

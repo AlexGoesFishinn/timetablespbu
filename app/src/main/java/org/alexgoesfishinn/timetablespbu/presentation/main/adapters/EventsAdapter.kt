@@ -17,7 +17,9 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events.Even
 import androidx.core.net.toUri
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem
-
+/**
+ * @author a.bylev
+ */
 class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
     var data: List<EventItem> = emptyList()
         set(newValue){
@@ -28,13 +30,13 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
     private lateinit var context: Context
 
     class EventsViewHolder(itemView: View): ViewHolder(itemView){
-        val eventTime: TextView = itemView.findViewById(R.id.eventTime)
-        val eventName: TextView = itemView.findViewById(R.id.eventName)
-        val eventPlace: TextView = itemView.findViewById(R.id.eventPlace)
-        val eventLecturer: TextView = itemView.findViewById(R.id.eventLecturer)
-        val subgroup: TextView = itemView.findViewById(R.id.eventSubgroup)
-        val subgroupIcon: ImageView = itemView.findViewById(R.id.eventSubgroupIcon)
-        val eventPlaceIcon: ImageView = itemView.findViewById(R.id.eventPlaceIcon)
+        val eventTime: TextView = itemView.findViewById(R.id.event_time)
+        val eventName: TextView = itemView.findViewById(R.id.event_name)
+        val eventPlace: TextView = itemView.findViewById(R.id.event_place)
+        val eventLecturer: TextView = itemView.findViewById(R.id.event_educator)
+        val subgroup: TextView = itemView.findViewById(R.id.event_subgroup)
+        val subgroupIcon: ImageView = itemView.findViewById(R.id.event_subgroup_icon)
+        val eventPlaceIcon: ImageView = itemView.findViewById(R.id.event_place_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
@@ -50,7 +52,6 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
         val eventChangedColor = holder.itemView.context.getColor(R.color.spbu_event_changed_color)
         data[position].let {
             val eventLocations = it.locations
-//            val educators = it.ed
             holder.eventTime.text = it.timeIntervalString
             holder.eventName.text = it.subject
 
@@ -65,8 +66,6 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                     holder.eventPlaceIcon.setImageResource(R.drawable.ic_location_hasgeo)
                     holder.eventPlaceIcon.setOnClickListener {
 
-//                        val ymIntentUri =
-//                            "https://yandex.ru/maps/?ll=$longitude,$latitude&z=12&l=map".toUri()
                         val ymIntentUri =
                             "https://yandex.ru/maps/?pt=$longitude,$latitude&z=18&l=map".toUri()
                         val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
@@ -85,7 +84,6 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                 holder.eventPlace.setTextColor(terraCotColor)
                 holder.eventLecturer.setTextColor(terraCotColor)
 
-//                TODO("Сохранять клик при смене ориентации")
                 holder.eventPlace.setOnClickListener {
                     showEventLocationsDialog(eventLocations)
                 }

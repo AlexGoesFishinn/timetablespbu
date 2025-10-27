@@ -6,7 +6,9 @@ import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb.Companion.EVENT_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = EVENT_TABLE_NAME,
     foreignKeys = [ForeignKey(
         entity = DayDb::class,

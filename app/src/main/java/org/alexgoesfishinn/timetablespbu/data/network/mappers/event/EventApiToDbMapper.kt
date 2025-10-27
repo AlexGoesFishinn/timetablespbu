@@ -3,17 +3,15 @@ package org.alexgoesfishinn.timetablespbu.data.network.mappers.event
 import org.alexgoesfishinn.timetablespbu.data.network.entities.EventApi
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.location.LocationApiToDbMapper
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb
-import org.alexgoesfishinn.timetablespbu.data.storage.entities.LocationDb
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class EventApiToDbMapper @Inject constructor(
     private val locationApiToDbMapper: LocationApiToDbMapper
 ): (EventApi) -> EventDb {
     override fun invoke(p1: EventApi): EventDb {
-        val locations = mutableListOf<LocationDb>()
-        p1.locations.forEach {
-            locations.add(locationApiToDbMapper.invoke(it))
-        }
+        val locations = p1.locations.map { locationApiToDbMapper.invoke(it) }
         val event = EventDb(
             allDay = p1.allDay,
             contingentUnitName = p1.contingentUnitName,

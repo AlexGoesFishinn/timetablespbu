@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.location.LocationDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class EventDbToDomainMapper @Inject constructor(
     private val locationDbToDomainMapper: LocationDbToDomainMapper
 ): (EventDb) -> Event {

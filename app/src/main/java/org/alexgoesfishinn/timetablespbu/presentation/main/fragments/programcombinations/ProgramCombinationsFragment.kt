@@ -33,9 +33,9 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramCombinationsFragmentBinding.bind(view)
-        programCombinationsLabel = view.findViewById(R.id.programCombinationsLabel)
+        programCombinationsLabel = view.findViewById(R.id.program_combinations_label)
         programCombinationsLabel.text = args.levelName
-        programCombinationsRecycler = view.findViewById(R.id.programCombinationsRecycler)
+        programCombinationsRecycler = view.findViewById(R.id.program_combinations_recycler)
         initProgramCombinationsRecycler()
         subscribeToProgramCombinations()
 

@@ -68,9 +68,9 @@ class EventLocationAdapter(
     }
 
     class EventLocationViewHolder(itemView: View): ViewHolder(itemView){
-        val eventLocationName: TextView = itemView.findViewById(R.id.eventLocationLocationName)
-        val eventEducatorName: TextView = itemView.findViewById(R.id.eventLocationEducatorName)
-        val eventPlaceIcon: ImageView = itemView.findViewById(R.id.eventPlaceIcon)
+        val eventLocationName: TextView = itemView.findViewById(R.id.event_location_location_name)
+        val eventEducatorName: TextView = itemView.findViewById(R.id.event_location_educator_name)
+        val eventPlaceIcon: ImageView = itemView.findViewById(R.id.event_place_icon)
     }
 
     data class LocationEducator(

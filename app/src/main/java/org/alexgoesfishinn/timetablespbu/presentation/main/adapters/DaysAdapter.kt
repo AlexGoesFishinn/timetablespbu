@@ -1,8 +1,5 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.adapters
 
-
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +8,12 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.domain.entities.Day
-import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem
-import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 
 /**
  * @author a.bylev
  */
 class DaysAdapter(
-//    private val data: List<Day>,
     private val listener: DaysClickListener
 ): Adapter<DaysAdapter.DaysViewHolder>() {
 
@@ -47,7 +40,6 @@ class DaysAdapter(
             holder.dayName.text = dayInfo[0]
             holder.dayDate.text = dayInfo[1]
             val dayId = it.id
-            val events = it.events
             holder.itemView.setOnClickListener {
                 listener.onItemClick(dayId, holder.adapterPosition)
                 index = holder.adapterPosition
@@ -70,9 +62,9 @@ class DaysAdapter(
 
 
     class DaysViewHolder(itemView: View): ViewHolder(itemView){
-        val dayName: TextView = itemView.findViewById(R.id.dayName)
-        val dayDate: TextView= itemView.findViewById(R.id.dayDate)
-        val dayCard: MaterialCardView = itemView.findViewById(R.id.dayCard)
+        val dayName: TextView = itemView.findViewById(R.id.day_name)
+        val dayDate: TextView= itemView.findViewById(R.id.day_date)
+        val dayCard: MaterialCardView = itemView.findViewById(R.id.day_card)
 
     }
 

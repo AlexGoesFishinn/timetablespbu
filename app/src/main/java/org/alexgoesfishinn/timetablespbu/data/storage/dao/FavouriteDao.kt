@@ -5,7 +5,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.FavouriteDb
-
+/**
+ * @author a.bylev
+ */
 @Dao
 interface FavouriteDao {
     @Query("SELECT * FROM ${FavouriteDb.FAVOURITE_TABLE_NAME}")

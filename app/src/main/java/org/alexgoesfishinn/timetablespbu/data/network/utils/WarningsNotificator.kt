@@ -4,7 +4,9 @@ import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
+/**
+ * @author a.bylev
+ */
 class WarningsNotificator {
 
     private val _internetIsNotAvailable: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
@@ -31,7 +33,7 @@ class WarningsNotificator {
 
     fun apiErrorNotify(){
         _apiError.value = true
-        _apiError.value = false
+
     }
 
     fun apiErrorNotifyOff(){
@@ -40,7 +42,7 @@ class WarningsNotificator {
 
     fun groupIsNotAvailableNotify(){
         _groupIsNotAvailable.value = true
-        _groupIsNotAvailable.value = false
+
     }
 
     fun groupIsNotAvailableNotifyOff(){
@@ -49,7 +51,7 @@ class WarningsNotificator {
 
     fun serverTimeoutNotify(){
         _serverTimeout.value = true
-        _serverTimeout.value = false
+        
     }
 
     fun serverTimeoutNotifyOff(){

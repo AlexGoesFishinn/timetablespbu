@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.dao.ProgramCombinationDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.programcombination.ProgramCombinationDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface ProgramCombinationsRepository {
     suspend fun getProgramCombinations(levelId: Long): List<ProgramCombination>
 }

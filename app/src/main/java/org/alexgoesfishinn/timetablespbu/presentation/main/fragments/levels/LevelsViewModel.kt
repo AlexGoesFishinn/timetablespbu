@@ -13,7 +13,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.level.LevelToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class LevelsViewModel @Inject constructor(
     private val subscribeLevelsUseCase: SubscribeLevelsUseCase,

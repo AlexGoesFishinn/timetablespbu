@@ -30,7 +30,7 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = DivisionsFragmentBinding.bind(view)
 
-        divisionRecycler = view.findViewById(R.id.divisionRecycler)
+        divisionRecycler = view.findViewById(R.id.divisions_recycler)
 
         initDivisionRecycler()
         subscribeToDivisions()
@@ -68,7 +68,5 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         ))
     }
 
-    private companion object {
-        private const val TAG = "DivisionsFragment"
-    }
+
 }

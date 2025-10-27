@@ -8,17 +8,16 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.EducatorDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LocationDb
-
+/**
+ * @author a.bylev
+ */
 @Dao
 abstract class GroupEventsDao {
-//    @Query("SELECT * FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND IsCurrentWeekReferenceAvailable = false")
-//    abstract suspend fun getCurrentWeek(groupId: Long)
+
 
     @Query("SELECT * FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND WeekMonday = :weekMonday")
     abstract suspend fun getWeek(groupId: Long, weekMonday: String): GroupEventsDb?
 
-//    @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND IsCurrentWeekReferenceAvailable = false")
-//    abstract suspend fun deleteCurrentWeek(groupId: Long)
 
     @Query("DELETE FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME} WHERE GroupId = :groupId AND WeekMonday = :weekMonday")
     abstract suspend fun deleteWeek(groupId: Long, weekMonday: String)
@@ -54,8 +53,6 @@ abstract class GroupEventsDao {
     suspend fun deleteByWeekMondayList(weekMondays: List<String>){
         weekMondays.forEach { deleteByWeekMonday(it) }
     }
-//    @Insert
-//    abstract suspend fun insertEducator(educatorDb: EducatorDb): Long
 
     suspend fun insertWeek(groupEventsDb: GroupEventsDb, groupId: Long, weekMonday: String) {
         deleteWeek(groupId, weekMonday)

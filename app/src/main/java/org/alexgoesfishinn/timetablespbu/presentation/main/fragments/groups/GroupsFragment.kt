@@ -27,42 +27,22 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private val viewmodel by viewModels<GroupsViewModel>()
     private lateinit var groupsRecycler: RecyclerView
     private lateinit var groupsAdapter: GroupsAdapter
-//    private lateinit var manager: RecyclerView.LayoutManager
-//    private var groups: List<Group> = emptyList()
     private lateinit var programGroupLabel: TextView
     private lateinit var yearGroupLabel: TextView
-//    @Inject
-//    lateinit var internetChecker: InternetChecker
-//    @Inject
-//    lateinit var groupsService: GroupsService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = GroupsFragmentBinding.bind(view)
         val programName: String = args.programName
         val programYear: String = args.programYear
-        programGroupLabel = view.findViewById(R.id.programGroupLabel)
-        yearGroupLabel = view.findViewById(R.id.yearGroupLabel)
-        programGroupLabel.text = "Образовательная программа " + programName
-        yearGroupLabel.text = programYear + " года поступления"
-        groupsRecycler = view.findViewById(R.id.groupsRecycler)
+        programGroupLabel = view.findViewById(R.id.program_group_label)
+        yearGroupLabel = view.findViewById(R.id.year_group_label)
+        programGroupLabel.text = getString(R.string.groups_fragment_program_label, programName)
+        yearGroupLabel.text = getString(R.string.groups_fragment_year_label, programYear)
+        groupsRecycler = view.findViewById(R.id.groups_recycler)
         initRecycler()
         subscribeToGroups()
 
-
-//        manager = LinearLayoutManager(requireContext())
-
-//        groupsRecycler.apply {
-//            layoutManager = manager
-//            adapter = GroupsAdapter(groups, object : GroupsClickListener {
-//                override fun onClick(groupId: Long, groupName: String) {
-//                    navigateToEvents(groupId, groupName)
-//                }
-//            })
-//        }
-//        if(groups.isEmpty()){
-//            getData()
-//        }
 
     }
 
@@ -88,47 +68,15 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
         groupsRecycler.layoutManager = LinearLayoutManager(requireContext())
     }
 
-//    private fun getData(){
-//        if(internetChecker.isInternetAvailable()){
-//            getGroups()
-//        } else {
-//            Log.e(TAG, "no internet available")
-//            internetChecker.showNoInternetDialog(requireContext()) { getData() }
-//        }
-//    }
 
     private fun navigateToEvents(groupId: Long){
-//        val groupIdString = groupId.toString()
         findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupId))
     }
 
-//    private fun getGroups(){
-//        val programId: Long = args.programId
-//        lifecycleScope.launch {
-//            val response = groupsService.getGroups(programId)
-//            if(response.isSuccessful){
-//                val data = response.body()
-//                if(data != null){
-//                    groups = data.groups
-//                    groupsAdapter = GroupsAdapter(groups, object : GroupsClickListener {
-//                        override fun onClick(groupId: Long, groupName: String) {
-//                            navigateToEvents(groupId, groupName)
-//                        }
-//                    })
-//                    groupsRecycler.apply {
-//                        adapter = groupsAdapter
-//                    }
-//                } else Log.e(TAG, "received data is null")
-//            } else Log.e(TAG, "response if not successful")
-//        }
-//
-//    }
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
 
-    private companion object{
-        private const val TAG = "GroupsFragment"
-    }
+
 }

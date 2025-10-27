@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Location
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.educator.EducatorToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class LocationToUiMapper @Inject constructor(
     private val educatorToUiMapper: EducatorToUiMapper
 ): (Location) -> LocationItem {

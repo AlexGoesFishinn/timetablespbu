@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main
+package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs
 
 import android.os.Bundle
 import android.view.View
@@ -16,7 +16,9 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteNavigateClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteRemoveClickListener
-
+/**
+ * @author a.bylev
+ */
 @AndroidEntryPoint
 class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     private val viewModel: FavouriteDialogViewModel by viewModels()

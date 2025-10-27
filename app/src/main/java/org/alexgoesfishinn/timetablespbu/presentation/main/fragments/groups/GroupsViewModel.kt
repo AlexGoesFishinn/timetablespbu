@@ -12,7 +12,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.group.GroupToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class GroupsViewModel @Inject constructor(
     private val subscribeGroupsUseCase: SubscribeGroupsUseCase,

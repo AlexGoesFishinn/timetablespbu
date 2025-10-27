@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
-        android:id="@+id/divisionsFragmentLabelCard"
+        android:id="@+id/divisions_fragment_label_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,11 +15,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/divisionsFragmentLabel"
+            android:id="@+id/divisions_fragment_label"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Направления"
+            android:text="@string/divisions"
             android:textSize="16sp"
             android:gravity="start"
             android:layout_marginStart="16dp"
@@ -29,12 +28,12 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/divisionRecycler"
+        android:id="@+id/divisions_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divisionsFragmentLabelCard"
+        app:layout_constraintTop_toBottomOf="@+id/divisions_fragment_label_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />

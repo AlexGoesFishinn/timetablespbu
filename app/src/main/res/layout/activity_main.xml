@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="На главную"
+                android:text="@string/to_main"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -68,7 +68,7 @@
                 android:id="@+id/bottom_navigation_favourite_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Избранное"
+                android:text="@string/favourite"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:gravity="center"

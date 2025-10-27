@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.favourite
 import org.alexgoesfishinn.timetablespbu.domain.entities.Favourite
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class FavouriteUiToDomainMapper @Inject constructor(): (FavouriteItem) -> Favourite {
     override fun invoke(p1: FavouriteItem): Favourite {
         return Favourite(

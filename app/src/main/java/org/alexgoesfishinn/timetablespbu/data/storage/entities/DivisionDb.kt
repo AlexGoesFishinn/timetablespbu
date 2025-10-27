@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.DivisionDb.Companion.DIVISION_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = DIVISION_TABLE_NAME)
 data class DivisionDb (
     @PrimaryKey

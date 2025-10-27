@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramDb.Companion.PROGRAM_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = PROGRAM_TABLE_NAME,
     foreignKeys = [ForeignKey(
         ProgramCombinationDb::class,

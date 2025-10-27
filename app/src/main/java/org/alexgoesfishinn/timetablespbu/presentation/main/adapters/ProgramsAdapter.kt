@@ -13,7 +13,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramItem
  * @author a.bylev
  */
 class ProgramsAdapter(
-//    private val data: List<Program>,
     private val programClickListener: ProgramsClickListener
 ): RecyclerView.Adapter<ProgramsAdapter.ProgramsViewHolder>() {
 
@@ -43,7 +42,7 @@ class ProgramsAdapter(
     }
 
     class ProgramsViewHolder(itemView: View): ViewHolder(itemView){
-        val programYearName: TextView = itemView.findViewById(R.id.yearName)
+        val programYearName: TextView = itemView.findViewById(R.id.year_name)
     }
 }
 interface ProgramsClickListener{

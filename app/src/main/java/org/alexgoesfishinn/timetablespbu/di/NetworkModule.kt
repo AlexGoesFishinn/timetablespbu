@@ -21,7 +21,9 @@ import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeLevelsRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeProgramCombinationsRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeProgramsRepositoryImpl
 
-
+/**
+ * @author a.bylev
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class NetworkModule {

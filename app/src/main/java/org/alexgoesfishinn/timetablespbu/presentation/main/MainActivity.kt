@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.FavouriteDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.GroupIsNotAvailableDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.ServerTimeoutErrorDialog
@@ -35,10 +36,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var groupIsNotAvailableDialog: GroupIsNotAvailableDialog
     @Inject
     lateinit var serverTimeoutErrorDialog: ServerTimeoutErrorDialog
-//    private val noInternetDialog = NoInternetDialog()
-//    private val somethingWentWrongDialog = SomethingWentWrongDialog()
-//    private val groupIsNotAvailableDialog = GroupIsNotAvailableDialog()
-//    private val serverTimeoutErrorDialog = ServerTimeoutErrorDialog()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager,
                         "Server timeout exception"
                     )
-                    viewModel.serverTimeoutNotified()
                 }
             }
         }
@@ -74,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("MainActivity", "$it")
                 if (it) {
                     noInternetDialog.show(supportFragmentManager, "Internet is not available")
-                    viewModel.internetIsNotAvailableNotified()
+
                 }
             }
         }
@@ -85,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.groupIsNotAvailable.collect {
                 if (it) {
                     groupIsNotAvailableDialog.show(supportFragmentManager, "Group is not available")
-                    viewModel.groupIsNotAvailableNotified()
                 }
             }
         }
@@ -96,7 +92,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.apiError.collect {
                 if (it) {
                     somethingWentWrongDialog.show(supportFragmentManager, "Something went wrong")
-                    viewModel.apiErrorNotified()
                 }
             }
         }

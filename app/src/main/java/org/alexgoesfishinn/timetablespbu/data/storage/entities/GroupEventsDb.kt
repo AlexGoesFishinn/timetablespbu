@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb.Companion.GROUP_EVENTS_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = GROUP_EVENTS_TABLE_NAME)
 data class GroupEventsDb(
     @PrimaryKey(autoGenerate = true)

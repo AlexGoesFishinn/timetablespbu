@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupDb.Companion.GROUP_TABLE_NAME
 
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = GROUP_TABLE_NAME)
 data class GroupDb(
     @PrimaryKey

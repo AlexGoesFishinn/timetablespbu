@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.domain.usecases
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
 import org.alexgoesfishinn.timetablespbu.domain.entities.Program
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface SubscribeProgramsUseCase {
     suspend fun getPrograms(programCombinationId: Long): List<Program>
 }

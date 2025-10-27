@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.day.DayToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupEventsItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class GroupEventsToUiMapper @Inject constructor(
     private val dayToUiMapper: DayToUiMapper
 ): (GroupEvents) -> GroupEventsItem {

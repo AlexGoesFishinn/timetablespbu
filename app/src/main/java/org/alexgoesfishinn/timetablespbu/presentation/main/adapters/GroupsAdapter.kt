@@ -13,7 +13,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem
  * @author a.bylev
  */
 class GroupsAdapter(
-//    private val data: List<Group>,
     private val groupsClickListener: GroupsClickListener
 ):RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
 
@@ -47,7 +46,7 @@ class GroupsAdapter(
     }
 
     class GroupsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val groupName: TextView = itemView.findViewById(R.id.groupName)
+        val groupName: TextView = itemView.findViewById(R.id.group_name)
     }
 }
 interface GroupsClickListener{

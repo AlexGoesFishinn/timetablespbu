@@ -11,7 +11,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Group
 import java.io.IOException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface GroupsRepository {
     suspend fun getGroups(id: Long): List<Group>
 

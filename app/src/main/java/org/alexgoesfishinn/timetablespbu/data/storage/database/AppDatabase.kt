@@ -24,7 +24,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LocationDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramCombinationDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.ProgramDb
-
+/**
+ * @author a.bylev
+ */
 @Database(
     version = 1,
     entities = [

@@ -2,7 +2,9 @@ package org.alexgoesfishinn.timetablespbu.data.storage.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation
-
+/**
+ * @author a.bylev
+ */
 class DayWithEvents (
     @Embedded val day: DayDb,
     @Relation(

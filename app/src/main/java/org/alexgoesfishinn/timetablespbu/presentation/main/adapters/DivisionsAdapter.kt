@@ -13,7 +13,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem
  * @author a.bylev
  */
 class DivisionsAdapter(
-//    private val data: List<Division>,
     private val listener: DivisionsClickListener): RecyclerView.Adapter<DivisionsAdapter.DivisionsViewHolder>() {
 
     var data: List<DivisionItem> = emptyList()
@@ -45,7 +44,7 @@ class DivisionsAdapter(
     }
 
     class DivisionsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val divisionName: TextView = itemView.findViewById(R.id.divisionName)
+        val divisionName: TextView = itemView.findViewById(R.id.division_name)
     }
 
 

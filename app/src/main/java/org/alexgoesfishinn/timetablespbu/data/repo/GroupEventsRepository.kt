@@ -13,7 +13,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import java.io.IOException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface GroupEventsRepository {
     suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents
 

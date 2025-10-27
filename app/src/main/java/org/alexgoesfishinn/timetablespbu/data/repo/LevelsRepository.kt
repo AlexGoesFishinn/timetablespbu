@@ -11,9 +11,10 @@ import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDom
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
 import java.io.IOException
 import java.net.SocketTimeoutException
-
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface LevelsRepository {
     suspend fun getLevels(alias: String): List<Level>
 }

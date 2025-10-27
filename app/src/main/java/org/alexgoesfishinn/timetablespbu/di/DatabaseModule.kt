@@ -9,7 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.data.storage.database.AppDatabase
 import javax.inject.Singleton
-
+/**
+ * @author a.bylev
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
@@ -66,4 +68,6 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideFavouriteDao(db: AppDatabase) = db.favouriteDao()
+
+
 }

@@ -25,7 +25,9 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 import java.time.temporal.TemporalAdjusters
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val subscribeGroupEventsUseCase: SubscribeGroupEventsUseCase,
@@ -73,7 +75,6 @@ class EventsViewModel @Inject constructor(
 
     }
 
-    // TODO: Удалять старые события из базы
     private fun getFavourite() {
         viewModelScope.launch {
             _isFavourite.value = subscribeFavourite.getAll().map { it.id }.contains(groupId)

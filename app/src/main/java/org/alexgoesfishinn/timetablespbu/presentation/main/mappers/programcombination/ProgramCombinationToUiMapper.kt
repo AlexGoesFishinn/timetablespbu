@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.programcombi
 import org.alexgoesfishinn.timetablespbu.domain.entities.ProgramCombination
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinationItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class ProgramCombinationToUiMapper @Inject constructor(): (ProgramCombination) -> ProgramCombinationItem {
     override fun invoke(p1: ProgramCombination): ProgramCombinationItem {
 

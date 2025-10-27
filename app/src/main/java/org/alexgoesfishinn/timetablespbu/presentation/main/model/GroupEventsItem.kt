@@ -1,6 +1,8 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.model
 
-
+/**
+ * @author a.bylev
+ */
 data class GroupEventsItem(
     val groupId: Long,
     val groupName: String,

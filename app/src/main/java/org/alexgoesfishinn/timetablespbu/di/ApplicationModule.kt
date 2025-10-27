@@ -12,6 +12,10 @@ import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
+import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
+import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleanerImpl
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -66,5 +70,9 @@ object ApplicationModule {
     @Singleton
     fun provideWarningsNotificator(): WarningsNotificator = WarningsNotificator()
 
-
+    @Provides
+    @Singleton
+    fun provideDbCleaner(groupsRepository: GroupsRepository, groupEventsRepository: GroupEventsRepository): DbCleaner {
+        return DbCleanerImpl(groupsRepository, groupEventsRepository)
+    }
 }

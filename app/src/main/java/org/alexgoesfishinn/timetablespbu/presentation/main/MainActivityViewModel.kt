@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCase
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val warningsNotificator: WarningsNotificator,
@@ -35,22 +37,6 @@ class MainActivityViewModel @Inject constructor(
 
     }
 
-    fun internetIsNotAvailableNotified(){
-        warningsNotificator.internetIsNotAvailableNotifyOff()
-    }
-
-    fun serverTimeoutNotified(){
-        warningsNotificator.serverTimeoutNotifyOff()
-    }
-
-    fun apiErrorNotified(){
-        warningsNotificator.apiErrorNotifyOff()
-    }
-
-    fun groupIsNotAvailableNotified(){
-        warningsNotificator.groupIsNotAvailableNotifyOff()
-    }
-
     private fun subscribeServerTimeout(){
         viewModelScope.launch {
             warningsNotificator.serverTimeout.collect {
@@ -61,8 +47,7 @@ class MainActivityViewModel @Inject constructor(
 
     private fun deleteOldEvents(){
         viewModelScope.launch {
-            deleteOldEventsUseCase.deleteEventsByUnusedGroup()
-            deleteOldEventsUseCase.deleteEventsByDate()
+            deleteOldEventsUseCase.deleteOldEvents()
         }
     }
 

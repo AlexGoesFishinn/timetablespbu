@@ -1,6 +1,8 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.model
 
-
+/**
+ * @author a.bylev
+ */
 data class EventItem(
     val kindCode: Int,
     val start: String,

@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.data.storage.dao
 import androidx.room.Dao
 import androidx.room.Query
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.EventDb
-
+/**
+ * @author a.bylev
+ */
 @Dao
 interface EventDao {
     @Query("SELECT * FROM ${EventDb.EVENT_TABLE_NAME} WHERE DayId = :dayId")

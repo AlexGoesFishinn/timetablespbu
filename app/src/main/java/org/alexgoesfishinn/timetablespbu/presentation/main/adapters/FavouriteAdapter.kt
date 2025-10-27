@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.FavouriteItem
-
+/**
+ * @author a.bylev
+ */
 class FavouriteAdapter(
     private val navigationListener: FavouriteNavigateClickListener,
     private val removeClickListener: FavouriteRemoveClickListener

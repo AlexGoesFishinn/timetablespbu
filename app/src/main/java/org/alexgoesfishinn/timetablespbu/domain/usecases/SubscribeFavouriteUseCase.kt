@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.domain.usecases
 import org.alexgoesfishinn.timetablespbu.data.repo.FavouriteRepository
 import org.alexgoesfishinn.timetablespbu.domain.entities.Favourite
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface SubscribeFavouriteUseCase {
     suspend fun getAll(): List<Favourite>
 

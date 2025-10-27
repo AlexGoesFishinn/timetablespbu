@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.FavouriteDb.Companion.FAVOURITE_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(tableName = FAVOURITE_TABLE_NAME)
 data class FavouriteDb(
     @PrimaryKey

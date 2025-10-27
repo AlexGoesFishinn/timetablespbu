@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/favorite"
-        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.FavouriteDialog"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.FavouriteDialog"
         tools:layout="@layout/favourite_dialog">
         <action android:id="@+id/favourite_to_events"
             app:destination="@id/events"/>

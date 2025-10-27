@@ -14,12 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
-import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsClickListener
-import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -35,8 +32,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = LevelsFragmentBinding.bind(view)
-        levelsRecycler = view.findViewById(R.id.levelsRecycler)
-        val label:TextView = view.findViewById(R.id.levelsFragmentLabel)
+        levelsRecycler = view.findViewById(R.id.levels_recycler)
+        val label:TextView = view.findViewById(R.id.levels_fragment_label)
         label.text = getString(R.string.level_fragment_division_label_text, args.name)
         initLevelsRecycler()
         subscribeToLevels()

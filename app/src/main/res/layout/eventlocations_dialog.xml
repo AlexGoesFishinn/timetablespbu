@@ -3,25 +3,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/eventLocationsLayout">
+    android:id="@+id/event_locations_layout">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/eventLocationRecycler"
-        android:id="@+id/eventLocationLabel"
+        app:layout_constraintBottom_toTopOf="@+id/event_locations_recycler"
+        android:id="@+id/event_location_label"
         android:text="@string/event_locations"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:textColor="@color/spbu_primary_terracot_color"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/eventLocationRecycler"
+        android:id="@+id/event_locations_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventLocationLabel"
+        app:layout_constraintTop_toBottomOf="@+id/event_location_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

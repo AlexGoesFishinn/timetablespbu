@@ -2,21 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <androidx.cardview.widget.CardView
-        android:id="@+id/levelsFragmentLabelCard"
+        android:id="@+id/levels_fragment_label_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/levelsRecycler"
+        app:layout_constraintBottom_toTopOf="@+id/levels_recycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardBackgroundColor="@color/spbu_additional_light_grey_color">
         <TextView
-            android:id="@+id/levelsFragmentLabel"
+            android:id="@+id/levels_fragment_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Направление + "
+            tools:text="Направление + "
             android:textSize="16sp"
             android:gravity="start"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,10 +29,10 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/levelsRecycler"
+        android:id="@+id/levels_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/levelsFragmentLabelCard"
+        app:layout_constraintTop_toBottomOf="@+id/levels_fragment_label_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

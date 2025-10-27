@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Event
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.location.LocationToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class EventToUiMapper @Inject constructor(
     private val locationToUiMapper: LocationToUiMapper
 ): (Event) -> EventItem {

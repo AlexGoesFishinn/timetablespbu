@@ -5,10 +5,19 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.alexgoesfishinn.timetablespbu.R
-
+import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
+import javax.inject.Inject
+/**
+ * @author a.bylev
+ */
+@AndroidEntryPoint
 class SomethingWentWrongDialog: DialogFragment() {
+    @Inject lateinit var warningsNotificator: WarningsNotificator
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        warningsNotificator.apiErrorNotifyOff()
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle(it.getString(R.string.oops))

@@ -2,18 +2,16 @@ package org.alexgoesfishinn.timetablespbu.data.network.mappers.groupevents
 
 import org.alexgoesfishinn.timetablespbu.data.network.entities.GroupEventsApi
 import org.alexgoesfishinn.timetablespbu.data.network.mappers.day.DayApiToDbMapper
-import org.alexgoesfishinn.timetablespbu.data.storage.entities.DayDb
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class GroupEventsApiToDbMapper @Inject constructor(
     private val dayApiToDbMapper: DayApiToDbMapper
 ): (GroupEventsApi) -> GroupEventsDb {
     override fun invoke(p1: GroupEventsApi): GroupEventsDb {
-        val days = mutableListOf<DayDb>()
-        p1.days.forEach {
-            days.add(dayApiToDbMapper.invoke(it))
-        }
+        val days = p1.days.map { dayApiToDbMapper.invoke(it) }
         val groupEvents = GroupEventsDb(
             groupId = p1.groupId,
             groupName = p1.groupName,

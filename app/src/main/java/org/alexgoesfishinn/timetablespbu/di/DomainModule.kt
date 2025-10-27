@@ -12,6 +12,7 @@ import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramCombinationsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
 import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
@@ -31,7 +32,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramCombina
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramsUseCaseImpl
 import javax.inject.Singleton
-
+/**
+ * @author a.bylev
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DomainModule {
@@ -85,7 +88,7 @@ object DomainModule {
 
     @Singleton
     @Provides
-    fun provideDeleteOldEventsUseCase(groupsRepository: GroupsRepository, groupEventsRepository: GroupEventsRepository): DeleteOldEventsUseCase {
-        return DeleteOldEventsUseCaseImpl(groupsRepository, groupEventsRepository)
+    fun provideDeleteOldEventsUseCase(dbCleaner: DbCleaner): DeleteOldEventsUseCase {
+        return DeleteOldEventsUseCaseImpl(dbCleaner)
     }
 }

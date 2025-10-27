@@ -6,7 +6,9 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.LevelDb.Companion.LEVEL_TABLE_NAME
-
+/**
+ * @author a.bylev
+ */
 @Entity(
     tableName = LEVEL_TABLE_NAME
 )

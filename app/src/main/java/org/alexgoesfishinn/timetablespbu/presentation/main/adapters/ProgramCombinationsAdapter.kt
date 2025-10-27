@@ -13,7 +13,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramCombinat
  * @author a.bylev
  */
 class ProgramCombinationsAdapter(
-//    private val data: List<ProgramCombination>,
     private val programCombinationsClickListener: ProgramCombinationsClickListener
 ): RecyclerView.Adapter<ProgramCombinationsAdapter.ProgramCombinationsViewHolder>() {
 
@@ -34,7 +33,6 @@ class ProgramCombinationsAdapter(
         data[position].let {
             val programName = it.programName
             holder.programCombinationName.text = programName
-//            val programs = it.programs
             val programCombinationId = it.programCombinationId
             holder.itemView.setOnClickListener {
                 programCombinationsClickListener.onClick(programCombinationId, programName)
@@ -45,7 +43,7 @@ class ProgramCombinationsAdapter(
     override fun getItemCount(): Int = data.size
 
     class ProgramCombinationsViewHolder(itemView: View): ViewHolder(itemView){
-        val programCombinationName: TextView = itemView.findViewById(R.id.programCombinationName)
+        val programCombinationName: TextView = itemView.findViewById(R.id.program_combination_name)
     }
 }
 interface ProgramCombinationsClickListener {

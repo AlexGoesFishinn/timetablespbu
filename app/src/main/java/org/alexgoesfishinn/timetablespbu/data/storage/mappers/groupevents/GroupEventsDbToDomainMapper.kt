@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.day.DayDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.GroupEvents
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class GroupEventsDbToDomainMapper @Inject constructor(
     private val dayDbToDomainMapper: DayDbToDomainMapper
 ): (GroupEventsDb) -> GroupEvents {

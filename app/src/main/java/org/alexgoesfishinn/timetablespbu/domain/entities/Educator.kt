@@ -5,6 +5,5 @@ package org.alexgoesfishinn.timetablespbu.domain.entities
  */
 
 data class Educator (
-//    val item1: Int,
     val name: String
 )

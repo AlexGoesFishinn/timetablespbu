@@ -16,4 +16,20 @@
     <string name="ok">Ок</string>
     <string name="server_timeout_error_label">Не удалось подключиться к серверу</string>
     <string name="server_timeout_error_text">Попробуйте повторить попытку позднее</string>
+    <string name="groups_fragment_program_label">Образовательная программа %s</string>
+    <string name="groups_fragment_year_label">%s года поступления</string>
+    <string name="to_main">На главную</string>
+    <string name="divisions">Направления</string>
+    <string name="event_time_icon_description">иконка времени</string>
+    <string name="event_name_icon_description">иконка наименования</string>
+    <string name="event_subgroup_icon_description">иконка подгруппы\n</string>
+    <string name="event_place_icon_description">иконка места</string>
+    <string name="event_educator_icon_description">иконка преподавателя</string>
+    <string name="from_favourite">Из избранного</string>
+    <string name="backward">Назад</string>
+    <string name="current_week">Текущая неделя</string>
+    <string name="forward">Вперед</string>
+    <string name="no_events">Нет событий</string>
+    <string name="program_combinations">Образовательные программы</string>
+    <string name="application_years">Годы поступления</string>
 </resources>

@@ -11,7 +11,9 @@ import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCa
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.division.DivisionToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 @HiltViewModel
 class DivisionsViewModel @Inject constructor(
     private val subscribeDivisionsUseCase: SubscribeDivisionsUseCase,

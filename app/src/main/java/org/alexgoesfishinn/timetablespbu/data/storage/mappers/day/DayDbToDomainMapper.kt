@@ -4,7 +4,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.entities.DayDb
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.event.EventDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Day
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class DayDbToDomainMapper @Inject constructor(
     private val eventDbToDomainMapper: EventDbToDomainMapper
 ): (DayDb) -> Day {

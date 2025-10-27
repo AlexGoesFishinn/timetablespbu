@@ -5,7 +5,9 @@ import org.alexgoesfishinn.timetablespbu.data.storage.mappers.favourite.Favourit
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.favourite.FavouriteDomainToDbMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Favourite
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 interface FavouriteRepository {
     suspend fun getAll(): List<Favourite>
 

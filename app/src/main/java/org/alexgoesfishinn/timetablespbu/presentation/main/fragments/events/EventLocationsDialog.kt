@@ -32,7 +32,7 @@ class EventLocationsDialog(
 
     }
     private fun setUpRecyclerView(view: View){
-        val eventLocationRecycler: RecyclerView = view.findViewById(R.id.eventLocationRecycler)
+        val eventLocationRecycler: RecyclerView = view.findViewById(R.id.event_locations_recycler)
         eventLocationRecycler.apply {
             Log.i("EventLocationDialog", "setupRecycler")
             layoutManager = LinearLayoutManager(context)

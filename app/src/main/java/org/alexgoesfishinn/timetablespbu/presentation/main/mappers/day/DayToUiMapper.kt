@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.mappers.day
 import org.alexgoesfishinn.timetablespbu.domain.entities.Day
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DayItem
 import javax.inject.Inject
-
+/**
+ * @author a.bylev
+ */
 class DayToUiMapper @Inject constructor(
 
 ): (Day) -> DayItem {

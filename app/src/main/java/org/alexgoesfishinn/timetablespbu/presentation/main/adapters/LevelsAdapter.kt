@@ -13,7 +13,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
  * @author a.bylev
  */
 class LevelsAdapter(
-//    private val data: List<Level>,
     private val levelsClickListener: LevelsClickListener
 ):RecyclerView.Adapter<LevelsAdapter.LevelsViewHolder>() {
 
@@ -46,7 +45,7 @@ class LevelsAdapter(
     }
 
     class LevelsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val levelName: TextView = itemView.findViewById(R.id.levelName)
+        val levelName: TextView = itemView.findViewById(R.id.level_name)
     }
 }
 
