@@ -40,7 +40,6 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
     override suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents {
         if(internetChecker.isInternetAvailable()){
             if(isGroupAvailable(groupId)){
-                Log.i(TAG, "isGroupAvailable = ${isGroupAvailable(groupId)}")
                 try {
                     val groupEvents = eventsService.getEvents(groupId, weekMonday)
                     groupEventsDao.insertWeek(

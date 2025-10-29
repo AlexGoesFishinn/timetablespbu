@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author a.bylev
  */
 interface DbCleaner{
-    suspend fun cleanDb()
+    suspend fun deleteOldEvents()
 }
 
 class DbCleanerImpl @Inject constructor(
@@ -20,7 +20,7 @@ class DbCleanerImpl @Inject constructor(
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private val thresholdToDelete: Long = 3L
 
-    override suspend fun cleanDb() {
+    override suspend fun deleteOldEvents() {
         deleteEventsByDate()
         deleteEventsByUnusedGroup()
     }

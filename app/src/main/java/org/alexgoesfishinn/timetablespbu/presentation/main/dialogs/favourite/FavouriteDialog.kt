@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs
+package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.favourite
 
 import android.os.Bundle
 import android.view.View
@@ -9,13 +9,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.alexgoesfishinn.timetablespbu.NavGraphDirections
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteNavigateClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteRemoveClickListener
+
 /**
  * @author a.bylev
  */
@@ -25,6 +26,7 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     private lateinit var favouriteRecycler: RecyclerView
     private lateinit var favouriteAdapter: FavouriteAdapter
     private lateinit var favouriteIsEmptyText: TextView
+    private lateinit var favouriteCloseButton: MaterialButton
 
 
 
@@ -33,7 +35,10 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
         super.onViewCreated(view, savedInstanceState)
         favouriteRecycler = view.findViewById(R.id.favourite_recycler)
         favouriteIsEmptyText = view.findViewById(R.id.favourite_is_empty_text)
-
+        favouriteCloseButton = view.findViewById(R.id.favourite_dialog_close_button)
+        favouriteCloseButton.setOnClickListener {
+            dismiss()
+        }
         initFavouriteRecycler()
         subscribeFavourite()
     }
@@ -41,8 +46,8 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-            resources.displayMetrics.widthPixels * 7 / 10,
-            resources.displayMetrics.heightPixels * 7 / 10
+            resources.displayMetrics.widthPixels * 9 / 10,
+            resources.displayMetrics.heightPixels * 9 / 10
         )
     }
 
@@ -54,11 +59,13 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
             override fun onClick(id: Long) {
                 val actionToEvents = NavGraphDirections.toEvents(id)
                 findNavController().navigate(actionToEvents)
+                dismiss()
 
             }
-        }, object  : FavouriteRemoveClickListener {
+        }, object : FavouriteRemoveClickListener {
             override fun onClick(id: Long) {
                 viewModel.removeFromFavourite(id)
+
             }
         })
         favouriteRecycler.adapter = favouriteAdapter
@@ -70,7 +77,8 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
             viewModel.favourite.collect {
                 if(it.isNotEmpty()){
                     favouriteIsEmptyText.visibility = View.GONE
-                } else{ favouriteIsEmptyText.visibility = View.VISIBLE}
+                } else{ favouriteIsEmptyText.visibility = View.VISIBLE
+                }
                 favouriteAdapter.data = it
             }
         }

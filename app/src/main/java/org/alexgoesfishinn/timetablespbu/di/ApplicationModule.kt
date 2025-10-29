@@ -16,6 +16,7 @@ import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleanerImpl
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.FavouriteUpdateNotificator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -75,4 +76,8 @@ object ApplicationModule {
     fun provideDbCleaner(groupsRepository: GroupsRepository, groupEventsRepository: GroupEventsRepository): DbCleaner {
         return DbCleanerImpl(groupsRepository, groupEventsRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideFavouriteUpdateNotificator(): FavouriteUpdateNotificator = FavouriteUpdateNotificator()
 }

@@ -14,6 +14,6 @@ class DeleteOldEventsUseCaseImpl @Inject constructor(
     private val dbCleaner: DbCleaner
 ) : DeleteOldEventsUseCase{
     override suspend fun deleteOldEvents() {
-        dbCleaner.cleanDb()
+        dbCleaner.deleteOldEvents()
     }
 }

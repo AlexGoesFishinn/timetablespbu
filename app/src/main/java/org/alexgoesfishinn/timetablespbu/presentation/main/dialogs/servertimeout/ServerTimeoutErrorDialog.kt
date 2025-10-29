@@ -1,5 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs
-
+package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -9,21 +8,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import javax.inject.Inject
+
 /**
  * @author a.bylev
  */
 @AndroidEntryPoint
-class SomethingWentWrongDialog: DialogFragment() {
-    @Inject lateinit var warningsNotificator: WarningsNotificator
+class ServerTimeoutErrorDialog: DialogFragment() {
+    @Inject
+    lateinit var warningsNotificator: WarningsNotificator
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        warningsNotificator.apiErrorNotifyOff()
+        warningsNotificator.serverTimeoutNotifyOff()
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setTitle(it.getString(R.string.oops))
-                .setMessage(it.getString(R.string.something_went_wrong))
-                .setPositiveButton(it.getString(R.string.ok)) {dialog, _ -> dialog.dismiss()}
-                .create()
+            builder.setTitle(it.getString(R.string.server_timeout_error_label))
+                .setMessage(it.getString(R.string.server_timeout_error_text))
+                .setPositiveButton(it.getString(R.string.ok)) { dialog, _ -> dialog.dismiss()}.create()
+
         }?: throw IllegalStateException("Activity cannot be null")
     }
 }

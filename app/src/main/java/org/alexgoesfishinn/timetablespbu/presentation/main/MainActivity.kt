@@ -12,11 +12,11 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.FavouriteDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.GroupIsNotAvailableDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.ServerTimeoutErrorDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWentWrongDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.favourite.FavouriteDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.GroupIsNotAvailableDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout.ServerTimeoutErrorDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.somethingwentwrong.SomethingWentWrongDialog
 import javax.inject.Inject
 
 

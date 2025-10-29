@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.GroupIsNotAvailableDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.NoInternetDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.ServerTimeoutErrorDialog
-import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.SomethingWentWrongDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.GroupIsNotAvailableDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout.ServerTimeoutErrorDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.somethingwentwrong.SomethingWentWrongDialog
 import javax.inject.Singleton
 /**
  * @author a.bylev
@@ -21,7 +21,7 @@ object PresentationModule {
     fun provideServerTimeoutErrorDialog() = ServerTimeoutErrorDialog()
 
     @Provides
-    @Singleton
+//    @Singleton
     fun provideNoInternetDialog() = NoInternetDialog()
 
     @Provides

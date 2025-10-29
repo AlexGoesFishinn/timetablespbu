@@ -32,4 +32,5 @@
     <string name="no_events">Нет событий</string>
     <string name="program_combinations">Образовательные программы</string>
     <string name="application_years">Годы поступления</string>
+    <string name="close">закрыть</string>
 </resources>

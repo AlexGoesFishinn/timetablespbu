@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.FavouriteUpdateNotificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
@@ -36,7 +37,8 @@ class EventsViewModel @Inject constructor(
     private val groupEventsToUiMapper: GroupEventsToUiMapper,
     private val eventToUiMapper: EventToUiMapper,
     savedStateHandle: SavedStateHandle,
-    private val favouriteUiToDomainMapper: FavouriteUiToDomainMapper
+    private val favouriteUiToDomainMapper: FavouriteUiToDomainMapper,
+    private val favouriteUpdateNotificator: FavouriteUpdateNotificator
 ) : ViewModel() {
     private val _groupEvents = MutableStateFlow<GroupEventsItem?>(null)
     val groupEvents: StateFlow<GroupEventsItem?> = _groupEvents.asStateFlow()
@@ -71,13 +73,26 @@ class EventsViewModel @Inject constructor(
     init {
         getWeek(currentWeekMondayString)
         getFavourite()
+        favouriteUpdated()
 
 
+
+    }
+
+    private fun favouriteUpdated(){
+        viewModelScope.launch {
+            favouriteUpdateNotificator.favouriteUpdated.collect{
+                if (it){
+                    getFavourite()
+                }
+            }
+        }
     }
 
     private fun getFavourite() {
         viewModelScope.launch {
             _isFavourite.value = subscribeFavourite.getAll().map { it.id }.contains(groupId)
+            favouriteUpdateNotificator.favouriteUpdatedNotified()
         }
 
     }
