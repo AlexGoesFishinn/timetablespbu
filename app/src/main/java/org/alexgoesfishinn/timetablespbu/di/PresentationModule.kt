@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.GroupIsNotAvailableDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.MoreDetailsDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout.ServerTimeoutErrorDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.somethingwentwrong.SomethingWentWrongDialog
@@ -31,4 +32,8 @@ object PresentationModule {
     @Provides
     @Singleton
     fun provideGroupIsNotAvailableDialog() = GroupIsNotAvailableDialog()
+
+    @Provides
+    @Singleton
+    fun provideMoreDetailsDialog() = MoreDetailsDialog()
 }

@@ -16,6 +16,7 @@ import javax.inject.Inject
 class GroupIsNotAvailableDialog: DialogFragment() {
     @Inject
     lateinit var warningsNotificator: WarningsNotificator
+    @Inject lateinit var moreDetailsDialog: MoreDetailsDialog
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         warningsNotificator.groupIsNotAvailableNotifyOff()
@@ -24,6 +25,8 @@ class GroupIsNotAvailableDialog: DialogFragment() {
             builder.setTitle(it.getString(R.string.group_is_not_available))
                 .setMessage(it.getString(R.string.remove_from_favourite))
                 .setPositiveButton(it.getString(R.string.ok)) { dialog, _ -> dialog.dismiss()}
+                .setNegativeButton(it.getString(R.string.details)) {dialog, _ -> dialog.dismiss()
+                moreDetailsDialog.show(parentFragmentManager, "Details dialog")}
                 .create()
         }?: throw IllegalStateException("Activity cannot be null")
     }
