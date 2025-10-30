@@ -13,6 +13,8 @@ import org.alexgoesfishinn.timetablespbu.data.repo.LevelsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramCombinationsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.ProgramsRepository
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
+import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteAllDataUseCase
+import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteAllDataUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.DeleteOldEventsUseCaseImpl
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
@@ -90,5 +92,11 @@ object DomainModule {
     @Provides
     fun provideDeleteOldEventsUseCase(dbCleaner: DbCleaner): DeleteOldEventsUseCase {
         return DeleteOldEventsUseCaseImpl(dbCleaner)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteAllDataUseCase(dbCleaner: DbCleaner): DeleteAllDataUseCase {
+        return DeleteAllDataUseCaseImpl(dbCleaner)
     }
 }

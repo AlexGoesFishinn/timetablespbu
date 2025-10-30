@@ -35,4 +35,7 @@
     <string name="program_combinations">Образовательные программы</string>
     <string name="application_years">Годы поступления</string>
     <string name="close">закрыть</string>
+    <string name="clear_cache">Очистить кэш</string>
+    <string name="clear_cache_message">Очистка кэша приведет к удалению сохраненных данных и очистке Избранного</string>
+    <string name="cancel">отмена</string>
 </resources>

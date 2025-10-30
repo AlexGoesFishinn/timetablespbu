@@ -2,6 +2,7 @@ package org.alexgoesfishinn.timetablespbu.presentation.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.clearcache.ClearCacheDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.favourite.FavouriteDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.GroupIsNotAvailableDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var groupIsNotAvailableDialog: GroupIsNotAvailableDialog
     @Inject
     lateinit var serverTimeoutErrorDialog: ServerTimeoutErrorDialog
+    @Inject
+    lateinit var clearCacheDialog: ClearCacheDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +55,18 @@ class MainActivity : AppCompatActivity() {
         subscribeServerTimeout()
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menu?.add(R.string.clear_cache)
+            ?.setOnMenuItemClickListener {
+            clearCacheDialog.show(supportFragmentManager, "ClearCacheDialog")
+            true
+        }
+
+        return true
+    }
+
 
     private fun subscribeServerTimeout() {
         lifecycleScope.launch {

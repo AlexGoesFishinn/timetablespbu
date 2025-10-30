@@ -18,4 +18,6 @@ interface FavouriteDao {
 
     @Query("DELETE FROM ${FavouriteDb.FAVOURITE_TABLE_NAME} WHERE Id = :id")
     suspend fun delete(id: Long)
+
+
 }

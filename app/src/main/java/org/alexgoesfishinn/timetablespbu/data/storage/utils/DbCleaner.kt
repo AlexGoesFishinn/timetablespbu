@@ -2,6 +2,8 @@ package org.alexgoesfishinn.timetablespbu.data.storage.utils
 
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
+
+import org.alexgoesfishinn.timetablespbu.data.storage.database.AppDatabase
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
@@ -11,11 +13,14 @@ import javax.inject.Inject
  */
 interface DbCleaner{
     suspend fun deleteOldEvents()
+
+    suspend fun deleteAllData()
 }
 
 class DbCleanerImpl @Inject constructor(
     private val groupsRepository: GroupsRepository,
-    private val groupEventsRepository: GroupEventsRepository
+    private val groupEventsRepository: GroupEventsRepository,
+    private val appDatabase: AppDatabase
 ): DbCleaner {
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private val thresholdToDelete: Long = 3L
@@ -23,6 +28,10 @@ class DbCleanerImpl @Inject constructor(
     override suspend fun deleteOldEvents() {
         deleteEventsByDate()
         deleteEventsByUnusedGroup()
+    }
+
+    override suspend fun deleteAllData() {
+        appDatabase.clearAllTables()
     }
 
     private suspend fun deleteEventsByDate() {

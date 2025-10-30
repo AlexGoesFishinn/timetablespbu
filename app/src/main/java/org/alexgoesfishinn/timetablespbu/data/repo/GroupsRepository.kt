@@ -18,6 +18,7 @@ interface GroupsRepository {
     suspend fun getGroups(id: Long): List<Group>
 
     suspend fun getAllGroupIds(): List<Long>
+
 }
 
 class SubscribeGroupsRepositoryImpl @Inject constructor(
@@ -28,6 +29,8 @@ class SubscribeGroupsRepositoryImpl @Inject constructor(
     private val groupDbToDomainMapper: GroupDbToDomainMapper,
     private val warningsNotificator: WarningsNotificator
 ): GroupsRepository{
+
+
     override suspend fun getGroups(id: Long): List<Group> {
         if(internetChecker.isInternetAvailable()){
             try {

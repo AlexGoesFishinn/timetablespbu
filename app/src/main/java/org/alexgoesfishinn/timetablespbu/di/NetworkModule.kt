@@ -20,6 +20,8 @@ import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeGroupEventsRepositor
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeLevelsRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeProgramCombinationsRepositoryImpl
 import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeProgramsRepositoryImpl
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
+import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleanerImpl
 
 /**
  * @author a.bylev
@@ -50,4 +52,7 @@ abstract class NetworkModule {
 
     @Binds
     abstract fun bindFavouriteRepository(impl: SubscribeFavouriteRepositoryImpl): FavouriteRepository
+
+//    @Binds
+//    abstract fun bindDbCleaner(impl: DbCleanerImpl): DbCleaner
 }

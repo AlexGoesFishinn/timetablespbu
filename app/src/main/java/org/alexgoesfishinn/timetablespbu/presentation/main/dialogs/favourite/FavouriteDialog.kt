@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.NavGraphDirections
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteNavigateClickListener

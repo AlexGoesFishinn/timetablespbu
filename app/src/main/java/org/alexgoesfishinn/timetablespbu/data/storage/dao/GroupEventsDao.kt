@@ -31,6 +31,8 @@ abstract class GroupEventsDao {
     @Query("SELECT * FROM ${GroupEventsDb.GROUP_EVENTS_TABLE_NAME}")
     abstract suspend fun getAllGroupEvents(): List<GroupEventsDb>
 
+
+
     @Insert
     abstract suspend fun insertGroupEvents(groupEventsDb: GroupEventsDb): Long
 

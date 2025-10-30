@@ -36,7 +36,7 @@ class DivisionsAdapter(
             val alias: String = it.alias
             holder.itemView.setOnClickListener{
                 listener.onItemClick(alias, name)
-                Log.e("ALIAS", alias)
+                Log.i("ALIAS", alias)
 
             }
         }

@@ -17,6 +17,7 @@ import javax.inject.Inject
  */
 interface LevelsRepository {
     suspend fun getLevels(alias: String): List<Level>
+
 }
 
 class SubscribeLevelsRepositoryImpl @Inject constructor(
@@ -27,6 +28,7 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
     private val levelDao: LevelDao,
     private val warningsNotificator: WarningsNotificator
 ) : LevelsRepository {
+
 
     override suspend fun getLevels(alias: String): List<Level> {
         if(internetChecker.isInternetAvailable()){

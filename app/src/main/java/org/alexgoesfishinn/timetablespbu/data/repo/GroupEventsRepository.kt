@@ -26,6 +26,8 @@ interface GroupEventsRepository {
     suspend fun getWeekMondayOfAllEvents(): List<String>
 
     suspend fun deleteByWeekMondaysList(weekMondays: List<String>)
+
+
 }
 
 class SubscribeGroupEventsRepositoryImpl @Inject constructor(
@@ -37,6 +39,8 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
     private val groupEventsDbToDomainMapper: GroupEventsDbToDomainMapper,
     private val warningsNotificator: WarningsNotificator
 ) : GroupEventsRepository{
+
+
     override suspend fun getEvents(groupId: Long, weekMonday: String): GroupEvents {
         if(internetChecker.isInternetAvailable()){
             if(isGroupAvailable(groupId)){

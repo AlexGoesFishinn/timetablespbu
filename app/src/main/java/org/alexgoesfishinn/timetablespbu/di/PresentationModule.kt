@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.clearcache.ClearCacheDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.GroupIsNotAvailableDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotavailable.MoreDetailsDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
@@ -36,4 +37,8 @@ object PresentationModule {
     @Provides
     @Singleton
     fun provideMoreDetailsDialog() = MoreDetailsDialog()
+
+    @Provides
+    @Singleton
+    fun provideClearCacheDialog() = ClearCacheDialog()
 }

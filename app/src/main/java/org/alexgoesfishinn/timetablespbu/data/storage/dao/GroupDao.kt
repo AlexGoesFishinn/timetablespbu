@@ -21,6 +21,7 @@ abstract class GroupDao {
     @Query("SELECT * FROM ${GroupDb.GROUP_TABLE_NAME}")
     abstract suspend fun getAllGroups(): List<GroupDb>
 
+
     suspend fun insertAll(id: Long, vararg groupsDb: GroupDb){
         delete(id)
         insert(*groupsDb)

@@ -27,6 +27,7 @@ class SubscribeDivisionsRepositoryImpl @Inject constructor(
     private val warningsNotificator: WarningsNotificator
 
 ) : DivisionsRepository {
+
     override suspend fun getDivisions(): List<Division> {
         if (internetChecker.isInternetAvailable()) {
                 try {

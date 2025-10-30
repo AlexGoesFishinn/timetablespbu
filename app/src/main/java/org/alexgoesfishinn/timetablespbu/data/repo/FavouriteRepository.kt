@@ -14,6 +14,7 @@ interface FavouriteRepository {
     suspend fun delete(id: Long)
 
     suspend fun add(favourite: Favourite)
+
 }
 
 class SubscribeFavouriteRepositoryImpl @Inject constructor(
@@ -21,6 +22,8 @@ class SubscribeFavouriteRepositoryImpl @Inject constructor(
     private val favouriteDomainToDbMapper: FavouriteDomainToDbMapper,
     private val favouriteDao: FavouriteDao
 ): FavouriteRepository{
+
+
     override suspend fun getAll(): List<Favourite> {
         return favouriteDao.selectAll().map { favouriteDbToDomainMapper.invoke(it) }
     }

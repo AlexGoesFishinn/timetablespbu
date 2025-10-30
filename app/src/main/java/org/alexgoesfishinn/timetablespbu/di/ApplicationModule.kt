@@ -14,6 +14,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupEventsRepository
 import org.alexgoesfishinn.timetablespbu.data.repo.GroupsRepository
+import org.alexgoesfishinn.timetablespbu.data.storage.database.AppDatabase
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleanerImpl
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.FavouriteUpdateNotificator
@@ -31,7 +32,6 @@ object ApplicationModule {
     private const val BASE_URL = "https://timetable.spbu.ru/api/v1/"
 
 
-
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -42,22 +42,22 @@ object ApplicationModule {
     }
 
     @Provides
-    fun provideDivisionService(retrofit: Retrofit): DivisionsService{
+    fun provideDivisionService(retrofit: Retrofit): DivisionsService {
         return retrofit.create(DivisionsService::class.java)
     }
 
     @Provides
-    fun provideLevelsService(retrofit: Retrofit): LevelsService{
+    fun provideLevelsService(retrofit: Retrofit): LevelsService {
         return retrofit.create(LevelsService::class.java)
     }
 
     @Provides
-    fun provideGroupsService(retrofit: Retrofit): GroupsService{
+    fun provideGroupsService(retrofit: Retrofit): GroupsService {
         return retrofit.create(GroupsService::class.java)
     }
 
     @Provides
-    fun provideEventsService(retrofit: Retrofit): EventsService{
+    fun provideEventsService(retrofit: Retrofit): EventsService {
         return retrofit.create(EventsService::class.java)
     }
 
@@ -73,11 +73,19 @@ object ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideDbCleaner(groupsRepository: GroupsRepository, groupEventsRepository: GroupEventsRepository): DbCleaner {
-        return DbCleanerImpl(groupsRepository, groupEventsRepository)
+    fun provideDbCleaner(
+        groupsRepository: GroupsRepository,
+        groupEventsRepository: GroupEventsRepository,
+        appDatabase: AppDatabase
+    ): DbCleaner {
+        return DbCleanerImpl(
+            groupsRepository, groupEventsRepository, appDatabase
+
+        )
     }
 
     @Provides
     @Singleton
-    fun provideFavouriteUpdateNotificator(): FavouriteUpdateNotificator = FavouriteUpdateNotificator()
+    fun provideFavouriteUpdateNotificator(): FavouriteUpdateNotificator =
+        FavouriteUpdateNotificator()
 }

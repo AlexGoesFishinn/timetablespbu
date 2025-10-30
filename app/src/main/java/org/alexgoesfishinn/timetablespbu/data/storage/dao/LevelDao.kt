@@ -21,6 +21,7 @@ abstract class LevelDao {
     abstract suspend fun deleteAlias(alias: String)
 
 
+
     suspend fun insertLevels(alias: String, vararg levels: LevelDb){
         deleteAlias(alias)
         levels.forEach { it.alias = alias }
