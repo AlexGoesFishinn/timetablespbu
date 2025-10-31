@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "org.alexgoesfishinn.timetablespbu"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.alexgoesfishinn.timetablespbu"
-        minSdk = 34
-        targetSdk = compileSdk
+        minSdk = 28
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
