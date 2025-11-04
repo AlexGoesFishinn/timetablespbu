@@ -3,6 +3,13 @@ package org.alexgoesfishinn.timetablespbu.presentation.main
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -42,19 +49,40 @@ class MainActivity : AppCompatActivity() {
     lateinit var clearCacheDialog: ClearCacheDialog
 
 
+    private lateinit var loadingLayout: RelativeLayout
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navigation = navHostFragment.findNavController()
+
+        customizeBackButton()
         initBottomNavigation()
         subscribeInternetChecker()
         subscribeApiError()
         subscribeGroupIsNotAvailable()
         subscribeServerTimeout()
+        subscribeLoadingNotifications()
+        initAnimation()
+
 
     }
+
+    private fun customizeBackButton(){
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.loadingFinished()
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+
+            }
+        })
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
@@ -65,6 +93,40 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    private fun subscribeLoadingNotifications(){
+        loadingLayout = findViewById(R.id.loading_layout)
+        lifecycleScope.launch {
+            viewModel.isLoading.collect {
+                if(it){
+                    isLoading()
+                } else {
+                    loadingFinished()
+                }
+            }
+        }
+    }
+
+    private fun isLoading(){
+        loadingLayout.visibility = View.VISIBLE
+    }
+
+    private fun loadingFinished(){
+        loadingLayout.visibility = View.GONE
+    }
+
+    private fun initAnimation(){
+        val loadingImage: ImageView = findViewById(R.id.loading_icon)
+        val loadingText: TextView = findViewById(R.id.loading_text)
+        val animation = AlphaAnimation(0f, 1f).apply {
+            duration = 1000L
+            repeatMode = Animation.REVERSE
+            repeatCount = Animation.INFINITE
+            fillAfter = true
+        }
+        loadingImage.startAnimation(animation)
+        loadingText.startAnimation(animation)
     }
 
 
@@ -117,6 +179,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigation() {
         val navigationToMain = findViewById<CardView>(R.id.bottom_navigation_to_main)
         navigationToMain.setOnClickListener {
+            viewModel.loadingFinished()
             navigation.navigate(R.id.to_divisions)
         }
         val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeLevelsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.level.LevelToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LevelItem
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class LevelsViewModel @Inject constructor(
     private val subscribeLevelsUseCase: SubscribeLevelsUseCase,
     private val uiMapper: LevelToUiMapper,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val notificator: Notificator
 ): ViewModel() {
     private val _levels: MutableStateFlow<List<LevelItem>> = MutableStateFlow(emptyList())
     val levels: StateFlow<List<LevelItem>> = _levels.asStateFlow()
@@ -32,13 +34,16 @@ class LevelsViewModel @Inject constructor(
         Log.i(TAG, "alias = $alias")
         viewModelScope.launch {
             if(alias != null){
+                notificator.loadingInProcess()
                 _levels.value = subscribeLevelsUseCase
                     .getLevels(alias)
                     .map { uiMapper.invoke(it) }
+                notificator.loadingFinished()
             }
 
         }
     }
+
 
     companion object{
         private const val TAG = "LevelsViewModel"

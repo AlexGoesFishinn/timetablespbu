@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeProgramsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.program.ProgramToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.ProgramItem
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class ProgramsViewModel @Inject constructor(
     private val subscribeProgramsUseCase: SubscribeProgramsUseCase,
     private val programToUiMapper: ProgramToUiMapper,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val notificator: Notificator
 ): ViewModel() {
     private val _programs: MutableStateFlow<List<ProgramItem>> = MutableStateFlow(emptyList())
     val programs: StateFlow<List<ProgramItem>> = _programs.asStateFlow()
@@ -28,13 +30,16 @@ class ProgramsViewModel @Inject constructor(
         Log.i(TAG, "programCombinationId = $programCombinationId")
         viewModelScope.launch {
             if(programCombinationId != null){
+                notificator.loadingInProcess()
                 _programs.value = subscribeProgramsUseCase.getPrograms(programCombinationId).map {
                     programToUiMapper.invoke(it)
                 }
+                notificator.loadingFinished()
             }
 
         }
     }
+
 
     private companion object{
         const val TAG = "ProgramsViewModel"

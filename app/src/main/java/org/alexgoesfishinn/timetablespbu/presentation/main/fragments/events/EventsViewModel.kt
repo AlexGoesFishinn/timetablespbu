@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.FavouriteUpdateNotificator
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeEventsUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeFavouriteUseCase
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupEventsUseCase
@@ -38,7 +39,8 @@ class EventsViewModel @Inject constructor(
     private val eventToUiMapper: EventToUiMapper,
     savedStateHandle: SavedStateHandle,
     private val favouriteUiToDomainMapper: FavouriteUiToDomainMapper,
-    private val favouriteUpdateNotificator: FavouriteUpdateNotificator
+    private val favouriteUpdateNotificator: FavouriteUpdateNotificator,
+    private val notificator: Notificator
 ) : ViewModel() {
     private val _groupEvents = MutableStateFlow<GroupEventsItem?>(null)
     val groupEvents: StateFlow<GroupEventsItem?> = _groupEvents.asStateFlow()
@@ -74,10 +76,8 @@ class EventsViewModel @Inject constructor(
         getWeek(currentWeekMondayString)
         getFavourite()
         favouriteUpdated()
-
-
-
     }
+
 
     private fun favouriteUpdated(){
         viewModelScope.launch {
@@ -128,6 +128,7 @@ class EventsViewModel @Inject constructor(
         _nextWeekMondayString.value = nextMonday.format(formatter)
         _previousWeekMondayString.value = previousMonday.format(formatter)
         viewModelScope.launch {
+            notificator.loadingInProcess()
             val week = groupEventsToUiMapper.invoke(
                 subscribeGroupEventsUseCase.getEvents(groupId!!, weekMonday)
             )
@@ -137,6 +138,7 @@ class EventsViewModel @Inject constructor(
                 _groupDisplayName.value = week.groupName
             }
             calculateAdapterPosition()
+            notificator.loadingFinished()
         }
     }
 

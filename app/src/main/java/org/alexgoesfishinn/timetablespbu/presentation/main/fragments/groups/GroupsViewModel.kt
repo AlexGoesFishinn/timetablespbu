@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeGroupsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.group.GroupToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.GroupItem
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class GroupsViewModel @Inject constructor(
     private val subscribeGroupsUseCase: SubscribeGroupsUseCase,
     private val groupToUiMapper: GroupToUiMapper,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val notificator: Notificator
 ): ViewModel() {
 
     private val _groups: MutableStateFlow<List<GroupItem>> = MutableStateFlow(emptyList())
@@ -29,9 +31,13 @@ class GroupsViewModel @Inject constructor(
         val id: Long? = savedStateHandle["program_id"]
         viewModelScope.launch {
             if(id != null){
+                notificator.loadingInProcess()
                 _groups.value = subscribeGroupsUseCase.getGroups(id).map { groupToUiMapper.invoke(it) }
+                notificator.loadingFinished()
             }
 
         }
     }
+
+
 }

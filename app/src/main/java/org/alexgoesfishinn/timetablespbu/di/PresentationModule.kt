@@ -10,7 +10,6 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotava
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout.ServerTimeoutErrorDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.somethingwentwrong.SomethingWentWrongDialog
-import javax.inject.Singleton
 /**
  * @author a.bylev
  */
@@ -19,26 +18,21 @@ import javax.inject.Singleton
 object PresentationModule {
 
     @Provides
-    @Singleton
     fun provideServerTimeoutErrorDialog() = ServerTimeoutErrorDialog()
 
     @Provides
-//    @Singleton
     fun provideNoInternetDialog() = NoInternetDialog()
 
     @Provides
-    @Singleton
     fun provideSomethingWentWrongDialog() = SomethingWentWrongDialog()
 
     @Provides
-    @Singleton
+
     fun provideGroupIsNotAvailableDialog() = GroupIsNotAvailableDialog()
 
     @Provides
-    @Singleton
     fun provideMoreDetailsDialog() = MoreDetailsDialog()
 
     @Provides
-    @Singleton
     fun provideClearCacheDialog() = ClearCacheDialog()
 }

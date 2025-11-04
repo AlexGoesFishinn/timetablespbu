@@ -18,6 +18,7 @@ import org.alexgoesfishinn.timetablespbu.data.storage.database.AppDatabase
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleaner
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.DbCleanerImpl
 import org.alexgoesfishinn.timetablespbu.data.storage.utils.FavouriteUpdateNotificator
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -88,4 +89,8 @@ object ApplicationModule {
     @Singleton
     fun provideFavouriteUpdateNotificator(): FavouriteUpdateNotificator =
         FavouriteUpdateNotificator()
+
+    @Provides
+    @Singleton
+    fun provideNotificator() = Notificator()
 }

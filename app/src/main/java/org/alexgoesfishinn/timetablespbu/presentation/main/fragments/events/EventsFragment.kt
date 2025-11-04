@@ -218,6 +218,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         binding = null
     }
 

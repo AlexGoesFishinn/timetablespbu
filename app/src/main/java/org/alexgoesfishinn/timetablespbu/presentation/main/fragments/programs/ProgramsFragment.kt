@@ -68,6 +68,7 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+
         binding = null
     }
 

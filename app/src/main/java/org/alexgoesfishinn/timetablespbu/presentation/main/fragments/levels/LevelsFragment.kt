@@ -62,6 +62,7 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         binding = null
     }
 

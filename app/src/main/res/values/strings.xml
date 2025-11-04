@@ -38,4 +38,6 @@
     <string name="clear_cache">Очистить кэш</string>
     <string name="clear_cache_message">Очистка кэша приведет к удалению сохраненных данных и очистке Избранного</string>
     <string name="cancel">отмена</string>
+    <string name="loading">Загрузка</string>
+    <string name="loading_icon_description">Иконка загрузки</string>
 </resources>

@@ -29,7 +29,6 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DivisionsFragmentBinding.bind(view)
-
         divisionRecycler = view.findViewById(R.id.divisions_recycler)
 
         initDivisionRecycler()
@@ -39,6 +38,7 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         binding = null
     }
 

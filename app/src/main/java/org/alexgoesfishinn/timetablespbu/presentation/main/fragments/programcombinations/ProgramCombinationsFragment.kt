@@ -73,6 +73,7 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         binding = null
     }
 

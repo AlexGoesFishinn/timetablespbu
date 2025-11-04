@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.alexgoesfishinn.timetablespbu.data.utils.Notificator
 import org.alexgoesfishinn.timetablespbu.domain.usecases.SubscribeDivisionsUseCase
 import org.alexgoesfishinn.timetablespbu.presentation.main.mappers.division.DivisionToUiMapper
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.DivisionItem
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DivisionsViewModel @Inject constructor(
     private val subscribeDivisionsUseCase: SubscribeDivisionsUseCase,
-    private val uiMapper: DivisionToUiMapper
+    private val uiMapper: DivisionToUiMapper,
+    private val notificator: Notificator
 ): ViewModel() {
 
     private val _divisions: MutableStateFlow<List<DivisionItem>> = MutableStateFlow(emptyList())
@@ -25,10 +27,14 @@ class DivisionsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            notificator.loadingInProcess()
             _divisions.value =
                 subscribeDivisionsUseCase
                     .getDivisions()
                     .map { uiMapper.invoke(it) }
+            notificator.loadingFinished()
         }
     }
+
+
 }
