@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/logo_layout_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/choose_group_button">
+        <ImageView
+            android:id="@+id/spbu_logo"
+            android:layout_width="64sp"
+            android:layout_height="64sp"
+            android:src="@drawable/ic_spbu_logo"
+            android:contentDescription="@string/spbu_logo_description"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spbu_name_saint_petersburg"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/spbu_logo"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spbu_name_state"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/spbu_logo"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spbu_name_university"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/spbu_logo"
+            android:layout_alignBottom="@id/spbu_logo"/>
+
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/choose_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logo_layout_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="@color/spbu_primary_terracot_color"
+        app:cardCornerRadius="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/choose_group"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_margin="8dp"/>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@
     <ImageView
         android:layout_width="64sp"
         android:layout_height="64sp"
-        android:src="@drawable/ic_loading"
+        android:src="@drawable/ic_spbu_logo"
         android:id="@+id/loading_icon"
         android:contentDescription="@string/loading_icon_description"
         android:layout_centerInParent="true"

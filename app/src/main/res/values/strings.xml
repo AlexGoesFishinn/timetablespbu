@@ -40,4 +40,11 @@
     <string name="cancel">отмена</string>
     <string name="loading">Загрузка</string>
     <string name="loading_icon_description">Иконка загрузки</string>
+    <string name="slash_string">%s / %s</string>
+    <string name="groups">Группы</string>
+    <string name="choose_group">Выбрать группу</string>
+    <string name="spbu_logo_description">Логотип СПбГУ</string>
+    <string name="spbu_name_saint_petersburg">Санкт-Петербургский</string>
+    <string name="spbu_name_state">государственный</string>
+    <string name="spbu_name_university">университет</string>
 </resources>

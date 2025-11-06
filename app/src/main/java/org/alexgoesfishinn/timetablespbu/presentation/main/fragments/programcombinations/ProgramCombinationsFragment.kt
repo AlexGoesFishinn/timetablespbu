@@ -29,12 +29,14 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
     private lateinit var programCombinationsRecycler: RecyclerView
     private lateinit var programCombinationsAdapter: ProgramCombinationsAdapter
     private lateinit var programCombinationsLabel: TextView
+    private lateinit var divisionLevelName: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ProgramCombinationsFragmentBinding.bind(view)
         programCombinationsLabel = view.findViewById(R.id.program_combinations_label)
-        programCombinationsLabel.text = args.levelName
+        divisionLevelName = args.levelName
+        programCombinationsLabel.text = divisionLevelName
         programCombinationsRecycler = view.findViewById(R.id.program_combinations_recycler)
         initProgramCombinationsRecycler()
         subscribeToProgramCombinations()
@@ -64,9 +66,15 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
     }
 
     private fun navigateToPrograms(programCombinationId: Long, programName: String) {
+        val label = getString(R.string.slash_string, divisionLevelName, programName)
+//        findNavController().navigate(
+//            ProgramCombinationsFragmentDirections.actionProgramCombinationsToPrograms(
+//                programCombinationId, programName
+//            )
+//        )
         findNavController().navigate(
             ProgramCombinationsFragmentDirections.actionProgramCombinationsToPrograms(
-                programCombinationId, programName
+                programCombinationId, label
             )
         )
     }

@@ -36,9 +36,10 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
         val programName: String = args.programName
         val programYear: String = args.programYear
         programGroupLabel = view.findViewById(R.id.program_group_label)
-        yearGroupLabel = view.findViewById(R.id.year_group_label)
-        programGroupLabel.text = getString(R.string.groups_fragment_program_label, programName)
-        yearGroupLabel.text = getString(R.string.groups_fragment_year_label, programYear)
+        yearGroupLabel = view.findViewById(R.id.groups_label)
+//        programGroupLabel.text = getString(R.string.groups_fragment_program_label, programName)
+//        yearGroupLabel.text = getString(R.string.groups_fragment_year_label, programYear)
+        programGroupLabel.text = getString(R.string.slash_string, programName, programYear)
         groupsRecycler = view.findViewById(R.id.groups_recycler)
         initRecycler()
         subscribeToGroups()

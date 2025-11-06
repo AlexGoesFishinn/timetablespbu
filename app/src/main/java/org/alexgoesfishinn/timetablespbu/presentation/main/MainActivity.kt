@@ -180,7 +180,8 @@ class MainActivity : AppCompatActivity() {
         val navigationToMain = findViewById<CardView>(R.id.bottom_navigation_to_main)
         navigationToMain.setOnClickListener {
             viewModel.loadingFinished()
-            navigation.navigate(R.id.to_divisions)
+            navigation.navigate(R.id.to_main)
+//            navigation.navigate(R.id.to_divisions)
         }
         val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)
         favouriteButton.setOnClickListener {

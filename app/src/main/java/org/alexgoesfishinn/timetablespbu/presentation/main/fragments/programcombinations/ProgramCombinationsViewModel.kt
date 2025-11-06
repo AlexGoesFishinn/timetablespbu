@@ -29,6 +29,7 @@ class ProgramCombinationsViewModel @Inject constructor(
     )
     val programCombinations: StateFlow<List<ProgramCombinationItem>> = _programCombinations.asStateFlow()
 
+
     init {
         Log.i(TAG, "init")
         val levelId: Long? = savedStateHandle["level_id"]

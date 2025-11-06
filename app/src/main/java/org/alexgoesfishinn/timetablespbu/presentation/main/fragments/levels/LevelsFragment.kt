@@ -28,13 +28,16 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private val viewmodel by viewModels<LevelsViewModel>()
     private lateinit var levelsRecycler: RecyclerView
     private lateinit var levelsAdapter: LevelsAdapter
+    private lateinit var divisionName: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = LevelsFragmentBinding.bind(view)
         levelsRecycler = view.findViewById(R.id.levels_recycler)
         val label:TextView = view.findViewById(R.id.levels_fragment_label)
-        label.text = getString(R.string.level_fragment_division_label_text, args.name)
+//        label.text = getString(R.string.level_fragment_division_label_text, args.name)
+        divisionName = args.name
+        label.text = divisionName
         initLevelsRecycler()
         subscribeToLevels()
     }
@@ -67,7 +70,9 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     }
 
     private fun navigateToProgramCombinationsFragment(levelId: Long, levelName: String){
-        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(levelId, levelName))
+        val label = getString(R.string.slash_string, divisionName, levelName)
+//        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(levelId, levelName))
+        findNavController().navigate(LevelsFragmentDirections.actionLevelsToProgramCombinations(levelId, label))
    }
 
     private companion object{
