@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +33,7 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     private lateinit var programsAdapter: ProgramsAdapter
     private lateinit var programLabel: TextView
     private lateinit var programName: String
+    private lateinit var layout: ConstraintLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +42,8 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         programLabel = view.findViewById(R.id.program_label)
         programLabel.text = programName
         programsRecycler = view.findViewById(R.id.programs_recycler)
+        layout = view.findViewById(R.id.programs_fragment_layout)
+        playAnimation(layout)
         initProgramsRecycler()
         subscribeToPrograms()
     }
@@ -58,9 +63,20 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         lifecycleScope.launch {
             viewmodel.programs.collect{
                 programsAdapter.data = it
+                if(it.isNotEmpty()){
+                    playAnimation(programsRecycler)
+                }
                 Log.i(TAG, "$it")
             }
         }
+    }
+
+    private fun playAnimation(view: View){
+        val animation = AlphaAnimation(0f, 1f).apply {
+            duration = 500L
+            fillAfter = true
+        }
+        view.startAnimation(animation)
     }
 
     private fun navigateToGroups(programId: Long, programYear: String){

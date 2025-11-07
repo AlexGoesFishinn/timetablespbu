@@ -2,6 +2,8 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,13 +26,15 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private var binding: DivisionsFragmentBinding? = null
     private lateinit var divisionRecycler: RecyclerView
     private lateinit var divisionAdapter: DivisionsAdapter
+    private lateinit var layout: ConstraintLayout
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DivisionsFragmentBinding.bind(view)
         divisionRecycler = view.findViewById(R.id.divisions_recycler)
-
+        layout = view.findViewById(R.id.divisions_fragment_layout)
+        playAnimation(layout)
         initDivisionRecycler()
         subscribeToDivisions()
 
@@ -56,8 +60,20 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         lifecycleScope.launch {
             viewModel.divisions.collect {
                 divisionAdapter.data = it
+                if(it.isNotEmpty()){
+                    playAnimation(divisionRecycler)
+                }
+
             }
         }
+    }
+
+    private fun playAnimation(view: View){
+        val animation = AlphaAnimation(0f, 1f).apply {
+            duration = 500L
+            fillAfter = true
+        }
+        view.startAnimation(animation)
     }
 
 

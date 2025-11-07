@@ -38,7 +38,7 @@ class ClearCacheDialog : DialogFragment() {
         Log.i("DeleteCache", "Delete")
         lifecycleScope.launch {
             deleteAllDataUseCase.deleteAllData()
-            val action = NavGraphDirections.toDivisions()
+            val action = NavGraphDirections.toMain()
             findNavController().navigate(action)
             dismiss()
         }

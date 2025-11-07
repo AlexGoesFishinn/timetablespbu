@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_fragment_layout">
 
     <RelativeLayout
-        android:id="@+id/logo_layout_1"
+        android:id="@+id/logo_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/choose_group_button">
+        app:layout_constraintBottom_toTopOf="@id/welcome_layout">
         <ImageView
             android:id="@+id/spbu_logo"
             android:layout_width="64sp"
@@ -46,6 +47,40 @@
             android:layout_alignBottom="@id/spbu_logo"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/welcome_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logo_layout"
+        app:layout_constraintBottom_toTopOf="@id/choose_group_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/welcome_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/welcome"
+            android:textSize="16sp"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/timetable_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome_textview"
+            android:layout_centerHorizontal="true"
+            android:text="@string/timetable_name"
+            android:textStyle="bold"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+
+
 
 
 
@@ -53,7 +88,7 @@
         android:id="@+id/choose_group_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/logo_layout_1"
+        app:layout_constraintTop_toBottomOf="@id/logo_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

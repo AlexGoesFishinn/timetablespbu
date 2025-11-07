@@ -3,7 +3,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +44,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var activity: MainActivity
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
+    private lateinit var layout: ConstraintLayout
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +61,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         previousWeekButton = view.findViewById(R.id.previous_week_button)
         eventsRecycler = view.findViewById(R.id.events_recycler)
         daysRecycler = view.findViewById(R.id.days_recycler)
+        layout = view.findViewById(R.id.events_fragment_layout)
+        playAnimation(layout)
 
 
         initDaysRecycler()
@@ -76,18 +81,18 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     }
 
 
-    private fun subscribeToFavourite(){
+    private fun subscribeToFavourite() {
         lifecycleScope.launch {
-            viewmodel.isFavourite.collect{
+            viewmodel.isFavourite.collect {
                 val isFavourite = it
-                Log.i(TAG,"Favourite = $isFavourite")
-                if(isFavourite){
+                Log.i(TAG, "Favourite = $isFavourite")
+                if (isFavourite) {
                     addToFavouriteText.text = getString(R.string.remove_from_favourite)
                     addToFavouriteCard.setOnClickListener {
                         viewmodel.removeFromFavourite()
 
                     }
-                } else{
+                } else {
                     addToFavouriteText.text = getString(R.string.add_to_favourite)
                     addToFavouriteCard.setOnClickListener {
                         viewmodel.addToFavourite()
@@ -98,11 +103,22 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun subscribeToGroupName(){
+    private fun playAnimation(view: View) {
+        val animation = AlphaAnimation(0f, 1f).apply {
+            duration = 500L
+            fillAfter = true
+        }
+        view.startAnimation(animation)
+    }
+
+    private fun subscribeToGroupName() {
         lifecycleScope.launch {
             viewmodel.groupDisplayName.collect {
-                if(it == ""){addToFavouriteCard.visibility = View.GONE}
-                else{addToFavouriteCard.visibility = View.VISIBLE}
+                if (it == "") {
+                    addToFavouriteCard.visibility = View.GONE
+                } else {
+                    addToFavouriteCard.visibility = View.VISIBLE
+                }
                 groupNameText.text = it
             }
         }
@@ -114,9 +130,13 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 val groupEvents = it
                 nextWeekButton.setOnClickListener {
                     viewmodel.getWeek(nextWeekMondayString)
+//                    playFadeoutAnimation(daysRecycler)
+//                    playFadeoutAnimation(eventsRecycler)
                 }
                 previousWeekButton.setOnClickListener {
                     viewmodel.getWeek(previousWeekMondayString)
+//                    playFadeoutAnimation(daysRecycler)
+//                    playFadeoutAnimation(eventsRecycler)
                 }
                 noEventsText.visibility = View.VISIBLE
                 if (groupEvents != null && groupEvents.days.isNotEmpty()) {
@@ -126,7 +146,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             }
         }
     }
-
 
 
     private fun initEventsRecycler() {
@@ -141,6 +160,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 viewmodel.setAdapterPosition(adapterPosition)
                 Log.i("EventsFragment", "onClick adapterPosition = $adapterPosition")
                 viewmodel.getEvents(dayId)
+//                playFadeoutAnimation(eventsRecycler)
 
             }
         })
@@ -149,21 +169,35 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
+//    private fun playFadeoutAnimation(view: View){
+//        val animation = AlphaAnimation(1f,0f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
+
     private fun subscribeToDays() {
         lifecycleScope.launch {
             viewmodel.days.collect {
                 daysAdapter.data = it
-                if(it.isEmpty()){
+                if (it.isEmpty()) {
                     eventsRecycler.visibility = View.GONE
-                } else eventsRecycler.visibility = View.VISIBLE
+                } else {
+                    eventsRecycler.visibility = View.VISIBLE
+                    playAnimation(daysRecycler)
+                }
             }
         }
     }
 
-    private fun subscribeToEvents(){
+    private fun subscribeToEvents() {
         lifecycleScope.launch {
             viewmodel.events.collect {
                 eventsAdapter.data = it
+                if(it.isNotEmpty()){
+                    playAnimation(eventsRecycler)
+                }
                 Log.i(TAG, "events = $it")
             }
         }
@@ -196,7 +230,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private fun scrollToDay() {
         lifecycleScope.launch {
             viewmodel.daysAdapterPosition.collect {
-                if(it >= 0){
+                if (it >= 0) {
                     val adapterPosition = it
                     Log.i(TAG, "scrollToDay method")
                     daysRecycler.scrollToPosition(adapterPosition)
@@ -212,8 +246,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
 
     }
-
-
 
 
     override fun onDestroyView() {

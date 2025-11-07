@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/levels_fragment_layout">
     <androidx.cardview.widget.CardView
         android:id="@+id/levels_fragment_label_card"
         android:layout_width="match_parent"

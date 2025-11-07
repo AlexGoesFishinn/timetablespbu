@@ -47,4 +47,6 @@
     <string name="spbu_name_saint_petersburg">Санкт-Петербургский</string>
     <string name="spbu_name_state">государственный</string>
     <string name="spbu_name_university">университет</string>
+    <string name="timetable_name">Электронное расписание</string>
+    <string name="welcome">Добро пожаловать в</string>
 </resources>

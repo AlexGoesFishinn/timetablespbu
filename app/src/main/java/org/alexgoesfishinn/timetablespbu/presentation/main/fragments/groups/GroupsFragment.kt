@@ -2,7 +2,9 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.groups
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +23,7 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.GroupsClickL
  * @author a.bylev
  */
 @AndroidEntryPoint
-class GroupsFragment: Fragment(R.layout.groups_fragment) {
+class GroupsFragment : Fragment(R.layout.groups_fragment) {
     private var binding: GroupsFragmentBinding? = null
     private val args: GroupsFragmentArgs by navArgs()
     private val viewmodel by viewModels<GroupsViewModel>()
@@ -29,6 +31,7 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     private lateinit var groupsAdapter: GroupsAdapter
     private lateinit var programGroupLabel: TextView
     private lateinit var yearGroupLabel: TextView
+    private lateinit var layout: ConstraintLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,23 +44,37 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
 //        yearGroupLabel.text = getString(R.string.groups_fragment_year_label, programYear)
         programGroupLabel.text = getString(R.string.slash_string, programName, programYear)
         groupsRecycler = view.findViewById(R.id.groups_recycler)
+        layout = view.findViewById(R.id.groups_fragment_layout)
+        playAnimation(layout)
         initRecycler()
         subscribeToGroups()
 
 
     }
 
-    private fun subscribeToGroups(){
+    private fun subscribeToGroups() {
         lifecycleScope.launch {
-            viewmodel.groups.collect {groups ->
+            viewmodel.groups.collect { groups ->
                 groupsAdapter.data = groups.sortedBy { it.groupName }
+                if (groups.isNotEmpty()) {
+                    playAnimation(groupsRecycler)
+                }
+
             }
         }
 
     }
 
+    private fun playAnimation(view: View) {
+        val animation = AlphaAnimation(0f, 1f).apply {
+            duration = 500L
+            fillAfter = true
+        }
+        view.startAnimation(animation)
+    }
 
-    private fun initRecycler(){
+
+    private fun initRecycler() {
         groupsAdapter = GroupsAdapter(
             object : GroupsClickListener {
                 override fun onClick(groupId: Long) {
@@ -70,7 +87,7 @@ class GroupsFragment: Fragment(R.layout.groups_fragment) {
     }
 
 
-    private fun navigateToEvents(groupId: Long){
+    private fun navigateToEvents(groupId: Long) {
         findNavController().navigate(GroupsFragmentDirections.actionGroupToEvents(groupId))
     }
 
