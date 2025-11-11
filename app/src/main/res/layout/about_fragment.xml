@@ -1,57 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
-        android:id="@+id/about_fragment_label"
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/about_fragment_version"
-        android:text="@string/about"
-        android:textSize="16sp"
-        android:textColor="@color/spbu_primary_terracot_color"
-        android:layout_margin="16dp"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/about_fragment_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/about_fragment_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/about_fragment_legend_label"
-        android:text="@string/application_version"
-        android:layout_margin="16dp"
-        />
-    <TextView
-        android:id="@+id/about_fragment_legend_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/about_fragment_version"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/leged"
-        android:textColor="@color/spbu_primary_terracot_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_margin="16dp"/>
-    <TextView
-        android:id="@+id/about_fragment_legend_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/about_fragment_legend_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:text=""/>
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView
+            android:id="@+id/about_fragment_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/about_fragment_version"
+            android:text="@string/about"
+            android:textSize="16sp"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:layout_margin="16dp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/about_fragment_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/about_fragment_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/about_fragment_legend"
+            android:text="@string/application_version"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/about_fragment_legend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/about_fragment_version"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/about_fragment_changed"
+            android:text="@string/leged"
+            android:textColor="@color/spbu_primary_terracot_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/about_fragment_changed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/about_fragment_legend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/about_fragment_cancelled"
+            android:textSize="16sp"
+            android:layout_margin="16dp"
+            android:text="Выделение цветом означает, что в данное занятие были внесены изменения в преподавателя или место проведения (в зависимости от того, что выделено)."
+            android:justificationMode="inter_word"/>
+        <TextView
+            android:id="@+id/about_fragment_cancelled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/about_fragment_changed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/about_fragment_geo"
+            android:layout_margin="16dp"
+            android:text="Зачеркнутым текстом обозначаются отмененные занятия."
+            android:textSize="16sp"
+            android:justificationMode="inter_word" />
+        <RelativeLayout
+            android:id="@+id/about_fragment_geo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/about_fragment_cancelled"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/about_fragment_locations_dialog"
+            android:layout_margin="16dp"
+            android:justificationMode="inter_word">
+            <ImageView
+                android:id="@+id/about_fragment_geo_icon"
+                android:layout_width="16sp"
+                android:layout_height="16sp"
+                android:src="@drawable/ic_location_hasgeo"
+                android:contentDescription="@string/event_place_icon_geo_description"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/about_fragment_geo_icon"
+                android:text="обозначаются места проведения с указанными координатами. При нажатии на этот символ откроется карта."
+                android:textSize="16sp"
+                android:justificationMode="inter_word"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/about_fragment_locations_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/about_fragment_geo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="16dp"
+            android:text="Терракотовым цветом с подчеркиванием отмечены занятия с множеством преподавателей или мест проведения. При нажатии на такую надпись откроется диалоговое окно с детализацией."
+            android:textSize="16sp"
+            android:justificationMode="inter_word"/>
 
 
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

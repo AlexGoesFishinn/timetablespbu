@@ -52,4 +52,5 @@
     <string name="about">О программе</string>
     <string name="application_version">Версия приложения %s</string>
     <string name="leged">Условные обозначения</string>
+    <string name="event_place_icon_geo_description">Иконка места проведения занятия с географическими координатами</string>
 </resources>
