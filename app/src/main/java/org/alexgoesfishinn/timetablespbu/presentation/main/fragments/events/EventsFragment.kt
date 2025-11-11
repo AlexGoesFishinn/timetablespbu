@@ -194,6 +194,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private fun subscribeToEvents() {
         lifecycleScope.launch {
             viewmodel.events.collect {
+                refreshEventsAdapter()
                 eventsAdapter.data = it
                 if(it.isNotEmpty()){
                     playAnimation(eventsRecycler)
@@ -201,6 +202,10 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 Log.i(TAG, "events = $it")
             }
         }
+    }
+
+    private fun refreshEventsAdapter(){
+        eventsRecycler.adapter = eventsAdapter
     }
 
     private fun subscribePreviousMonday() {

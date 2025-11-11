@@ -4,105 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/main">
-    <action android:id="@+id/to_divisions"
-        app:destination="@id/divisions"/>
-    <action android:id="@+id/to_main"
-        app:destination="@+id/main"/>
-    <action android:id="@+id/to_events"
-        app:destination="@id/events"/>
+    <action
+        android:id="@+id/to_divisions"
+        app:destination="@id/divisions" />
+    <action
+        android:id="@+id/to_main"
+        app:destination="@+id/main" />
+    <action
+        android:id="@+id/to_events"
+        app:destination="@id/events" />
+    <action
+        android:id="@+id/to_about"
+        app:destination="@+id/about" />
 
+    <fragment
+        android:id="@+id/about"
+        android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.about.About"
+        tools:layout="@layout/about_fragment" />
     <fragment
         android:id="@+id/favorite"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.favourite.FavouriteDialog"
         tools:layout="@layout/favourite_dialog">
-        <action android:id="@+id/favourite_to_events"
-            app:destination="@id/events"/>
+        <action
+            android:id="@+id/favourite_to_events"
+            app:destination="@id/events" />
     </fragment>
 
     <fragment
         android:id="@+id/main"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.main.MainFragment"
         tools:layout="@layout/main_fragment">
-        <action android:id="@+id/to_divisions"
-            app:destination="@id/divisions"/>
+        <action
+            android:id="@+id/to_divisions"
+            app:destination="@id/divisions" />
     </fragment>
 
     <fragment
         android:id="@+id/divisions"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions.DivisionsFragment"
-        tools:layout="@layout/divisions_fragment"
-        >
-        <action android:id="@+id/action_divisions_to_levels"
-            app:destination="@id/levels"
-            />
+        tools:layout="@layout/divisions_fragment">
+        <action
+            android:id="@+id/action_divisions_to_levels"
+            app:destination="@id/levels" />
     </fragment>
 
     <fragment
         android:id="@+id/levels"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.levels.LevelsFragment"
         tools:layout="@layout/levels_fragment">
-        <argument android:name="alias"
+        <argument
+            android:name="alias"
             app:argType="string"
-            app:nullable="false"/>
-        <argument android:name="name"
+            app:nullable="false" />
+        <argument
+            android:name="name"
             app:argType="string"
-            app:nullable="false"/>
-        <action android:id="@+id/action_levels_to_program_combinations"
-            app:destination="@+id/program_combinations"/>
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_levels_to_program_combinations"
+            app:destination="@+id/program_combinations" />
 
     </fragment>
 
-    <fragment android:id="@+id/program_combinations"
+    <fragment
+        android:id="@+id/program_combinations"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programcombinations.ProgramCombinationsFragment"
         tools:layout="@layout/program_combinations_fragment">
-        <argument android:name="level_id"
+        <argument
+            android:name="level_id"
             app:argType="long"
-            app:nullable="false"/>
-        <argument android:name="level_name"
+            app:nullable="false" />
+        <argument
+            android:name="level_name"
             app:argType="string"
-            app:nullable="false"/>
-        <action android:id="@+id/action_program_combinations_to_programs"
-            app:destination="@id/programs"/>
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_program_combinations_to_programs"
+            app:destination="@id/programs" />
     </fragment>
 
-    <fragment android:id="@+id/programs"
+    <fragment
+        android:id="@+id/programs"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs.ProgramsFragment"
         tools:layout="@layout/programs_fragment">
-        <argument android:name="program_combination_id"
+        <argument
+            android:name="program_combination_id"
             app:argType="long"
-            app:nullable="false"/>
-        <argument android:name="program_name"
+            app:nullable="false" />
+        <argument
+            android:name="program_name"
             app:argType="string"
-            app:nullable="false"/>
-        <action android:id="@+id/action_programs_to_groups"
-            app:destination="@id/groups"/>
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_programs_to_groups"
+            app:destination="@id/groups" />
     </fragment>
 
-    <fragment android:id="@+id/groups"
+    <fragment
+        android:id="@+id/groups"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.groups.GroupsFragment"
         tools:layout="@layout/groups_fragment">
-        <argument android:name="program_id"
+        <argument
+            android:name="program_id"
             app:argType="long"
-            app:nullable="false"/>
-        <argument android:name="program_name"
+            app:nullable="false" />
+        <argument
+            android:name="program_name"
             app:argType="string"
-            app:nullable="false"/>
-        <argument android:name="program_year"
+            app:nullable="false" />
+        <argument
+            android:name="program_year"
             app:argType="string"
-            app:nullable="false"/>
-        <action android:id="@+id/action_group_to_events"
-            app:destination="@id/events"/>
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_group_to_events"
+            app:destination="@id/events" />
     </fragment>
 
-    <fragment android:id="@+id/events"
+    <fragment
+        android:id="@+id/events"
         android:name="org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events.EventsFragment"
         tools:layout="@layout/events_fragment">
-        <argument android:name="group_id"
+        <argument
+            android:name="group_id"
             app:argType="long"
-            app:nullable="false"/>
+            app:nullable="false" />
 
     </fragment>
-
 
 
 </navigation>

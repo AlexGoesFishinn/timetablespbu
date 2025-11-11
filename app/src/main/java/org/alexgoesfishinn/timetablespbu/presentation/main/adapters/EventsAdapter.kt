@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,7 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
         val eventChangedColor = holder.itemView.context.getColor(R.color.spbu_event_changed_color)
         data[position].let {
             val eventLocations = it.locations
+            Log.i("EVENTS", "eventLocations = $eventLocations")
             holder.eventTime.text = it.timeIntervalString
             holder.eventName.text = it.subject
 
@@ -75,6 +77,9 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                 }
                 }
             else{
+                Log.i("EVENTS", "else = $eventLocations")
+                Log.i("EVENTS", "eventLocations.size = ${eventLocations.size}")
+                Log.i("EVENTS", "eventLocations[0].educators.size = ${eventLocations[0].educators.size}")
                 val spanLocationText = SpannableString(eventLocations[0].displayName)
                 val spanEducatorText = SpannableString(it.educatorDisplayText)
                 spanLocationText.setSpan(UnderlineSpan(), 0, spanLocationText.length, 0)
@@ -85,9 +90,11 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                 holder.eventLecturer.setTextColor(terraCotColor)
 
                 holder.eventPlace.setOnClickListener {
+                    Log.i("EVENTS", "$eventLocations")
                     showEventLocationsDialog(eventLocations)
                 }
                 holder.eventLecturer.setOnClickListener {
+                    Log.i("EVENTS", "$eventLocations")
                     showEventLocationsDialog(eventLocations)
                 }
 

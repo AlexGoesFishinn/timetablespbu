@@ -86,6 +86,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
+        menu?.add(getString(R.string.about))?.setOnMenuItemClickListener {
+            navigation.navigate(R.id.to_about)
+            true
+
+        }
         menu?.add(R.string.clear_cache)
             ?.setOnMenuItemClickListener {
             clearCacheDialog.show(supportFragmentManager, "ClearCacheDialog")
