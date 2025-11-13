@@ -3,6 +3,7 @@ package org.alexgoesfishinn.timetablespbu.domain.usecases
 import org.alexgoesfishinn.timetablespbu.data.repo.FavouriteRepository
 import org.alexgoesfishinn.timetablespbu.domain.entities.Favourite
 import javax.inject.Inject
+
 /**
  * @author a.bylev
  */
@@ -16,9 +17,10 @@ interface SubscribeFavouriteUseCase {
 
 class SubscribeFavouriteUseCaseImpl @Inject constructor(
     private val favouriteRepository: FavouriteRepository
-):SubscribeFavouriteUseCase{
+) : SubscribeFavouriteUseCase {
     override suspend fun getAll(): List<Favourite> {
         return favouriteRepository.getAll()
+            .sortedWith(Comparator { o1, o2 -> o1.displayName.compareTo(o2.displayName) })
     }
 
     override suspend fun delete(id: Long) {

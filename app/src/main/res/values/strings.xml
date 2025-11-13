@@ -51,6 +51,13 @@
     <string name="welcome">Добро пожаловать в</string>
     <string name="about">О программе</string>
     <string name="application_version">Версия приложения %s</string>
-    <string name="leged">Условные обозначения</string>
+    <string name="legend">Условные обозначения</string>
     <string name="event_place_icon_geo_description">Иконка места проведения занятия с географическими координатами</string>
+    <string name="about_fragment_changed_text_start">Выделение цветом означает</string>
+    <string name="about_fragment_changed_text_end">, что в данное занятие были внесены изменения в преподавателя или место проведения (в зависимости от того, что выделено).</string>
+    <string name="about_fragment_cancelled_text_start">Зачеркнутым текстом</string>
+    <string name="about_fragment_cancelled_text_end">\u0020 обозначаются отмененные занятия.</string>
+    <string name="about_fragment_geo_text">обозначаются места проведения с указанными координатами. При нажатии на этот символ откроется карта.</string>
+    <string name="about_fragment_locations_text_start">Терракотовым цветом с подчеркиванием</string>
+    <string name="about_fragment_locations_text_end">\u0020 отмечены занятия с множеством преподавателей или мест проведения. При нажатии на такую надпись откроется диалоговое окно с детализацией.</string>
 </resources>

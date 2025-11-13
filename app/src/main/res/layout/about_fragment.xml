@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/about_fragment_changed"
-            android:text="@string/leged"
+            android:text="@string/legend"
             android:textColor="@color/spbu_primary_terracot_color"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toTopOf="@id/about_fragment_cancelled"
             android:textSize="16sp"
             android:layout_margin="16dp"
-            android:text="Выделение цветом означает, что в данное занятие были внесены изменения в преподавателя или место проведения (в зависимости от того, что выделено)."
+            android:text="@string/about_fragment_changed_text_end"
             android:justificationMode="inter_word"/>
         <TextView
             android:id="@+id/about_fragment_cancelled"
@@ -68,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/about_fragment_geo"
             android:layout_margin="16dp"
-            android:text="Зачеркнутым текстом обозначаются отмененные занятия."
+            android:text="@string/about_fragment_cancelled_text_end"
             android:textSize="16sp"
             android:justificationMode="inter_word" />
         <RelativeLayout
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/about_fragment_cancelled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/about_fragment_locations_dialog"
+            app:layout_constraintBottom_toBottomOf="@id/about_fragment_locations"
             android:layout_margin="16dp"
             android:justificationMode="inter_word">
             <ImageView
@@ -91,19 +91,20 @@
                 android:layout_centerVertical="true"/>
 
             <TextView
+                android:id="@+id/about_fragment_geo_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@id/about_fragment_geo_icon"
-                android:text="обозначаются места проведения с указанными координатами. При нажатии на этот символ откроется карта."
+                android:text="@string/about_fragment_geo_text"
                 android:textSize="16sp"
                 android:justificationMode="inter_word"/>
 
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/about_fragment_locations_dialog"
+            android:id="@+id/about_fragment_locations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/about_fragment_geo"
@@ -111,7 +112,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="16dp"
-            android:text="Терракотовым цветом с подчеркиванием отмечены занятия с множеством преподавателей или мест проведения. При нажатии на такую надпись откроется диалоговое окно с детализацией."
+            android:text="@string/about_fragment_locations_text_end"
             android:textSize="16sp"
             android:justificationMode="inter_word"/>
 
