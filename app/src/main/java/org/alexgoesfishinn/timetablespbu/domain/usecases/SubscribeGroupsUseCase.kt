@@ -14,6 +14,6 @@ class SubscribeGroupsUseCaseImpl @Inject constructor(
     private val groupsRepository: GroupsRepository
 ): SubscribeGroupsUseCase{
     override suspend fun getGroups(id: Long): List<Group> {
-        return groupsRepository.getGroups(id)
+        return groupsRepository.getGroups(id).sortedBy { it.groupName }
     }
 }

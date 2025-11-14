@@ -54,9 +54,14 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
 
     private fun subscribeToGroups() {
         lifecycleScope.launch {
-            viewmodel.groups.collect { groups ->
-                groupsAdapter.data = groups.sortedBy { it.groupName }
-                if (groups.isNotEmpty()) {
+            viewmodel.groups.collect {
+//                groups ->
+//                groupsAdapter.data = groups.sortedBy { it.groupName }
+//                if (groups.isNotEmpty()) {
+//                    playAnimation(groupsRecycler)
+//                }
+                groupsAdapter.data = it
+                if (it.isNotEmpty()) {
                     playAnimation(groupsRecycler)
                 }
 

@@ -1,5 +1,6 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.favourite
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,6 +18,7 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteNavigateClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.FavouriteRemoveClickListener
+import androidx.core.graphics.drawable.toDrawable
 
 /**
  * @author a.bylev
@@ -44,12 +46,14 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
         subscribeFavourite()
     }
 
+
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(
-            resources.displayMetrics.widthPixels * 9 / 10,
-            resources.displayMetrics.heightPixels * 9 / 10
-        )
+        dialog?.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+//        dialog?.window?.setLayout(
+//            resources.displayMetrics.widthPixels * 9 / 10,
+//            resources.displayMetrics.heightPixels * 9 / 10
+//        )
     }
 
 
