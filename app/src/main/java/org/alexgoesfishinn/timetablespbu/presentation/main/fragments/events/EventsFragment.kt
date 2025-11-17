@@ -1,8 +1,13 @@
 package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events
 
+
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
+
 import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +25,7 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.MainActivity
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.EventsAdapter
+import kotlin.math.abs
 
 
 /**
@@ -45,6 +51,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
     private lateinit var layout: ConstraintLayout
+//    private lateinit var gestureDetector: GestureDetector
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +70,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         eventsRecycler = view.findViewById(R.id.events_recycler)
         daysRecycler = view.findViewById(R.id.days_recycler)
         layout = view.findViewById(R.id.events_fragment_layout)
+
+
         playAnimation(layout)
 
 
@@ -76,8 +86,66 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         scrollToDay()
         subscribeToGroupName()
         subscribeToFavourite()
+        initGestureDetector()
 
 
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initGestureDetector(){
+        val gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener(){
+            private val swipeThreshold = 100
+            private val swipeVelocityThreshold = 100
+
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                try{
+                    val diffX = e2.x - e1!!.x
+                    if(abs(diffX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold){
+                        val position = viewmodel.daysAdapterPosition.value
+                        if(diffX < 0){
+
+                            Log.i("GestureDetector","Left to right")
+                            if(position < viewmodel.days.value.size - 1){
+                                daysRecycler.findViewHolderForAdapterPosition(position + 1)?.itemView?.performClick()
+                                viewmodel.setAdapterPosition(position + 1)
+                                Log.i("GestureDetector","Left to right success")
+                            }
+                            if(position == viewmodel.days.value.size - 1){
+                                viewmodel.getWeek(nextWeekMondayString)
+                                Log.i("GestureDetector","Left to right success next week")
+                            }
+
+                        }else{
+                            Log.i("GestureDetector","Right to left")
+                            if(position > 0){
+                                daysRecycler.findViewHolderForAdapterPosition(position - 1)?.itemView?.performClick()
+                                viewmodel.setAdapterPosition(position - 1)
+                                Log.i("GestureDetector","Right to left success")
+                            }
+                            if(position == 0){
+                                viewmodel.getWeek(previousWeekMondayString)
+                                Log.i("GestureDetector","Right to left success previous week")
+                            }
+                        }
+                        return true
+                    }
+                } catch (e: Exception){
+                    Log.e(TAG,"swipe motion error, message = ${e.message},\nstacktrace = ${e.stackTrace}")
+                }
+
+//                return super.onFling(e1, e2, velocityX, velocityY)
+                return false
+            }
+        })
+        eventsRecycler.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+        }
     }
 
 
@@ -196,7 +264,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             viewmodel.events.collect {
                 refreshEventsAdapter()
                 eventsAdapter.data = it
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     playAnimation(eventsRecycler)
                 }
                 Log.i(TAG, "events = $it")
@@ -204,7 +272,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun refreshEventsAdapter(){
+    private fun refreshEventsAdapter() {
         eventsRecycler.adapter = eventsAdapter
     }
 
@@ -260,7 +328,13 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     }
 
 
+
+
+
+
     private companion object {
         private const val TAG = "EventsFragment"
     }
+
+
 }
