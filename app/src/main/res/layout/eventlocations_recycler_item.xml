@@ -16,19 +16,15 @@
         app:cardCornerRadius="10dp"
         app:strokeColor="@color/spbu_primary_terracot_color"
         app:strokeWidth="1dp">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:id="@+id/event_location_location_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/event_location_educator_line"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp">
                 <ImageView
@@ -39,7 +35,6 @@
                     android:layout_height="16sp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-
                     android:layout_marginStart="16dp"
                     />
 
@@ -48,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/event_place_icon"
-                    android:foregroundGravity="center_horizontal"
+
                     tools:text="Хогвартс"
                     android:textSize="16sp"
                     android:layout_marginStart="16dp"
@@ -59,10 +54,8 @@
                 android:id="@+id/event_location_educator_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/event_location_location_line"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_below="@id/event_location_location_line"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp">
                 <ImageView
@@ -80,15 +73,87 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/event_educator_icon"
-                    android:foregroundGravity="center_horizontal"
+                    
                     tools:text="Профессор Снейп"
                     android:textSize="16sp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     />
             </RelativeLayout>
+        </RelativeLayout>
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginBottom="8dp">-->
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/event_location_location_line"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/event_location_educator_line"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginBottom="4dp">-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/event_place_icon"-->
+<!--                    android:contentDescription="@string/event_place_icon_description"-->
+<!--                    android:src="@drawable/ic_location"-->
+<!--                    android:layout_width="16sp"-->
+<!--                    android:layout_height="16sp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:layout_centerVertical="true"-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/event_location_location_name"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toEndOf="@+id/event_place_icon"-->
+<!--                    android:foregroundGravity="center_horizontal"-->
+<!--                    tools:text="Хогвартс"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    />-->
+<!--            </RelativeLayout>-->
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/event_location_educator_line"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/event_location_location_line"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginBottom="4dp">-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/event_educator_icon"-->
+<!--                    android:contentDescription="@string/event_educator_icon_description"-->
+<!--                    android:src="@drawable/ic_educator"-->
+<!--                    android:layout_width="16sp"-->
+<!--                    android:layout_height="16sp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_marginStart="16dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/event_location_educator_name"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toEndOf="@+id/event_educator_icon"-->
+<!--                    android:foregroundGravity="center_horizontal"-->
+<!--                    tools:text="Профессор Снейп"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    />-->
+<!--            </RelativeLayout>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </com.google.android.material.card.MaterialCardView>
 

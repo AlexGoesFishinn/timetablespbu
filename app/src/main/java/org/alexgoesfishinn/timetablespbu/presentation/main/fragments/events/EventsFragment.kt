@@ -51,7 +51,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
     private lateinit var layout: ConstraintLayout
-//    private lateinit var gestureDetector: GestureDetector
+
 
 
 
@@ -95,7 +95,7 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     @SuppressLint("ClickableViewAccessibility")
     private fun initGestureDetector(){
         val gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener(){
-            private val swipeThreshold = 100
+            private val swipeThreshold = 200
             private val swipeVelocityThreshold = 100
 
             override fun onFling(
@@ -139,7 +139,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     Log.e(TAG,"swipe motion error, message = ${e.message},\nstacktrace = ${e.stackTrace}")
                 }
 
-//                return super.onFling(e1, e2, velocityX, velocityY)
                 return false
             }
         })
@@ -198,13 +197,9 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 val groupEvents = it
                 nextWeekButton.setOnClickListener {
                     viewmodel.getWeek(nextWeekMondayString)
-//                    playFadeoutAnimation(daysRecycler)
-//                    playFadeoutAnimation(eventsRecycler)
                 }
                 previousWeekButton.setOnClickListener {
                     viewmodel.getWeek(previousWeekMondayString)
-//                    playFadeoutAnimation(daysRecycler)
-//                    playFadeoutAnimation(eventsRecycler)
                 }
                 noEventsText.visibility = View.VISIBLE
                 if (groupEvents != null && groupEvents.days.isNotEmpty()) {
@@ -228,7 +223,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 viewmodel.setAdapterPosition(adapterPosition)
                 Log.i("EventsFragment", "onClick adapterPosition = $adapterPosition")
                 viewmodel.getEvents(dayId)
-//                playFadeoutAnimation(eventsRecycler)
 
             }
         })
@@ -237,13 +231,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-//    private fun playFadeoutAnimation(view: View){
-//        val animation = AlphaAnimation(1f,0f).apply {
-//            duration = 500L
-//            fillAfter = true
-//        }
-//        view.startAnimation(animation)
-//    }
 
     private fun subscribeToDays() {
         lifecycleScope.launch {
