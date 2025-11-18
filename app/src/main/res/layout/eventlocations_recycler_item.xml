@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/event_educator_icon"
-                    
+
                     tools:text="Профессор Снейп"
                     android:textSize="16sp"
                     android:layout_marginStart="16dp"
