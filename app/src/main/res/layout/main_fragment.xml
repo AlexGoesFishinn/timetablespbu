@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/welcome_textview"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/timetable_name"
+                    android:text="@string/timetable_name_2"
                     android:textStyle="bold"
                     android:textColor="@color/spbu_primary_terracot_color"
                     android:textSize="16sp"/>

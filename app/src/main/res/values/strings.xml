@@ -48,6 +48,7 @@
     <string name="spbu_name_state">государственный</string>
     <string name="spbu_name_university">университет</string>
     <string name="timetable_name">Электронное расписание</string>
+    <string name="timetable_name_2">Расписание занятий СПбГУ</string>
     <string name="welcome">Добро пожаловать в</string>
     <string name="about">О программе</string>
     <string name="application_version">Версия приложения %s</string>
