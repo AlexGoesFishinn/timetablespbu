@@ -36,7 +36,7 @@ class FavouriteDialog: DialogFragment(R.layout.favourite_dialog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favouriteRecycler = view.findViewById(R.id.favourite_recycler)
+        favouriteRecycler = view.findViewById(R.id.edit_favourite_recycler)
         favouriteIsEmptyText = view.findViewById(R.id.favourite_is_empty_text)
         favouriteCloseButton = view.findViewById(R.id.favourite_dialog_close_button)
         favouriteCloseButton.setOnClickListener {

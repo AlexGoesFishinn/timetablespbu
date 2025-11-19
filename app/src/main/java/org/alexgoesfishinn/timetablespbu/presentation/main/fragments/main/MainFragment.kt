@@ -19,6 +19,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.MainFavouriteAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.NavigateClickListener
 import androidx.core.view.isVisible
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.editfavourite.EditFavouriteDialog
+
 /**
  * @author a.bylev
  */
@@ -31,6 +33,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var favouriteCard: MaterialCardView
     private lateinit var favouriteRecycler: RecyclerView
     private lateinit var favouriteAdapter: MainFavouriteAdapter
+    private lateinit var editFavourite: MaterialCardView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,13 +43,21 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         favouriteRecycler = view.findViewById(R.id.main_fragment_favourite_card_recycler)
         favouriteCard = view.findViewById(R.id.main_fragment_favourite_card)
         favouriteCard.visibility = View.INVISIBLE
+        editFavourite = view.findViewById(R.id.main_fragment_favourite_card_edit_button)
 
         initFavouriteRecycler()
         subscribeFavourite()
         hideOfficialSpbuLogo()
         initAnimation()
         initChooseGroupButton()
+        initEditFavouriteButton()
 
+    }
+    private fun initEditFavouriteButton(){
+        editFavourite.setOnClickListener {
+            EditFavouriteDialog().show(childFragmentManager, "EditFavouriteDialog")
+//            FavouriteDialog().show(childFragmentManager, "FavoriteDialog")
+        }
     }
 
     private fun initFavouriteRecycler(){

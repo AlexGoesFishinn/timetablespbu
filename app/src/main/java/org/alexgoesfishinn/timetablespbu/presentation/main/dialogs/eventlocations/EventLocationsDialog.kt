@@ -1,4 +1,4 @@
-package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events
+package org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.eventlocations
 
 import android.app.Dialog
 import android.content.Context

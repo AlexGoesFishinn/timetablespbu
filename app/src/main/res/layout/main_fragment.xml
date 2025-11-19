@@ -138,9 +138,29 @@
                 app:layout_constraintTop_toBottomOf="@id/main_fragment_favourite_card_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/main_fragment_favourite_card_edit_button"
                 android:layout_margin="8dp"
                 android:foregroundGravity="center"/>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/main_fragment_favourite_card_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/main_fragment_favourite_card_recycler"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardBackgroundColor="@color/spbu_primary_terracot_color"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/edit_favourite"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+            </com.google.android.material.card.MaterialCardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

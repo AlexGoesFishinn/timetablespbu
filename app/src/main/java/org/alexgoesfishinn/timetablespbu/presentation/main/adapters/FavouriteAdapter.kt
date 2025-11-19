@@ -46,8 +46,8 @@ class FavouriteAdapter(
     override fun getItemCount(): Int = data.size
 
     class FavouriteViewHolder(itemView: View): ViewHolder(itemView){
-        val text: TextView = itemView.findViewById(R.id.favorite_item_text)
-        val remove: TextView = itemView.findViewById(R.id.favourite_remove)
+        val text: TextView = itemView.findViewById(R.id.favorite_item_group_name)
+        val remove: TextView = itemView.findViewById(R.id.favourite_item_remove)
     }
 }
 

@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.alexgoesfishinn.timetablespbu.R
-import org.alexgoesfishinn.timetablespbu.presentation.main.fragments.events.EventLocationsDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.eventlocations.EventLocationsDialog
 import androidx.core.net.toUri
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.EventItem
 import org.alexgoesfishinn.timetablespbu.presentation.main.model.LocationItem

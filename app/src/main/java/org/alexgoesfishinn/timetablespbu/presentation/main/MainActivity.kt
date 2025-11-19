@@ -47,8 +47,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var serverTimeoutErrorDialog: ServerTimeoutErrorDialog
     @Inject
     lateinit var clearCacheDialog: ClearCacheDialog
-
-
     private lateinit var loadingLayout: RelativeLayout
 
 
@@ -68,8 +66,15 @@ class MainActivity : AppCompatActivity() {
         subscribeServerTimeout()
         subscribeLoadingNotifications()
         initAnimation()
+        hideFavouriteButton()
 
 
+
+    }
+
+    private fun hideFavouriteButton(){
+        val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)
+        favouriteButton.visibility = View.GONE
     }
 
     private fun customizeBackButton(){

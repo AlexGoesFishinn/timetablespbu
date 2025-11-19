@@ -20,7 +20,6 @@ class SubscribeFavouriteUseCaseImpl @Inject constructor(
 ) : SubscribeFavouriteUseCase {
     override suspend fun getAll(): List<Favourite> {
         return favouriteRepository.getAll().sortedBy { it.displayName }
-//            .sortedWith(Comparator { o1, o2 -> o1.displayName.compareTo(o2.displayName) })
     }
 
     override suspend fun delete(id: Long) {

@@ -60,4 +60,5 @@
     <string name="about_fragment_geo_text">обозначаются места проведения с указанными координатами. При нажатии на этот символ откроется карта.</string>
     <string name="about_fragment_locations_text_start">Терракотовым цветом с подчеркиванием</string>
     <string name="about_fragment_locations_text_end">\u0020 отмечены занятия с множеством преподавателей или мест проведения. При нажатии на такую надпись откроется диалоговое окно с детализацией.</string>
+    <string name="edit_favourite">Редактировать избранное</string>
 </resources>
