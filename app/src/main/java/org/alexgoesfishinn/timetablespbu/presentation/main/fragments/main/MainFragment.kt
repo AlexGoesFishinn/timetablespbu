@@ -2,7 +2,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -20,12 +19,14 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.MainFavourit
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.NavigateClickListener
 import androidx.core.view.isVisible
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.editfavourite.EditFavouriteDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
  */
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.main_fragment) {
+class MainFragment: Fragment(R.layout.main_fragment) {
     private val viewModel: MainFragmentViewModel by viewModels()
     private lateinit var chooseGroupButton: MaterialCardView
     private lateinit var layout: ConstraintLayout
@@ -34,6 +35,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var favouriteRecycler: RecyclerView
     private lateinit var favouriteAdapter: MainFavouriteAdapter
     private lateinit var editFavourite: MaterialCardView
+    @Inject
+    lateinit var animations: Animations
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,14 +47,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         favouriteCard = view.findViewById(R.id.main_fragment_favourite_card)
         favouriteCard.visibility = View.INVISIBLE
         editFavourite = view.findViewById(R.id.main_fragment_favourite_card_edit_button)
-
+        animations.fadeIn(layout)
         initFavouriteRecycler()
         subscribeFavourite()
         hideOfficialSpbuLogo()
-        initAnimation()
+//        layoutFadeIn()
         initChooseGroupButton()
         initEditFavouriteButton()
-
     }
     private fun initEditFavouriteButton(){
         editFavourite.setOnClickListener {
@@ -66,7 +68,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             override fun onClick(id: Long) {
                 val action = NavGraphDirections.toEvents(id)
                 findNavController().navigate(action)
-
             }
         })
         favouriteRecycler.adapter = favouriteAdapter
@@ -82,7 +83,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 if(it.isEmpty()
                     && favouriteCard.isVisible
                     ){
-                    fadeOutFavourite()
+                    animations.fadeOut(favouriteCard)
+//                    fadeOutFavourite()
                 }
             }
         }
@@ -98,19 +100,22 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         logoLayout.visibility = View.GONE
     }
 
-    private fun initAnimation() {
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500
-            fillAfter = true
-        }
-        layout.startAnimation(animation)
-    }
+//    private fun layoutFadeIn() {
+////        val animation = AlphaAnimation(0f, 1f).apply {
+////            duration = 500
+////            fillAfter = true
+////        }
+////        layout.startAnimation(animation)
+//        animation.fadeIn(layout)
+//    }
 
-    private fun fadeOutFavourite(){
-        val animation = AlphaAnimation(1f, 0f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        favouriteCard.startAnimation(animation)
-    }
+//    private fun fadeOutFavourite(){
+////        val animation = AlphaAnimation(1f, 0f).apply {
+////            duration = 500L
+////            fillAfter = true
+////        }
+////        favouriteCard.startAnimation(animation)
+//        animation.fadeOut(favouriteCard)
+//
+//    }
 }

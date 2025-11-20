@@ -2,7 +2,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.divisions
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AlphaAnimation
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +15,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.DivisionsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DivisionsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DivisionsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -27,6 +28,8 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
     private lateinit var divisionRecycler: RecyclerView
     private lateinit var divisionAdapter: DivisionsAdapter
     private lateinit var layout: ConstraintLayout
+    @Inject
+    lateinit var animations: Animations
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,10 +37,11 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
         binding = DivisionsFragmentBinding.bind(view)
         divisionRecycler = view.findViewById(R.id.divisions_recycler)
         layout = view.findViewById(R.id.divisions_fragment_layout)
-        playAnimation(layout)
+        animations.fadeIn(layout)
+//        layoutFadeIn()
+//        playAnimation(layout)
         initDivisionRecycler()
         subscribeToDivisions()
-
     }
 
     override fun onDestroyView() {
@@ -61,20 +65,24 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
             viewModel.divisions.collect {
                 divisionAdapter.data = it
                 if(it.isNotEmpty()){
-                    playAnimation(divisionRecycler)
+                    animations.fadeIn(divisionRecycler)
+//                    playAnimation(divisionRecycler)
                 }
-
             }
         }
     }
 
-    private fun playAnimation(view: View){
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View){
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
+
+//    private fun  layoutFadeIn(){
+//        animation.fadeIn(layout)
+//    }
 
 
     private fun navigateToLevelsFragment(alias: String, name: String) {
@@ -83,6 +91,4 @@ class DivisionsFragment : Fragment(R.layout.divisions_fragment) {
             name = name
         ))
     }
-
-
 }

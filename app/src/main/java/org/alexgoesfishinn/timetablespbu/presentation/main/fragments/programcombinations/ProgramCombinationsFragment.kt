@@ -3,7 +3,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programcom
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,6 +18,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.ProgramCombinationsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramCombinationsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramCombinationsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -33,6 +34,8 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
     private lateinit var programCombinationsLabel: TextView
     private lateinit var divisionLevelName: String
     private lateinit var layout: ConstraintLayout
+    @Inject
+    lateinit var animations: Animations
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +45,8 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
         programCombinationsLabel.text = divisionLevelName
         programCombinationsRecycler = view.findViewById(R.id.program_combinations_recycler)
         layout = view.findViewById(R.id.program_combinations_fragment_layout)
-        playAnimation(layout)
+        animations.fadeIn(layout)
+//        playAnimation(layout)
         initProgramCombinationsRecycler()
         subscribeToProgramCombinations()
 
@@ -66,20 +70,21 @@ class ProgramCombinationsFragment : Fragment(R.layout.program_combinations_fragm
             viewmodel.programCombinations.collect {
                 programCombinationsAdapter.data = it
                 if(it.isNotEmpty()){
-                    playAnimation(programCombinationsRecycler)
+                    animations.fadeIn(programCombinationsRecycler)
+//                    playAnimation(programCombinationsRecycler)
                 }
                 Log.i(TAG, "$it")
             }
         }
     }
 
-    private fun playAnimation(view: View){
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View){
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
 
     private fun navigateToPrograms(programCombinationId: Long, programName: String) {
         val label = getString(R.string.slash_string, divisionLevelName, programName)

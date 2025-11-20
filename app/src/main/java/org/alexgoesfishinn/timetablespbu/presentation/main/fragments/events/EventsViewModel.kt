@@ -58,7 +58,6 @@ class EventsViewModel @Inject constructor(
     val nextWeekMondayString: StateFlow<String> = _nextWeekMondayString.asStateFlow()
     private val _previousWeekMondayString: MutableStateFlow<String> = MutableStateFlow("")
     val previousWeekMondayString: StateFlow<String> = _previousWeekMondayString.asStateFlow()
-
     private val _daysAdapterPosition: MutableStateFlow<Int> = MutableStateFlow(0)
     val daysAdapterPosition: StateFlow<Int> = _daysAdapterPosition.asStateFlow()
     private val _days: MutableStateFlow<List<DayItem>> = MutableStateFlow(emptyList())
@@ -178,7 +177,6 @@ class EventsViewModel @Inject constructor(
         } else {
             _daysAdapterPosition.value = 0
         }
-
     }
 
     fun setAdapterPosition(position: Int) {

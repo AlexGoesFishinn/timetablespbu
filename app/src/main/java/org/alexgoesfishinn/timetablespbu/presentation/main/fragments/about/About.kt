@@ -10,13 +10,18 @@ import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import org.alexgoesfishinn.timetablespbu.BuildConfig
 import org.alexgoesfishinn.timetablespbu.R
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 
 class About: Fragment(R.layout.about_fragment) {
+    @Inject
+    lateinit var animations: Animations
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -24,7 +29,8 @@ class About: Fragment(R.layout.about_fragment) {
         val changedEventDescription: TextView = view.findViewById(R.id.about_fragment_changed)
         val cancelledEventDescription: TextView = view.findViewById(R.id.about_fragment_cancelled)
         val eventWithManyLocationsDescription: TextView = view.findViewById(R.id.about_fragment_locations)
-
+        val layout: ConstraintLayout = view.findViewById(R.id.about_fragment_layout)
+        animations.fadeIn(layout)
         initAppVersionString(versionString)
         initChangedEventDescription(changedEventDescription)
         initCancelledEventDescription(cancelledEventDescription)

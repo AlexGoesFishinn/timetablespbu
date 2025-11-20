@@ -3,7 +3,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.levels
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,6 +18,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.LevelsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.LevelsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -32,6 +33,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
     private lateinit var levelsAdapter: LevelsAdapter
     private lateinit var divisionName: String
     private lateinit var layout: ConstraintLayout
+    @Inject
+    lateinit var animations: Animations
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +45,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         divisionName = args.name
         label.text = divisionName
         layout = view.findViewById(R.id.levels_fragment_layout)
-        playAnimation(layout)
+//        playAnimation(layout)
+        animations.fadeIn(layout)
         initLevelsRecycler()
         subscribeToLevels()
     }
@@ -63,7 +67,8 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
            viewmodel.levels.collect {
                 levelsAdapter.data = it
                if(it.isEmpty()){
-                   playAnimation(levelsRecycler)
+//                   playAnimation(levelsRecycler)
+                   animations.fadeIn(levelsRecycler)
                }
                Log.i(TAG, it.toString())
            }
@@ -77,13 +82,13 @@ class LevelsFragment: Fragment(R.layout.levels_fragment) {
         binding = null
     }
 
-    private fun playAnimation(view: View){
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View){
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
 
     private fun navigateToProgramCombinationsFragment(levelId: Long, levelName: String){
         val label = getString(R.string.slash_string, divisionName, levelName)

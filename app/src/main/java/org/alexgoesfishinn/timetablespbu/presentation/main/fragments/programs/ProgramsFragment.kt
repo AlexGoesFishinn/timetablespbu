@@ -3,7 +3,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.programs
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,6 +18,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.ProgramsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.ProgramsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -34,6 +35,8 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
     private lateinit var programLabel: TextView
     private lateinit var programName: String
     private lateinit var layout: ConstraintLayout
+    @Inject
+    lateinit var animations: Animations
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,7 +46,8 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
         programLabel.text = programName
         programsRecycler = view.findViewById(R.id.programs_recycler)
         layout = view.findViewById(R.id.programs_fragment_layout)
-        playAnimation(layout)
+        animations.fadeIn(layout)
+//        playAnimation(layout)
         initProgramsRecycler()
         subscribeToPrograms()
     }
@@ -64,20 +68,21 @@ class ProgramsFragment: Fragment(R.layout.programs_fragment) {
             viewmodel.programs.collect{
                 programsAdapter.data = it
                 if(it.isNotEmpty()){
-                    playAnimation(programsRecycler)
+                    animations.fadeIn(programsRecycler)
+//                    playAnimation(programsRecycler)
                 }
                 Log.i(TAG, "$it")
             }
         }
     }
 
-    private fun playAnimation(view: View){
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View){
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
 
     private fun navigateToGroups(programId: Long, programYear: String){
         findNavController().navigate(ProgramsFragmentDirections.actionProgramsToGroups(programId, programName, programYear))

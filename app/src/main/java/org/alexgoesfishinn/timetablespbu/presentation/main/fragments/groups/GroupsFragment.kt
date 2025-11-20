@@ -2,7 +2,6 @@ package org.alexgoesfishinn.timetablespbu.presentation.main.fragments.groups
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -18,6 +17,8 @@ import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.databinding.GroupsFragmentBinding
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.GroupsAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.GroupsClickListener
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 
 /**
  * @author a.bylev
@@ -32,6 +33,8 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
     private lateinit var programGroupLabel: TextView
     private lateinit var yearGroupLabel: TextView
     private lateinit var layout: ConstraintLayout
+    @Inject
+    lateinit var animations: Animations
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +48,8 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
         programGroupLabel.text = getString(R.string.slash_string, programName, programYear)
         groupsRecycler = view.findViewById(R.id.groups_recycler)
         layout = view.findViewById(R.id.groups_fragment_layout)
-        playAnimation(layout)
+        animations.fadeIn(layout)
+//        playAnimation(layout)
         initRecycler()
         subscribeToGroups()
 
@@ -62,7 +66,8 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
 //                }
                 groupsAdapter.data = it
                 if (it.isNotEmpty()) {
-                    playAnimation(groupsRecycler)
+                    animations.fadeIn(groupsRecycler)
+//                    playAnimation(groupsRecycler)
                 }
 
             }
@@ -70,13 +75,13 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
 
     }
 
-    private fun playAnimation(view: View) {
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View) {
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
 
 
     private fun initRecycler() {

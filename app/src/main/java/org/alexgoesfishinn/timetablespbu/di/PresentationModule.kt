@@ -10,6 +10,9 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.groupisnotava
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.nointernet.NoInternetDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.servertimeout.ServerTimeoutErrorDialog
 import org.alexgoesfishinn.timetablespbu.presentation.main.dialogs.somethingwentwrong.SomethingWentWrongDialog
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.AnimationsImpl
+
 /**
  * @author a.bylev
  */
@@ -35,4 +38,9 @@ object PresentationModule {
 
     @Provides
     fun provideClearCacheDialog() = ClearCacheDialog()
+
+    @Provides
+    fun provideAnimations(): Animations {
+        return AnimationsImpl()
+    }
 }

@@ -7,8 +7,6 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-
-import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -25,6 +23,8 @@ import org.alexgoesfishinn.timetablespbu.presentation.main.MainActivity
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysAdapter
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.DaysClickListener
 import org.alexgoesfishinn.timetablespbu.presentation.main.adapters.EventsAdapter
+import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
+import javax.inject.Inject
 import kotlin.math.abs
 
 
@@ -51,7 +51,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
     private lateinit var previousWeekMondayString: String
     private lateinit var nextWeekMondayString: String
     private lateinit var layout: ConstraintLayout
-
+    @Inject
+    lateinit var animations: Animations
 
 
 
@@ -70,10 +71,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         eventsRecycler = view.findViewById(R.id.events_recycler)
         daysRecycler = view.findViewById(R.id.days_recycler)
         layout = view.findViewById(R.id.events_fragment_layout)
-
-
-        playAnimation(layout)
-
+        animations.fadeIn(layout)
+//        playAnimation(layout)
 
         initDaysRecycler()
         initEventsRecycler()
@@ -87,9 +86,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         subscribeToGroupName()
         subscribeToFavourite()
         initGestureDetector()
-
-
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -112,7 +108,15 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
 
                             Log.i("GestureDetector","Left to right")
                             if(position < viewmodel.days.value.size - 1){
+//                                val animation = TranslateAnimation(0f, -400f, 0f, 0f).apply {
+//                                    duration = 500L
+//                                    fillAfter = false
+//                                }
+//                                eventsRecycler.startAnimation(animation)
                                 daysRecycler.findViewHolderForAdapterPosition(position + 1)?.itemView?.performClick()
+//                                val slide = Slide(Gravity.END)
+//                                TransitionManager.beginDelayedTransition(eventsRecycler, slide)
+
                                 viewmodel.setAdapterPosition(position + 1)
                                 Log.i("GestureDetector","Left to right success")
                             }
@@ -124,6 +128,11 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                         }else{
                             Log.i("GestureDetector","Right to left")
                             if(position > 0){
+//                                val animation = TranslateAnimation(0f, 400f, 0f, 0f).apply {
+//                                    duration = 500L
+//                                    fillAfter =false
+//                                }
+//                                eventsRecycler.startAnimation(animation)
                                 daysRecycler.findViewHolderForAdapterPosition(position - 1)?.itemView?.performClick()
                                 viewmodel.setAdapterPosition(position - 1)
                                 Log.i("GestureDetector","Right to left success")
@@ -170,13 +179,13 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
         }
     }
 
-    private fun playAnimation(view: View) {
-        val animation = AlphaAnimation(0f, 1f).apply {
-            duration = 500L
-            fillAfter = true
-        }
-        view.startAnimation(animation)
-    }
+//    private fun playAnimation(view: View) {
+//        val animation = AlphaAnimation(0f, 1f).apply {
+//            duration = 500L
+//            fillAfter = true
+//        }
+//        view.startAnimation(animation)
+//    }
 
     private fun subscribeToGroupName() {
         lifecycleScope.launch {
@@ -240,7 +249,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     eventsRecycler.visibility = View.GONE
                 } else {
                     eventsRecycler.visibility = View.VISIBLE
-                    playAnimation(daysRecycler)
+                    animations.fadeIn(daysRecycler)
+//                    playAnimation(daysRecycler)
                 }
             }
         }
@@ -252,7 +262,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 refreshEventsAdapter()
                 eventsAdapter.data = it
                 if (it.isNotEmpty()) {
-                    playAnimation(eventsRecycler)
+                    animations.fadeIn(eventsRecycler)
+//                    playAnimation(eventsRecycler)
                 }
                 Log.i(TAG, "events = $it")
             }
@@ -301,10 +312,8 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                         Log.i(TAG, "click = $click")
                     }
                 }
-
             }
         }
-
     }
 
 
