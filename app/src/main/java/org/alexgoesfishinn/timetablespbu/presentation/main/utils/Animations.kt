@@ -15,7 +15,7 @@ class AnimationsImpl: Animations {
     override fun fadeIn(view: View) {
         val animation = AlphaAnimation(0f, 1f).apply {
             duration = 500
-            fillAfter = true
+//            fillAfter = true
         }
         view.startAnimation(animation)
     }
