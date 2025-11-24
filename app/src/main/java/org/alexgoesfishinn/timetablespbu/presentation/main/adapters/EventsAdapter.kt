@@ -72,7 +72,6 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                             "https://yandex.ru/maps/?pt=$longitude,$latitude&z=18&l=map".toUri()
                         val mapIntent = Intent(Intent.ACTION_VIEW, ymIntentUri)
                         context.startActivity(mapIntent)
-
                     }
                 }
                 }
@@ -97,7 +96,6 @@ class EventsAdapter: Adapter<EventsAdapter.EventsViewHolder>(){
                     Log.i("EVENTS", "$eventLocations")
                     showEventLocationsDialog(eventLocations)
                 }
-
             }
             if(it.isCancelled){
                 holder.eventTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

@@ -4,15 +4,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -57,6 +63,35 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navigation = navHostFragment.findNavController()
+        enableEdgeToEdge()
+        val activityLayout: ConstraintLayout = findViewById(R.id.main_activity_layout)
+        ViewCompat.setOnApplyWindowInsetsListener(activityLayout) {v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = insets.left
+                rightMargin = insets.right
+                bottomMargin = insets.bottom
+                topMargin = insets.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+//        val bottomNavigation: ConstraintLayout = findViewById(R.id.bottom_navigation)
+//        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigation) { v, windowInsets ->
+//            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            // Apply the insets as a margin to the view. This solution sets
+//            // only the bottom, left, and right dimensions, but you can apply whichever
+//            // insets are appropriate to your layout. You can also update the view padding
+//            // if that's more appropriate.
+//            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+//                leftMargin = insets.left
+//                bottomMargin = insets.bottom
+//                rightMargin = insets.right
+//            }
+//
+//            // Return CONSUMED if you don't want the window insets to keep passing
+//            // down to descendant views.
+//            WindowInsetsCompat.CONSUMED
+//        }
 
         customizeBackButton()
         initBottomNavigation()
@@ -67,9 +102,6 @@ class MainActivity : AppCompatActivity() {
         subscribeLoadingNotifications()
         initAnimation()
         hideFavouriteButton()
-
-
-
     }
 
     private fun hideFavouriteButton(){
@@ -83,7 +115,6 @@ class MainActivity : AppCompatActivity() {
                 viewModel.loadingFinished()
                 isEnabled = false
                 onBackPressedDispatcher.onBackPressed()
-
             }
         })
     }
@@ -94,14 +125,12 @@ class MainActivity : AppCompatActivity() {
         menu?.add(getString(R.string.about))?.setOnMenuItemClickListener {
             navigation.navigate(R.id.to_about)
             true
-
         }
         menu?.add(R.string.clear_cache)
             ?.setOnMenuItemClickListener {
             clearCacheDialog.show(supportFragmentManager, "ClearCacheDialog")
             true
         }
-
         return true
     }
 
@@ -159,7 +188,6 @@ class MainActivity : AppCompatActivity() {
                 Log.i("MainActivity", "$it")
                 if (it) {
                     noInternetDialog.show(supportFragmentManager, "Internet is not available")
-
                 }
             }
         }
@@ -191,15 +219,10 @@ class MainActivity : AppCompatActivity() {
         navigationToMain.setOnClickListener {
             viewModel.loadingFinished()
             navigation.navigate(R.id.to_main)
-//            navigation.navigate(R.id.to_divisions)
         }
         val favouriteButton = findViewById<CardView>(R.id.bottom_navigation_favourite)
         favouriteButton.setOnClickListener {
             FavouriteDialog().show(supportFragmentManager, "FavoriteDialog")
-
         }
-
     }
-
-
 }

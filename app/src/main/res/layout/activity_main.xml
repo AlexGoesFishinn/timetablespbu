@@ -4,108 +4,215 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.main.MainActivity">
-
-
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:id="@+id/loading_layout"
-    android:background="@color/transparent"
-    android:elevation="7dp">
-    <ImageView
-        android:layout_width="64sp"
-        android:layout_height="64sp"
-        android:src="@drawable/ic_spbu_logo"
-        android:id="@+id/loading_icon"
-        android:contentDescription="@string/loading_icon_description"
-        android:layout_centerInParent="true"
-        android:background="@color/transparent"/>
-    <TextView
-        android:id="@+id/loading_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loading"
-        android:textSize="16sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/loading_icon"
-        android:layout_marginTop="16dp"
-        android:background="@color/transparent"/>
-
-
-</RelativeLayout>
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"/>
-
+    tools:context=".presentation.main.MainActivity"
+    >
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:foregroundGravity="bottom"
-        android:background="@color/spbu_primary_terracot_color">
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bottom_navigation_to_main"
+        android:layout_height="match_parent"
+        android:id="@+id/main_activity_layout"
+        android:background="@color/white">
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="10dp"
-            android:backgroundTint="@color/spbu_primary_terracot_color"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/to_main"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_margin="4dp"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bottom_navigation_favourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            app:cardCornerRadius="10dp"
-            android:backgroundTint="@color/spbu_primary_terracot_color"
-            >
+            android:id="@+id/loading_layout"
+            android:background="@color/transparent"
+            android:elevation="7dp">
+            <ImageView
+                android:layout_width="64sp"
+                android:layout_height="64sp"
+                android:src="@drawable/ic_spbu_logo"
+                android:id="@+id/loading_icon"
+                android:contentDescription="@string/loading_icon_description"
+                android:layout_centerInParent="true"
+                android:background="@color/transparent"/>
             <TextView
-                android:id="@+id/bottom_navigation_favourite_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/favourite"
+                android:id="@+id/loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
                 android:textSize="16sp"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_margin="4dp"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/loading_icon"
+                android:layout_marginTop="16dp"
+                android:background="@color/transparent"/>
 
+
+        </RelativeLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:foregroundGravity="bottom"
+            android:background="@color/spbu_primary_terracot_color">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bottom_navigation_to_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="10dp"
+                android:backgroundTint="@color/spbu_primary_terracot_color"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/to_main"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_margin="4dp"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bottom_navigation_favourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="10dp"
+                android:backgroundTint="@color/spbu_primary_terracot_color"
+                >
+                <TextView
+                    android:id="@+id/bottom_navigation_favourite_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/favourite"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_margin="4dp"/>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<RelativeLayout-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintTop_toTopOf="parent"-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    android:id="@+id/loading_layout"-->
+<!--    android:background="@color/transparent"-->
+<!--    android:elevation="7dp">-->
+<!--    <ImageView-->
+<!--        android:layout_width="64sp"-->
+<!--        android:layout_height="64sp"-->
+<!--        android:src="@drawable/ic_spbu_logo"-->
+<!--        android:id="@+id/loading_icon"-->
+<!--        android:contentDescription="@string/loading_icon_description"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:background="@color/transparent"/>-->
+<!--    <TextView-->
+<!--        android:id="@+id/loading_text"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/loading"-->
+<!--        android:textSize="16sp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_below="@id/loading_icon"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@color/transparent"/>-->
+
+
+<!--</RelativeLayout>-->
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/nav_host_fragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:navGraph="@navigation/nav_graph"-->
+<!--        app:defaultNavHost="true"/>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/bottom_navigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:foregroundGravity="bottom"-->
+<!--        android:background="@color/spbu_primary_terracot_color">-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/bottom_navigation_to_main"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            android:backgroundTint="@color/spbu_primary_terracot_color"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="@string/to_main"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_margin="4dp"/>-->
+<!--        </androidx.cardview.widget.CardView>-->
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/bottom_navigation_favourite"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            android:backgroundTint="@color/spbu_primary_terracot_color"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:id="@+id/bottom_navigation_favourite_text"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="@string/favourite"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_margin="4dp"/>-->
+<!--        </androidx.cardview.widget.CardView>-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

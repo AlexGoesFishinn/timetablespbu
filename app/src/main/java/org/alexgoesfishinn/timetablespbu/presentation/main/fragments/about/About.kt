@@ -13,12 +13,15 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.alexgoesfishinn.timetablespbu.BuildConfig
 import org.alexgoesfishinn.timetablespbu.R
 import org.alexgoesfishinn.timetablespbu.presentation.main.utils.Animations
 import javax.inject.Inject
-
-
+/**
+ * @author a.bylev
+ */
+@AndroidEntryPoint
 class About: Fragment(R.layout.about_fragment) {
     @Inject
     lateinit var animations: Animations

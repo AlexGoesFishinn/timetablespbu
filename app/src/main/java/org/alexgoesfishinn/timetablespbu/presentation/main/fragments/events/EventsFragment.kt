@@ -147,7 +147,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 } catch (e: Exception){
                     Log.e(TAG,"swipe motion error, message = ${e.message},\nstacktrace = ${e.stackTrace}")
                 }
-
                 return false
             }
         })
@@ -166,7 +165,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                     addToFavouriteText.text = getString(R.string.remove_from_favourite)
                     addToFavouriteCard.setOnClickListener {
                         viewmodel.removeFromFavourite()
-
                     }
                 } else {
                     addToFavouriteText.text = getString(R.string.add_to_favourite)
@@ -174,7 +172,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                         viewmodel.addToFavourite()
                     }
                 }
-
             }
         }
     }
@@ -214,7 +211,6 @@ class EventsFragment : Fragment(R.layout.events_fragment) {
                 if (groupEvents != null && groupEvents.days.isNotEmpty()) {
                     noEventsText.visibility = View.GONE
                 }
-
             }
         }
     }
