@@ -22,9 +22,9 @@
             android:background="@color/transparent"
             android:elevation="7dp">
             <ImageView
-                android:layout_width="64sp"
-                android:layout_height="64sp"
-                android:src="@drawable/ic_spbu_logo"
+                android:layout_width="96sp"
+                android:layout_height="96sp"
+                android:src="@drawable/ic_app_logo"
                 android:id="@+id/loading_icon"
                 android:contentDescription="@string/loading_icon_description"
                 android:layout_centerInParent="true"
@@ -34,11 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loading"
+                android:textColor="@color/spbu_primary_terracot_color"
                 android:textSize="16sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/loading_icon"
                 android:layout_marginTop="16dp"
-                android:background="@color/transparent"/>
+                android:background="@color/transparent"
+                android:visibility="invisible"
+                />
 
 
         </RelativeLayout>

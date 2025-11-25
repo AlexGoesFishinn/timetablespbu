@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAnimation(){
         val loadingImage: ImageView = findViewById(R.id.loading_icon)
-        val loadingText: TextView = findViewById(R.id.loading_text)
+//        val loadingText: TextView = findViewById(R.id.loading_text)
         val animation = AlphaAnimation(0f, 1f).apply {
             duration = 1000L
             repeatMode = Animation.REVERSE
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             fillAfter = true
         }
         loadingImage.startAnimation(animation)
-        loadingText.startAnimation(animation)
+//        loadingText.startAnimation(animation)
     }
 
 
