@@ -5,6 +5,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.mappers.groupevents.GroupE
 import org.alexgoesfishinn.timetablespbu.data.network.services.EventsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
+import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeDivisionsRepositoryImpl.Companion
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.DayDao
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupEventsDao
 import org.alexgoesfishinn.timetablespbu.data.storage.entities.GroupEventsDb
@@ -57,6 +58,9 @@ class SubscribeGroupEventsRepositoryImpl @Inject constructor(
                 }
                 catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                     Log.e(TAG, "message = ${ioe.message}")}
+                catch (e: Exception){warningsNotificator.apiErrorNotify()
+                    Log.e(SubscribeDivisionsRepositoryImpl.TAG, "message = ${e.message}")
+                }
             } else{warningsNotificator.groupIsNotAvailableNotify()}
 
 

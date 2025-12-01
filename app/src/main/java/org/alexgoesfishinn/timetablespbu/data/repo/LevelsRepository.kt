@@ -6,6 +6,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.mappers.level.LevelApiToDb
 import org.alexgoesfishinn.timetablespbu.data.network.services.LevelsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
+import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeDivisionsRepositoryImpl.Companion
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.LevelDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.level.LevelDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Level
@@ -41,6 +42,9 @@ class SubscribeLevelsRepositoryImpl @Inject constructor(
             }
             catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                 Log.e(TAG, "message = ${ioe.message}")}
+            catch (e: Exception){warningsNotificator.apiErrorNotify()
+                Log.e(SubscribeDivisionsRepositoryImpl.TAG, "message = ${e.message}")
+            }
 
 
         } else{warningsNotificator.internetIsNotAvailableNotify()}

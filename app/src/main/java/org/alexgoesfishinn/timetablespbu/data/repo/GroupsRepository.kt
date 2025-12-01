@@ -5,6 +5,7 @@ import org.alexgoesfishinn.timetablespbu.data.network.mappers.group.GroupApiToDb
 import org.alexgoesfishinn.timetablespbu.data.network.services.GroupsService
 import org.alexgoesfishinn.timetablespbu.data.network.utils.InternetChecker
 import org.alexgoesfishinn.timetablespbu.data.network.utils.WarningsNotificator
+import org.alexgoesfishinn.timetablespbu.data.repo.SubscribeDivisionsRepositoryImpl.Companion
 import org.alexgoesfishinn.timetablespbu.data.storage.dao.GroupDao
 import org.alexgoesfishinn.timetablespbu.data.storage.mappers.group.GroupDbToDomainMapper
 import org.alexgoesfishinn.timetablespbu.domain.entities.Group
@@ -43,6 +44,9 @@ class SubscribeGroupsRepositoryImpl @Inject constructor(
             }
             catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
                 Log.e(TAG, "message = ${ioe.message}")}
+            catch (e: Exception){warningsNotificator.apiErrorNotify()
+                Log.e(SubscribeDivisionsRepositoryImpl.TAG, "message = ${e.message}")
+            }
 
         } else{warningsNotificator.internetIsNotAvailableNotify()}
         return groupDao.getId(id).map { groupDbToDomainMapper.invoke(it) }

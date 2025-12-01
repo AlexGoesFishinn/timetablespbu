@@ -11,6 +11,7 @@ import org.alexgoesfishinn.timetablespbu.domain.entities.Division
 import java.io.IOException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
+
 /**
  * @author a.bylev
  */
@@ -30,27 +31,30 @@ class SubscribeDivisionsRepositoryImpl @Inject constructor(
 
     override suspend fun getDivisions(): List<Division> {
         if (internetChecker.isInternetAvailable()) {
-                try {
-                    val divisionsDb = divisionsService.getDivisions().map {
-                        divisionApiToDbMapper.invoke(it)
-                    }
-                    divisionDao.insertAll(
-                        *divisionsDb.toTypedArray()
-                    )
-                } catch (ste: SocketTimeoutException){
-                    warningsNotificator.serverTimeoutNotify()
-                    Log.e(TAG, "ste message = ${ste.message}")
+            try {
+                val divisionsDb = divisionsService.getDivisions().map {
+                    divisionApiToDbMapper.invoke(it)
                 }
-                catch (ioe: IOException) {warningsNotificator.apiErrorNotify()
-                    Log.e(TAG, "message = ${ioe.message}")}
-
-
-
-        } else{warningsNotificator.internetIsNotAvailableNotify()}
-
+                divisionDao.insertAll(
+                    *divisionsDb.toTypedArray()
+                )
+            } catch (ste: SocketTimeoutException) {
+                warningsNotificator.serverTimeoutNotify()
+                Log.e(TAG, "ste message = ${ste.message}")
+            } catch (ioe: IOException) {
+                warningsNotificator.apiErrorNotify()
+                Log.e(TAG, "message = ${ioe.message}")
+            } catch (e: Exception) {
+                warningsNotificator.apiErrorNotify()
+                Log.e(TAG, "message = ${e.message}")
+            }
+        } else {
+            warningsNotificator.internetIsNotAvailableNotify()
+        }
         return divisionDao.getAll().map { divisionDbToDomainMapper.invoke(it) }
     }
-companion object{
-    const val TAG = "SubscribeDivisionsRepositoryImpl"
-}
+
+    companion object {
+        const val TAG = "SubscribeDivisionsRepositoryImpl"
+    }
 }
